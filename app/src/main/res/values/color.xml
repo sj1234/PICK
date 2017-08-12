@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default1">#3FFFD4DF</color>
+    <color name="default2">#3FFFB1BC</color>
+    <color name="default3">#3FFFD2D2</color>
+    <color name="default4">#3FFFA5F0</color>
+    <color name="default5">#3FFF50CF</color>
+
+    <color name="focused1">#3FFFB6C1</color>
+    <color name="focused2">#3FFF98A3</color>
+    <color name="focused3">#3FFFB4B4</color>
+    <color name="focused4">#3FFF87D2</color>
+    <color name="focused5">#3FFF32B1</color>
+
+    <color name="pressed1">#3FFFC5D0</color>
+    <color name="pressed2">#3FFF7A85</color>
+    <color name="pressed3">#3FFF9696</color>
+    <color name="pressed4">#3FFF69B4</color>
+    <color name="pressed5">#3FFF1493</color>
+
+    <color name="not">#FFB6C1</color>
+    <color name="selected">#FF69B4</color>
+</resources>

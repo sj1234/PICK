@@ -14,15 +14,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button myPage = (Button) findViewById(R.id.myPage);
+        Button target = (Button) findViewById(R.id.target);
 
         myPage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MyActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyActivity.class);
                 startActivity(intent);
             }
         });
 
+        target.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TargetActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

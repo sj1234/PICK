@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button myPage = (Button) findViewById(R.id.myPage);
         Button target = (Button) findViewById(R.id.target);
+        Button calculator = (Button) findViewById(R.id.calculator);
 
         myPage.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -28,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TargetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        calculator.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), CalculatorActivity.class);
                 startActivity(intent);
             }
         });

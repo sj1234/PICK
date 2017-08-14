@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 /**
- * Created by mijin on 2017-08-14.
+ * Created by mijin on 2017-08-14. 
  */
 
 public class CalculatorActivity extends AppCompatActivity {

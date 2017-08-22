@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.SearchFragment"
     android:orientation="vertical"
-    android:background="#ffc000">
+    android:background="#cde7ef">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,13 +12,13 @@
         android:layout_margin="4dp"
         android:layout_weight="3">
 
-        <Spinner
-            android:id="@+id/searchSpinner"
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"/>
+            android:layout_weight="3"
+            android:text="상품명"
+            android:textColor="#000000"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/searchText"
@@ -28,15 +28,17 @@
             android:layout_gravity="center"
             android:hint="Search"
             android:layout_margin="4dp"
-            android:background="#ffffff"/>
+            android:background="@drawable/search_back" />
 
         <ImageButton
             android:id="@+id/searchbutton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:scaleType="center"
-            android:background="#ffffff"
+            android:scaleType="centerInside"
+            android:src="@drawable/search_button"
+            android:background="#00000000"
+
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="4dp"
@@ -49,9 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="∨"
         android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="#ffffff"/>
+        android:text="∨"
+        android:textColor="#000000"
+        android:layout_marginBottom="4dp"/>
 
 </LinearLayout>

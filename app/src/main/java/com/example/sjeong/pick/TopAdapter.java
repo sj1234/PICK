@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -54,12 +55,31 @@ public class TopAdapter extends BaseAdapter {
 
         TextView rank = (TextView) convertView.findViewById(R.id.top_rank);
         TextView name = (TextView) convertView.findViewById(R.id.top_name);
+
+        ImageView updown = (ImageView)convertView.findViewById(R.id.updown);
         TextView compare = (TextView) convertView.findViewById(R.id.top_compare);
 
         rank.setText(String.valueOf(arraylist.get(position).getTop_thisrank()));
         name.setText(arraylist.get(position).getTop_name().toString());
-        int compare_int = arraylist.get(position).getTop_thisrank() -  arraylist.get(position).getTop_prerank();
-        compare.setText(String.valueOf(compare_int));
+
+
+        if(arraylist.get(position).getTop_prerank() == -1) {
+            updown.setImageResource(R.drawable.new_rank);
+            compare.setText("!");
+        }
+        else{
+            int compare_int = arraylist.get(position).getTop_thisrank() -  arraylist.get(position).getTop_prerank();
+
+            if(compare_int>0)
+                updown.setImageResource(R.drawable.down);
+            else if(compare_int<0){
+                updown.setImageResource(R.drawable.up);
+                compare_int *= -1;
+            }
+            else
+                updown.setImageResource(R.drawable.same);
+            compare.setText(String.valueOf(compare_int));
+        }
 
         if(onClickListener != null) {
             name.setTag(arraylist.get(position).getTop_name().toString());

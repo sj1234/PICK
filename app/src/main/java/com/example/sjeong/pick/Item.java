@@ -5,7 +5,8 @@ package com.example.sjeong.pick;
  */
 
 public class Item {
-    private String item_name, item_detail;
+    private String item_name, item_bank;
+    private float item_persent;
 
     public String getItem_name() {
         return item_name;
@@ -15,11 +16,20 @@ public class Item {
         this.item_name = item_name;
     }
 
-    public String getItem_detail() {
-        return item_detail;
+    public String getItem_bank() {
+        return item_bank;
     }
 
-    public void setItem_detail(String item_detail) {
-        this.item_detail = item_detail;
+    public void setItem_bank(String item_bank) {
+        this.item_bank = item_bank;
     }
+
+    public float getItem_persent() {
+        return item_persent;
+    }
+
+    public void setItem_persent(float item_persent) {
+        this.item_persent = item_persent;
+    }
+
 }

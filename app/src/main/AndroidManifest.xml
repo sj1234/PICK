@@ -9,26 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SearchActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".SearchActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         # 키보드 올라올 때 화면 사이즈를 바꾸지 않고 자름 | 자동으로 키보드 올라오는것 방지
-
-        <activity android:name=".ItemActivity"/>
-
-        <activity android:name=".MyActivity"/>
-        <activity android:name=".TargetActivity"/>
-        <activity android:name=".TargetSettingActivity"/>
-        <activity android:name=".CalculatorActivity"/>
-
-
+        <activity android:name=".ItemActivity" />
+        <activity android:name=".MyActivity" />
+        <activity android:name=".TargetActivity" />
+        <activity android:name=".TargetSettingActivity" />
+        <activity android:name=".CalculatorActivity" />
+        <activity
+            android:name=".FAQActivity"
+            android:label="@string/title_activity_faq"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

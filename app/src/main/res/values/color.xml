@@ -20,4 +20,5 @@
 
     <color name="not">#FFB6C1</color>
     <color name="selected">#FF69B4</color>
+    <color name="transparent">#00000000</color>
 </resources>

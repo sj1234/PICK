@@ -1,6 +1,8 @@
 package com.example.sjeong.pick;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -20,6 +26,7 @@ import java.util.ArrayList;
 public class ProductFragment extends Fragment {
 
     Context context;
+    ProductAdapter adapter;
 
     @Nullable
     @Override
@@ -29,9 +36,14 @@ public class ProductFragment extends Fragment {
         context = getActivity().getApplicationContext();
         ListView listView = (ListView) rootView.findViewById(R.id.listView);
 
-        ProductAdapter adapter = new ProductAdapter();
-        adapter.addItem(new Item2("IBK든든","0.95","혜택빵빵"));
-        adapter.addItem(new Item2("국민든든","0.85","대박상품"));
+        adapter = new ProductAdapter();
+
+        String url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getUserProduct.php?";
+        ContentValues values = new ContentValues();
+        values.put("usr_id","pick");
+
+        NetworkTask2 networkTask2 = new NetworkTask2(url,values);
+        networkTask2.execute();
 
         listView.setAdapter(adapter);
 
@@ -62,7 +74,6 @@ public class ProductFragment extends Fragment {
             Item2 item = items.get(i);
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
             ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
-            ((TextView)pView.findViewById(R.id.profit2)).setText(item.getProfit());
             ((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
             return pView;
         }
@@ -70,6 +81,49 @@ public class ProductFragment extends Fragment {
 
         public void addItem(Item2 item){
             items.add(item);
+        }
+    }
+    public class NetworkTask2 extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask2(String url, ContentValues values) {
+
+            this.url = url;
+            this.values = values;
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);
+            // 해당 URL로 부터 결과물을 얻어온다.
+
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            try {
+                JSONArray jsonArray = new JSONArray(result);
+                for(int i=0;i<jsonArray.length();i++) {
+                    JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+                    adapter.addItem(new Item2(jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_detail")));
+                }
+                adapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 }

@@ -30,5 +30,7 @@ dependencies {
     compile 'com.labo.kaji:fragmentanimations:0.1.0'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
+
 }

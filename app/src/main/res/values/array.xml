@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bank">
+        <item>신한은행</item>
+        <item>우리은행</item>
+        <item>국민은행</item>
+        <item>KEB하나은행</item>
+        <item>씨티은행</item>
+        <item>NH농협은행</item>
+        <item>스탠다드차타드</item>
+        <item>기업은행</item>
+        <item>우체국예금</item>
+        <item>수협은행</item>
+        <item>KDB산업은행</item>
+        <item>경남은행</item>
+        <item>대구은행</item>
+        <item>전북은행</item>
+        <item>부산은행</item>
+        <item>제주은행</item>
+        <item>광주은행</item>
+        <item>케이뱅크</item>
+    </string-array>
+</resources>

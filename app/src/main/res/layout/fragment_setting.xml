@@ -37,59 +37,35 @@
                 android:layout_gravity="fill">
 
                 <RadioGroup
+                    android:id="@+id/radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
                     <RadioButton
-                        android:id="@+id/radioButton"
+                        android:id="@+id/radioButton1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="청소년"
+                        android:text="개인"
                         android:layout_weight="0.5" />
 
-
-
                     <RadioButton
+                        android:id="@+id/radioButton2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="성인"
+                        android:text="단체"
+                        android:layout_weight="0.5" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사업자/법인"
                         android:layout_weight="0.5" />
 
                 </RadioGroup>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/"
-                    android:textSize="15dp"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    />
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1"
-                    >
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="내국인"
-                        android:layout_weight="0.5"
-                       />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="외국인"
-                        android:layout_weight="0.5"
-                       />
-
-                </RadioGroup>
             </TableRow>
         </TableLayout>
     </TableRow>
@@ -105,31 +81,15 @@
             android:background="@drawable/tableborder"
             android:padding="20dp"/>
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_gravity="center">
-            <TableRow
-                android:layout_gravity="fill">
-                <EditText
-                    android:id="@+id/profit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                   />
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="설정"
-                    android:layout_weight="0.5"
-                    />
-            </TableRow>
-        </TableLayout>
+            <EditText
+                android:id="@+id/profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="numberDecimal"
+               />
+
     </TableRow>
 
     <TableRow
@@ -145,47 +105,21 @@
             android:padding="25dp"
             android:layout_gravity="center"/>
 
-        <TableLayout
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </TableRow>
+    <TableRow>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <TableRow>
-                <CheckBox
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="국민"
-                    android:layout_weight="0.33"/>
-
-                <CheckBox
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="IBK기업"
-                    android:layout_weight="0.33"/>
-
-                <CheckBox
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="농협"
-                    android:layout_weight="0.33"/>
-            </TableRow>
-            <TableRow>
-
-                <CheckBox
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="신한"
-                    android:layout_weight="0.33"
-                    />
-
-                <CheckBox
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="우리"
-                    android:layout_weight="0.33"
-                   />
-            </TableRow>
-        </TableLayout>
+            android:text="설정"
+            android:layout_weight="0.5"
+            />
     </TableRow>
 </TableLayout>

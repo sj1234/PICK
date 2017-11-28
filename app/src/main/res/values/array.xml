@@ -20,4 +20,27 @@
         <item>광주은행</item>
         <item>케이뱅크</item>
     </string-array>
+
+    <string-array name="primelist">
+        <item>비과세</item>
+        <item>변동금리</item>
+        <item>보유/잔액</item>
+        <item>실적/결제/대금</item>
+        <item>신규/가입/첫거래</item>
+        <item>모바일/온라인/비대면</item>
+        <item>이체관련</item>
+        <item>동시가입</item>
+        <item>이벤트/미션</item>
+        <item>군인/특정직급자</item>
+        <item>사회적배려/다문화</item>
+        <item>나이/연령</item>
+    </string-array>
+
+    <string-array name="cont_term">
+        <item>3개월</item>
+        <item>6개월</item>
+        <item>1년</item>
+        <item>2년</item>
+        <item>3년</item>
+    </string-array>
 </resources>

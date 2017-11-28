@@ -22,10 +22,10 @@ public class CalculatorActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
-        dfragment = new DepositFragment();
-        ifragment = new InstallmentFragment();
+        //dfragment = new DepositFragment();
+        //ifragment = new InstallmentFragment();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container2, dfragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container2, new DepositFragment()).commit();//dfragment).commit();
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs2);
 
@@ -40,9 +40,9 @@ public class CalculatorActivity extends AppCompatActivity {
                 int position = tab.getPosition();
 
                 switch(position){
-                    case 0 : selected = dfragment;
+                    case 0 : selected = new DepositFragment(); //dfragment;
                         break;
-                    case 1 : selected = ifragment;
+                    case 1 : selected = new InstallmentFragment();//ifragment;
                         break;
                 }
 

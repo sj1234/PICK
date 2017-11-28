@@ -6,7 +6,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -21,54 +21,71 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="예치금액"
+                android:text="예치금액(원)"
                 android:padding="20dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
 
             <EditText
+                android:id="@+id/won"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_span="3"
                 android:gravity="center"
+                android:maxLines="1"
+                android:inputType="number"
                 />
 
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:textAlignment="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="예금기간"
+                android:text="예치기간(월)"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"/>
-
-            <RadioGroup
-                android:orientation="horizontal"
-                android:textAlignment="center"
-                android:gravity="center_vertical">
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="년"/>
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="월"/>
-
-            </RadioGroup>
+                android:background="@drawable/tableborder"
+                />
 
             <EditText
+                android:id="@+id/dur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_span="2"
+                android:textAlignment="center"
+                android:layout_span="3"
+                android:gravity="center"
+                android:maxLines="1"
+                android:inputType="number"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="약정금리(%)"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <EditText
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_span="3"
+                android:gravity="center"
+                android:maxLines="1"
+                android:inputType="numberDecimal"
                 />
 
         </TableRow>
@@ -78,78 +95,184 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="연이자율"
+                android:text="이자방식"
                 android:padding="20dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"/>
 
             <RadioGroup
+                android:id="@+id/radio"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <RadioButton
+                    android:id="@+id/sim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="단리"/>
 
                 <RadioButton
+                    android:id="@+id/com"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="월복리"/>
-
-            </RadioGroup>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_span="2"
-                />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이자과세"
-                android:padding="20dp"
-                android:textAlignment="center"
-                android:background="@drawable/tableborder"/>
-
-            <RadioGroup
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="일반과세"/>
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="비과세"/>
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="우대금리"/>
+                    android:text="복리"/>
 
             </RadioGroup>
 
         </TableRow>
+
 
     </TableLayout>
 
     <Button
+        android:id="@+id/cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="계산"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TableLayout
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:stretchColumns="*"
+        android:visibility="gone">
+
+        <TableRow
+            android:textAlignment="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구분"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/tableborder"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="만기지급액"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/tableborder"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="세후이자"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/tableborder"
+            />
+
+        </TableRow>
+
+        <TableRow
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일반(15.4%)"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <TextView
+                android:id="@+id/normal_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <TextView
+                android:id="@+id/normal_rat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="우대(9.4%)"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <TextView
+                android:id="@+id/prime_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <TextView
+                android:id="@+id/prime_rat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+        </TableRow>
+
+
+
+        <TableRow
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비과세(0%)"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <TextView
+                android:id="@+id/free_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+            <TextView
+                android:id="@+id/free_rat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/tableborder"
+                />
+
+        </TableRow>
+
+
+    </TableLayout>
 
 </LinearLayout>

@@ -116,7 +116,7 @@ public class ProductFragment extends Fragment {
                 JSONArray jsonArray = new JSONArray(result);
                 for(int i=0;i<jsonArray.length();i++) {
                     JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-                    adapter.addItem(new Item2(jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_detail")));
+                    adapter.addItem(new Item2(jsonObject.getInt("prod_code"),jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_detail")));
                 }
                 adapter.notifyDataSetChanged();
             } catch (JSONException e) {

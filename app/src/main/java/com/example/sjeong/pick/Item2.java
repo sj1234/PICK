@@ -6,11 +6,20 @@ package com.example.sjeong.pick;
 
 public class Item2 {
 
-
+    int id;
     String title, profit, content;
 
-    public Item2(String title, String profit, String content) {
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Item2(int id, String title, String profit, String content) {
+
+        this.id = id;
         this.title = title;
         this.profit = profit;
         this.content = content;

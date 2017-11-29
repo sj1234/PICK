@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="setting_activity_top_title"
+    android:title="Settings">
+    <!-- 설정를 구성하는 Layout XML -->
+    <!-- @author croute -->
+    <!-- @since 2011.02.25 -->
+    <PreferenceCategory
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:key="setting_activity_account"
+        android:title="App Setting">
+
+
+    <Preference
+        android:key="app_info"
+        android:summary="앱 정보 확인"
+        android:title="APP INFO"
+        android:selectable="true" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:key="setting_activity_account"
+        android:title="APP INFORMATION ">
+        <Preference
+            android:summary="개인정보 설정"
+            android:key="personal_setting"
+            android:title="PERSONAL SETTING"
+            android:selectable="true" />
+        <Preference
+            android:summary="개인검색 정보 설정"
+            android:key="search_setting"
+            android:title="SEARCH SETTING"
+            android:selectable="true">
+
+        </Preference>
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

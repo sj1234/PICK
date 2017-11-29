@@ -14,11 +14,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button setting = (Button) findViewById(R.id.setting);
         Button myPage = (Button) findViewById(R.id.myPage);
         Button target = (Button) findViewById(R.id.target);
         Button calculator = (Button) findViewById(R.id.calculator);
         Button deposit = (Button)findViewById(R.id.deposit);
         Button FAQ = (Button)findViewById(R.id.FAQ);
+
+
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         myPage.setOnClickListener(new View.OnClickListener(){
             @Override

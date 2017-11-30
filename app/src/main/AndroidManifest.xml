@@ -42,7 +42,9 @@
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".JoinActivity" />
-        <activity android:name=".FindInfoActivity"></activity>
+        <activity android:name=".FindInfoActivity" />
+        <activity android:name=".GoalActivity"
+            android:theme="@style/ActionBarTheme"/>
     </application>
 
 </manifest>

@@ -21,4 +21,11 @@
         <item name="android:max">100</item>
     </style>
 
+    <style name="ActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/BackGround</item>
+        <item name="colorPrimaryDark">@color/BackGround</item>
+        <item name="colorAccent">@color/MainDark</item>
+    </style>
+
 </resources>

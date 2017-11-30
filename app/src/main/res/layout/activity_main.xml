@@ -1,96 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.example.sjeong.pick.MainActivity"
     android:orientation="vertical"
-    android:id="@+id/parentView"
-    android:background="@drawable/back"
-    tools:context="com.example.sjeong.pick.MainActivity">
+    android:background="@color/BackGround">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/setting"
-        android:text="설정"
-        />
-
-    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_gravity="fill"
-        android:columnCount="3"
-        android:rowCount="4"
-        android:useDefaultMargins="true"
-        tools:context="com.example.mijin.example.MainActivity">
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp">
 
+        <ImageButton
+            android:id="@+id/menu_logout"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_btn_menu_signout_24"
+            android:background="@color/Alpha"/>
 
-        <Button
-            android:layout_columnSpan="2"
-            android:layout_rowSpan="2"
-            android:layout_gravity="fill"
-            android:text="맞춤 예금 상품 알아보기"
-            android:id="@+id/deposit"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="2"
-            android:background="@drawable/roundshape"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="105dp"
+            android:textSize="18sp"
+            android:textColor="@color/TextDark"
+            android:letterSpacing="0.3"
+            android:gravity="center_horizontal"
+            android:text="PICK"
+            android:textStyle="bold"
             />
 
-        <Button
-            android:text="FAQ"
-            android:id="@+id/FAQ"
-            android:layout_gravity="fill"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/roundshape"
-            />
+        <ImageButton
+            android:id="@+id/menu_setting"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="106dp"
+            android:src="@drawable/ic_menu_settings_24"
+            android:scaleType="centerInside"
+            android:background="@color/Alpha"/>
 
-        <Button
-            android:text="My Page"
-            android:layout_rowSpan="2"
-            android:layout_gravity="fill"
-            android:id="@+id/myPage"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:background="@drawable/roundshape"/>
+    </LinearLayout>
 
-        <Button
-            android:text="금리 계산기"
-            android:id="@+id/calculator"
-            android:layout_gravity="fill"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/roundshape"
-            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginLeft="103dp">
 
-        <Button
-            android:text="목표치"
-            android:id="@+id/target"
-            android:layout_gravity="fill"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/roundshape"
-            />
+        <ImageView
+            android:layout_width="154dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/duck"
+            android:scaleType="centerCrop"/>
 
-        <android.support.v4.widget.ContentLoadingProgressBar
-            android:max="100"
-            android:progress="50"
-            android:layout_columnSpan="3"
-            android:layout_gravity="fill"
-            android:id="@+id/progressBar"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="3"
-            />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="136dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp">
 
-    </GridLayout>
+        <LinearLayout
+            android:id="@+id/menu_dep"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:background="@drawable/menu"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_01" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/Black"
+                android:textSize="12sp"
+                android:text="맞춤 예금 검색" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_sav"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/menu"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_02" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/Black"
+                android:textSize="12sp"
+                android:text="맞춤 적금 검색" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_cac"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/menu"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_03" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/Black"
+                android:textSize="12sp"
+                android:text="금리 계산기" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="136dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp">
+
+        <LinearLayout
+            android:id="@+id/menu_goal"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:background="@drawable/menu"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_04" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/Black"
+                android:textSize="12sp"
+                android:text="목표치" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_int"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/menu"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_05" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/Black"
+                android:textSize="12sp"
+                android:text="관심상품" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_faq"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/menu"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="28dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_07" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_gravity="center_horizontal"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/Black"
+                android:textSize="12sp"
+                android:text="FAQ" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

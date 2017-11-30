@@ -103,19 +103,29 @@
             <RadioGroup
                 android:id="@+id/radio"
                 android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center_vertical">
 
                 <RadioButton
                     android:id="@+id/sim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="단리"/>
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="단리"
+                    android:textAlignment="center"
+                    android:layout_weight="1"/>
 
                 <RadioButton
                     android:id="@+id/com"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="복리"/>
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="복리"
+                    android:textAlignment="center"
+                    android:layout_weight="1"/>
 
             </RadioGroup>
 
@@ -128,6 +138,7 @@
         android:id="@+id/cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="계산"/>
 
     <TableLayout
@@ -192,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
                 />
 
             <TextView
@@ -201,7 +211,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
                 />
 
         </TableRow>
@@ -224,7 +233,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
                 />
 
             <TextView
@@ -233,7 +241,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
                 />
 
         </TableRow>
@@ -258,7 +265,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
                 />
 
             <TextView
@@ -267,7 +273,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
                 />
 
         </TableRow>

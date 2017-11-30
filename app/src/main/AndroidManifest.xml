@@ -47,6 +47,7 @@
             android:name=".GoalActivity"
             android:theme="@style/ActionBarTheme" />
         <activity android:name=".SearchDepActivity"></activity>
+        <activity android:name=".SavingSearchActivity"/>
     </application>
 
 </manifest>

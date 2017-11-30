@@ -16,7 +16,8 @@
             android:name=".SearchActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         # 키보드 올라올 때 화면 사이즈를 바꾸지 않고 자름 | 자동으로 키보드 올라오는것 방지
-        <activity android:name=".ItemActivity" />
+        <activity android:name=".ItemActivity"
+            android:theme="@style/ActionBarTheme"/>
         <activity android:name=".MyActivity" />
         <activity android:name=".TargetActivity" />
         <activity android:name=".TargetSettingActivity" />

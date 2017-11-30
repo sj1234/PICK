@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by SJeong on 2017-08-11.
@@ -18,17 +19,23 @@ import java.util.ArrayList;
 public class ItemAdapter extends BaseAdapter {
 
     private Context context;
-    private int layout;
     private ArrayList<Item> arraylist;
     private View.OnClickListener onClickListener;
-    private int deposit;
+    private HashSet<String> prime = new HashSet<String>();
+    private boolean prime_boolean = false;
 
-    public ItemAdapter(Context context, int layout, ArrayList<Item> arraylist, View.OnClickListener onClickListener, int deposit){
+    public ItemAdapter(Context context, ArrayList<Item> arraylist, String prime, View.OnClickListener onClickListener){
         this.context = context;
-        this.layout = layout;
         this.arraylist = arraylist;
         this.onClickListener = onClickListener;
-        this.deposit = deposit;
+
+        if(!prime.isEmpty()){
+            prime_boolean = true;
+            String[] split = prime.split(",");
+            for(String splits : split){
+                (this.prime).add(splits);
+            }
+        }
     }
 
     @Override
@@ -54,30 +61,41 @@ public class ItemAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_itemadapter, parent, false);
         }
 
-        Log.i("Test",""+convertView.getHeight());
-        TextView name = (TextView) convertView.findViewById(R.id.item_name);
-        TextView persent = (TextView) convertView.findViewById(R.id.item_persent);
-        TextView predict = (TextView)convertView.findViewById(R.id.item_predict);
+        if(prime_boolean){
+            String code = arraylist.get(position).getCode().toString();
+            if(prime.contains(code)) {
+                convertView.setBackgroundResource(R.drawable.item_bg_prime);
+                Log.i("prime", code+ " + "+prime.toString());
+            }
+            else
+                convertView.setBackgroundResource(R.drawable.item_bg);
+        }
 
-        name.setText(arraylist.get(position).getItem_name().toString());
-        persent.setText(String.valueOf(arraylist.get(position).getItem_persent())+"%");
-        predict.setText("약 "+String.valueOf(arraylist.get(position).getItem_persent() * deposit)+"원");
+        TextView name = (TextView) convertView.findViewById(R.id.item_name);
+        TextView min_rate = (TextView) convertView.findViewById(R.id.item_min_rate);
+        TextView max_rate = (TextView)convertView.findViewById(R.id.item_max_rate);
+
+        name.setText(arraylist.get(position).getName().toString());
+        min_rate.setText(arraylist.get(position).getCont_rate().toString()+"% ~");
+        max_rate.setText(arraylist.get(position).getMax_rate().toString()+"%");
 
         if(onClickListener != null) {
-            name.setTag(arraylist.get(position).getItem_name().toString());
+            name.setTag(arraylist.get(position).getCode().toString());
             name.setOnClickListener(onClickListener);
 
             ImageView image = (ImageView)convertView.findViewById(R.id.image);
-            image.setTag(arraylist.get(position).getItem_name().toString());
+            image.setTag(arraylist.get(position).getCode().toString());
             image.setOnClickListener(onClickListener);
 
-            persent.setTag(arraylist.get(position).getItem_name().toString());
-            persent.setOnClickListener(onClickListener);
+            name.setTag(arraylist.get(position).getCode().toString());
+            name.setOnClickListener(onClickListener);
 
-            predict.setTag(arraylist.get(position).getItem_name().toString());
-            predict.setOnClickListener(onClickListener);
+            min_rate.setTag(arraylist.get(position).getCode().toString());
+            min_rate.setOnClickListener(onClickListener);
+
+            max_rate.setTag(arraylist.get(position).getCode().toString());
+            max_rate.setOnClickListener(onClickListener);
         }
-
         return convertView;
     }
 }

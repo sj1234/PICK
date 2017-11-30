@@ -3,164 +3,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:background="@color/BackGround">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginLeft="10dp">
 
         <ImageButton
             android:id="@+id/back_to_login"
-            android:layout_width="0dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/join_back"
-            android:scaleType="fitCenter"
+            android:layout_marginRight="40dp"
             android:background="#00000000"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="8"
             android:gravity="center_vertical"
-            android:text="모든항목을 입력해주십시오."
-            android:textSize="@dimen/_10sp" />
+            android:text="PICK 회원가입"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/MainDark"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:gravity="center_vertical"
+        android:text="* 모든 항목을 입력해주세요"
+        android:textSize="@dimen/_10sp"
+        android:textColor="@color/LightBlack"
+        android:textStyle="bold"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="ID"
             android:textSize="@dimen/_15sp"
-            android:gravity="center"/>
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"/>
 
-        <EditText
-            android:id="@+id/id"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="3"
-            android:ems="10"
-            android:hint="ID" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginLeft="30dp"
+                android:padding="5dp"
+                android:maxLength="10"
+                android:lines="1"
+                android:hint="ID"
+                android:background="@drawable/menu"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+            <ImageButton
+                android:id="@+id/confirm_ID"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@color/Alpha"
+                android:scaleType="centerInside"
+                android:src="@drawable/confirm_id"
+                android:text="중복확인" />
 
-        <Button
-            android:id="@+id/confirm_ID"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/_7sp"
-            android:text="중복확인" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/confirm_ID_text"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:textSize="@dimen/_7sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
             android:text="* ID 중복확인을 해주세요."
-            android:gravity="center_vertical"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+            android:textSize="@dimen/_10sp"
+            android:textColor="@color/Red"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="PW"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PASSWORD"
             android:textSize="@dimen/_15sp"
-            android:gravity="center"/>
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"/>
 
         <EditText
             android:id="@+id/pw"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:background="@drawable/menu"
+            android:maxLength="10"
+            android:lines="1"
             android:hint="PASSWORD"
-            android:layout_marginLeft="20dp"
             android:inputType="textPassword"/>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:text="비밀번호를 한 번 더 입력해주세요."
+            android:textSize="@dimen/_10sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        <EditText
+            android:id="@+id/confirm_pw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:background="@drawable/menu"
+            android:maxLength="10"
+            android:lines="1"
+            android:hint="PASSWORD_CONFIRM"
+            android:inputType="textPassword"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:id="@+id/confirm_pw_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:text="* 비밀번호가일치하지 않습니다."
+            android:textSize="@dimen/_10sp"
+            android:textColor="@color/Red"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="EMAIL"
             android:textSize="@dimen/_15sp"
-            android:gravity="center"/>
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"/>
+
 
         <EditText
             android:id="@+id/email"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:hint="EMAIL"
-            android:layout_marginLeft="20dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:background="@drawable/menu"
+            android:maxLength="20"
+            android:lines="1"
+            android:hint="EMAIL"/>
+
+
+        <Button
+            android:id="@+id/join"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/round_button_dark"
+            android:textColor="@color/White"
+            android:text="JOIN PICK :-)" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/join"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:text="JOIN :-)" />
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.sjeong.pick;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,7 @@ import java.net.URL;
 
 public class JoinActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText id, pw, email;
+    private EditText id, pw, email, confirm_pw;
     private Context context;
 
     @Override
@@ -42,27 +43,72 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
         id = (EditText)findViewById(R.id.id);
         pw = (EditText)findViewById(R.id.pw);
+        confirm_pw = (EditText)findViewById(R.id.confirm_pw);
         email = (EditText)findViewById(R.id.email);
 
         id.addTextChangedListener(new TextWatcher() {
 
             @Override // 입력전
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override // 입력되는 텍스트 변화
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 TextView confirm_ID_text = (TextView)findViewById(R.id.confirm_ID_text);
                 confirm_ID_text.setText("* ID 중복확인을 해주세요.");
+                confirm_ID_text.setTextColor(Color.RED);
+            }
+
+            @Override // 입력 후
+            public void afterTextChanged(Editable s) {}
+        });
+
+        pw.addTextChangedListener(new TextWatcher() {
+
+            TextView confirm_pw_text = (TextView)findViewById(R.id.confirm_pw_text);
+
+            @Override // 입력전
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override // 입력되는 텍스트 변화
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                confirm_pw_text.setText("* 비밀번호가일치하지 않습니다.");
+                confirm_pw_text.setTextColor(Color.RED);
             }
 
             @Override // 입력 후
             public void afterTextChanged(Editable s) {
+                if(confirm_pw.getText().toString().equals(pw.getText().toString())){
+                    confirm_pw_text.setText("* 비밀번호가 일치합니다.");
+                    confirm_pw_text.setTextColor(Color.BLACK);
+                }
+
+            }
+        });
+
+        confirm_pw.addTextChangedListener(new TextWatcher() {
+            TextView confirm_pw_text = (TextView)findViewById(R.id.confirm_pw_text);
+
+            @Override // 입력전
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override // 입력되는 텍스트 변화
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                confirm_pw_text.setText("* 비밀번호가일치하지 않습니다.");
+                confirm_pw_text.setTextColor(Color.RED);
+            }
+
+            @Override // 입력 후
+            public void afterTextChanged(Editable s) {
+                if(confirm_pw.getText().toString().equals(pw.getText().toString())){
+                    confirm_pw_text.setText("* 비밀번호가 일치합니다.");
+                    confirm_pw_text.setTextColor(Color.BLACK);
+                }
+
             }
         });
 
         ImageButton back_to_login = (ImageButton)findViewById(R.id.back_to_login); // 로그인화면으로 돌아가기
-        Button confirm = (Button)findViewById(R.id.confirm_ID); // ID 중복확인
+        ImageButton confirm = (ImageButton)findViewById(R.id.confirm_ID); // ID 중복확인
         Button join = (Button)findViewById(R.id.join); // 가입하기
 
         back_to_login.setOnClickListener(this);
@@ -82,7 +128,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 switch(msg.what){
                     case 2: // 중복 존재하지 않음
                         TextView confirm_ID_text = (TextView)findViewById(R.id.confirm_ID_text);
-                        confirm_ID_text.setText("사용가능한 ID 입니다.");
+                        confirm_ID_text.setText("* 사용가능한 ID 입니다.");
+                        confirm_ID_text.setTextColor(Color.BLACK);
                         break;
                     case 3: // 중복 존재
                         Toast.makeText(context, "존재하는 ID 입니다.", Toast.LENGTH_SHORT).show();
@@ -122,12 +169,15 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.join:  // 가입하기
                 TextView confirm_ID_text = (TextView)findViewById(R.id.confirm_ID_text);
-                if(!id.getText().toString().isEmpty() && !pw.getText().toString().isEmpty() && !email.getText().toString().isEmpty() && confirm_ID_text.getText().toString().contains("사용가능한")){ // 필수항목 입력여부
+                TextView confirm_pw_text = (TextView)findViewById(R.id.confirm_pw_text);
+                if(!id.getText().toString().isEmpty() && !pw.getText().toString().isEmpty() && !confirm_pw.getText().toString().isEmpty() && confirm_pw_text.getText().toString().equals("* 비밀번호가 일치합니다.") && !email.getText().toString().isEmpty() && confirm_ID_text.getText().toString().contains("사용가능한")){ // 필수항목 입력여부
                     JoinDB test = new JoinDB(id.getText().toString(), pw.getText().toString(), email.getText().toString(), join_handler);
                     test.execute();
                 }
                 else if(!confirm_ID_text.getText().toString().contains("사용가능한"))
                     Toast.makeText(context, "ID 중복여부를 확인해 주십시오.", Toast.LENGTH_SHORT).show();
+                else if(!confirm_pw_text.getText().toString().equals("* 비밀번호가 일치합니다."))
+                    Toast.makeText(context, "비밀번호 일치여부를 확인하여 주십시오.", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(context, "모든항목을 입력하십시오.", Toast.LENGTH_SHORT).show();
                 break;
@@ -222,7 +272,7 @@ class JoinDB extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-        String string = "u_query=INSERT INTO USER VALUES ('"+ID+"','"+PW+"','"+EMAIL+"')";
+        String string = "u_query=INSERT INTO USER(USR_ID, PW, EMAIL) VALUES ('"+ID+"','"+PW+"','"+EMAIL+"')";
 
         try {
             URL url = new URL("http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/SetDepContent.php");
@@ -270,7 +320,7 @@ class JoinDB extends AsyncTask<Void, Integer, Void> {
         super.onPostExecute(result);
 
         Message msg = new Message();
-        if(data.contains("Sucess")) // 가입성공
+        if(data.contains("OK")) // 가입성공
             msg.what=4;
         else
             msg.what=5;

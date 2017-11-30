@@ -45,46 +45,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID"
-            android:textSize="@dimen/_15sp"
-            android:gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="ID"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/_15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
                 android:layout_marginLeft="30dp"
-                android:padding="5dp"
-                android:maxLength="10"
-                android:lines="1"
+                android:layout_weight="4"
+                android:background="@drawable/menu"
                 android:hint="ID"
-                android:background="@drawable/menu"/>
+                android:lines="1"
+                android:maxLength="10"
+                android:padding="5dp" />
 
             <ImageButton
                 android:id="@+id/confirm_ID"
                 android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@color/Alpha"
                 android:scaleType="centerInside"
                 android:src="@drawable/confirm_id"
-                android:layout_gravity="center"
                 android:text="중복확인" />
 
         </LinearLayout>
@@ -93,22 +94,23 @@
             android:id="@+id/confirm_ID_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:gravity="center_vertical"
             android:text="* ID 중복확인을 해주세요."
-            android:textSize="@dimen/_10sp"
-            android:textColor="@color/Red"/>
+            android:textColor="@color/Red"
+            android:textSize="@dimen/_10sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PASSWORD"
-            android:textSize="@dimen/_15sp"
-            android:gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="PASSWORD"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/_15sp" />
 
         <EditText
             android:id="@+id/pw"
@@ -117,21 +119,22 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:padding="5dp"
             android:background="@drawable/menu"
-            android:maxLength="10"
-            android:lines="1"
             android:hint="PASSWORD"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:lines="1"
+            android:maxLength="10"
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:gravity="center_vertical"
             android:text="비밀번호를 한 번 더 입력해주세요."
-            android:textSize="@dimen/_10sp"/>
+            android:textColor="@color/Black"
+            android:textSize="@dimen/_10sp" />
 
         <EditText
             android:id="@+id/confirm_pw"
@@ -140,33 +143,34 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:padding="5dp"
             android:background="@drawable/menu"
-            android:maxLength="10"
-            android:lines="1"
             android:hint="PASSWORD_CONFIRM"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:lines="1"
+            android:maxLength="10"
+            android:padding="5dp" />
 
         <TextView
             android:id="@+id/confirm_pw_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:gravity="center_vertical"
             android:text="* 비밀번호가일치하지 않습니다."
-            android:textSize="@dimen/_10sp"
-            android:textColor="@color/Red"/>
+            android:textColor="@color/Red"
+            android:textSize="@dimen/_10sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EMAIL"
-            android:textSize="@dimen/_15sp"
-            android:gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="EMAIL"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/_15sp" />
 
 
         <EditText
@@ -176,11 +180,11 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:padding="5dp"
             android:background="@drawable/menu"
-            android:maxLength="20"
+            android:hint="EMAIL"
             android:lines="1"
-            android:hint="EMAIL"/>
+            android:maxLength="20"
+            android:padding="5dp" />
 
 
         <Button
@@ -192,8 +196,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/round_button_dark"
-            android:textColor="@color/White"
-            android:text="JOIN PICK :-)" />
+            android:text="JOIN PICK :-)"
+            android:textColor="@color/White" />
 
     </LinearLayout>
 

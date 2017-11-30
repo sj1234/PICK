@@ -12,14 +12,14 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/AppTheme">
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:elevation="1dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/BackGround"
                 android:id="@+id/toolBar2">
 
             </android.support.v7.widget.Toolbar>
@@ -31,18 +31,26 @@
                 android:elevation="1dp"
                 app:tabMode="fixed"
                 app:tabGravity="fill"
-                android:background="@android:color/background_light"
-                app:tabTextColor="@color/not"
-                app:tabSelectedTextColor="@color/selected">
+                android:background="@color/BackGround"
+                app:tabTextColor="@color/UncheckTextView"
+                app:tabSelectedTextColor="@color/CheckTextView">
+
 
             </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
+        <ScrollView
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/container2"></FrameLayout>
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/container2"></FrameLayout>
+        </ScrollView>
+
+
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

@@ -34,11 +34,11 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_product);
+        setContentView(R.layout.acitivity_my);
 
         SharedPreferences prefs = getSharedPreferences("PrefName",MODE_PRIVATE);
-        //usr_id = prefs.getString("id",null);
-        usr_id="pick";
+        usr_id = prefs.getString("id",null);
+
 
         context = getApplicationContext();
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -166,7 +166,7 @@ public class MyActivity extends AppCompatActivity {
                     JSONArray jsonArray = new JSONArray(result);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                        adapter.addItem(new Item2(jsonObject.getInt("prod_code"), jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_detail")));
+                        adapter.addItem(new Item2(jsonObject.getInt("prod_code"),0,jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_detail")));
                     }
                     adapter.notifyDataSetChanged();
                 }

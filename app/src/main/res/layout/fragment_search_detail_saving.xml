@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sjeong.pick.SearchDetailFragment"
     android:background="#cde7ef"
     android:orientation="vertical">
 
@@ -21,35 +20,29 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp">
 
-        <RadioGroup
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/radioButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="개인"
                 android:layout_weight="0.5" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="단체"
                 android:layout_weight="0.5" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사업자/법인"
                 android:layout_weight="0.5" />
 
-        </RadioGroup>
+
 
 
     </LinearLayout>
@@ -134,7 +127,7 @@
         android:layout_marginLeft="16dp">
 
 
-        <Button
+        <Spinner
             android:id="@+id/spinner3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
@@ -145,7 +138,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3"
-        android:text="우대조건 *"
+        android:text="우대조건"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
@@ -157,7 +150,7 @@
 
         <Button
             android:id="@+id/spinner2"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
@@ -338,7 +331,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="centerInside"
-            android:src="@drawable/re_searchdetail"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"/>
 
@@ -347,6 +339,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="초기화"
+            android:id="@+id/sss"
             android:background="#00000000"
             android:layout_margin="8dp"/>
 

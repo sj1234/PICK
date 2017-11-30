@@ -42,6 +42,7 @@ public class InstallmentFragment extends Fragment {
         free_rat = (TextView) rootView.findViewById(R.id.sfree_rat);
 
         radio = (RadioGroup) rootView.findViewById(R.id.sradio);
+        radio.check(R.id.ssim);
 
         cal = (Button) rootView.findViewById(R.id.scal);
 
@@ -51,34 +52,37 @@ public class InstallmentFragment extends Fragment {
         cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                w = Double.parseDouble(won.getText().toString());
-                d = Double.parseDouble(dur.getText().toString());
-                r = Double.parseDouble(rate.getText().toString());
+                if(won.getText()!=null&&dur.getText()!=null&&rate.getText()!=null) {
+                    w = Double.parseDouble(won.getText().toString());
+                    d = Double.parseDouble(dur.getText().toString());
+                    r = Double.parseDouble(rate.getText().toString());
 
-                switch (radio.getCheckedRadioButtonId()){
-                    case R.id.ssim:
-                        temp = (w*d*(d+1)/2*(r/100)/12);
-                        break;
-                    case R.id.scom:
-                        temp = (w*(1+(r/100)/12)*(Math.pow(1+(r/100)/12,d)-1)/((r/100)/12))-w*d;
-                        break;
+                    switch (radio.getCheckedRadioButtonId()) {
+                        case R.id.ssim:
+                            temp = (w * d * (d + 1) / 2 * (r / 100) / 12);
+                            break;
+                        case R.id.scom:
+                            temp = (w * (1 + (r / 100) / 12) * (Math.pow(1 + (r / 100) / 12, d) - 1) / ((r / 100) / 12)) - w * d;
+                            break;
+                    }
+
+                    norm = Math.ceil(temp * (1 - 15.4 / 100));
+                    prime = Math.ceil(temp * (1 - 9.5 / 100));
+
+                    normal_pay.setText(String.valueOf(norm + w));
+                    normal_rat.setText(String.valueOf(norm));
+
+                    prime_pay.setText(String.valueOf(prime + w));
+                    prime_rat.setText(String.valueOf(prime));
+
+                    free_pay.setText(String.valueOf(Math.ceil(temp) + w));
+                    free_rat.setText(String.valueOf(Math.ceil(temp)));
+
+                    result.setVisibility(View.VISIBLE);
+
+                }else{
+                    result.setVisibility(View.GONE);
                 }
-
-                norm = Math.ceil(temp*(1-15.4/100));
-                prime = Math.ceil(temp*(1-9.5/100));
-
-                normal_pay.setText(String.valueOf(norm+w));
-                normal_rat.setText(String.valueOf(norm));
-
-                prime_pay.setText(String.valueOf(prime+w));
-                prime_rat.setText(String.valueOf(prime));
-
-                free_pay.setText(String.valueOf(Math.ceil(temp)+w));
-                free_rat.setText(String.valueOf(Math.ceil(temp)));
-
-                result.setVisibility(View.VISIBLE);
-
-
 
             }
         });

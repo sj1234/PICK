@@ -94,11 +94,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(dep);
                 break;
             case R.id.menu_sav: // 적금
-                //Intent sav = new Intent(MenuActivity.this, SearchActivity.class);
-                //startActivity(sav);
+                Intent sav = new Intent(MainActivity.this, SavingSearchActivity.class);
+                startActivity(sav);
                 break;
             case R.id.menu_cac: // 계산기
-                Intent cac = new Intent(getApplication(), CalculatorActivity.class);
+                Intent cac = new Intent(MainActivity.this, CalculatorActivity.class);
                 startActivity(cac);
                 break;
             case R.id.menu_goal: // 목표
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(goal);
                 break;
             case R.id.menu_int: // 관심
-                //Intent interest = new Intent(MenuActivity.this, SearchActivity.class);
+                //Intent interest = new Intent(MainActivity.this, MyActivity.class);
                 //startActivity(interest);
                 break;
             case R.id.menu_faq: // faq

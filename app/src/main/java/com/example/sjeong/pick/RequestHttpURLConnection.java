@@ -93,7 +93,7 @@ public class RequestHttpURLConnection {
             os.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
             Log.d("연결","output 닫기");
 */
-            OutputStreamWriter outStream = new OutputStreamWriter(urlConn.getOutputStream(), "EUC-KR");
+            OutputStreamWriter outStream = new OutputStreamWriter(urlConn.getOutputStream(), "UTF-8");
             PrintWriter writer = new PrintWriter(outStream);
             writer.write(strParams);
             writer.flush();

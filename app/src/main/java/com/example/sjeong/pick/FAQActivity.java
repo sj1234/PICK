@@ -1,7 +1,6 @@
 package com.example.sjeong.pick;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,12 +49,12 @@ public class FAQActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "구현예정 :-)", Toast.LENGTH_SHORT).show();
-                Intent email = new Intent(Intent.ACTION_SEND);
-                email.setType("plain/text");
-                String[] address = {"email@address.com"};
-                email.putExtra(Intent.EXTRA_EMAIL, address);
-                startActivity(email);
+                Toast.makeText(getApplicationContext(), "구현예정 :-)", Toast.LENGTH_SHORT).show();
+                //Intent email = new Intent(Intent.ACTION_SEND);
+                //email.setType("plain/text");
+                //String[] address = {"email@address.com"};
+                //email.putExtra(Intent.EXTRA_EMAIL, address);
+                //startActivity(email);
             }
         });
 

@@ -84,6 +84,7 @@
                 android:background="@color/Alpha"
                 android:scaleType="centerInside"
                 android:src="@drawable/confirm_id"
+                android:layout_gravity="center"
                 android:text="중복확인" />
 
         </LinearLayout>

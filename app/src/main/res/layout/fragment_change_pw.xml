@@ -1,82 +1,136 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sjeong.pick.LoginActivity">
+    tools:context="com.example.sjeong.pick.ChangePWFragment"
+    android:orientation="vertical"
+    android:background="@color/BackGround">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+
+        <ImageButton
+            android:id="@+id/back_to_find"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="PICK 비밀번호 변경하기"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/MainDark"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="비밀번호 변경"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="비밀번호 변경"
+            android:textColor="@color/MainDark"
             android:textSize="@dimen/_20sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="정보가 확인되었습니다. 비밀번호를 변경해주세요."
+            android:layout_marginBottom="15dp"
             android:gravity="center_vertical"
-            android:textSize="@dimen/_10sp"/>
+            android:padding="5dp"
+            android:text="정보가 확인되었습니다. 비밀번호를 변경해주세요."
+            android:textColor="@color/Black"
+            android:textSize="@dimen/_10sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="비밀번호 입력"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="PASSWORD"
+                android:textColor="@color/Black"
                 android:textSize="@dimen/_15sp" />
 
             <EditText
                 android:id="@+id/change_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="PW"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/menu"
+                android:hint="PASSWORD"
                 android:inputType="textPassword"
-                android:lines="1"/>
+                android:lines="1"
+                android:maxLength="20"
+                android:padding="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="비밀번호 확인"
-                android:textSize="@dimen/_15sp" />
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="비밀번호를 한 번 더 입력해주세요."
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_10sp" />
 
             <EditText
                 android:id="@+id/confirm_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="PW Confirm"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu"
+                android:hint="PASSWORD CONFIRM"
                 android:inputType="textPassword"
-                android:lines="1"/>
+                android:lines="1"
+                android:maxLength="20"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/confirm_pw_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="* 비밀번호가일치하지 않습니다."
+                android:textColor="@color/Red"
+                android:textSize="@dimen/_10sp" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/change_pwB"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="비밀번호 변경 :-)" />
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_button_dark"
+            android:text="비밀번호 변경 :-)"
+            android:textColor="@color/White" />
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         window.setStatusBarColor(Color.parseColor("#ffffff"));
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
             Log.i("Loading error", e.toString());

@@ -1,16 +1,22 @@
 package com.example.sjeong.pick;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -28,6 +34,7 @@ import java.net.URL;
 public class ChangePWFragment extends Fragment implements View.OnClickListener {
 
     private EditText change_pw, confirm_pw;
+    private TextView confirm_pw_text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +43,53 @@ public class ChangePWFragment extends Fragment implements View.OnClickListener {
 
         change_pw = (EditText)view.findViewById(R.id.change_pw);
         confirm_pw= (EditText)view.findViewById(R.id.confirm_pw);
+        confirm_pw_text = (TextView)view.findViewById(R.id.confirm_pw_text);
 
+        change_pw.addTextChangedListener(new TextWatcher() {
+
+            @Override // 입력전
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override // 입력되는 텍스트 변화
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                confirm_pw_text.setText("* 비밀번호가일치하지 않습니다.");
+                confirm_pw_text.setTextColor(Color.RED);
+            }
+
+            @Override // 입력 후
+            public void afterTextChanged(Editable s) {
+                if(confirm_pw.getText().toString().equals(change_pw.getText().toString())){
+                    confirm_pw_text.setText("* 비밀번호가 일치합니다.");
+                    confirm_pw_text.setTextColor(Color.BLACK);
+                }
+
+            }
+        });
+
+        confirm_pw.addTextChangedListener(new TextWatcher() {
+            @Override // 입력전
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override // 입력되는 텍스트 변화
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                confirm_pw_text.setText("* 비밀번호가일치하지 않습니다.");
+                confirm_pw_text.setTextColor(Color.RED);
+            }
+
+            @Override // 입력 후
+            public void afterTextChanged(Editable s) {
+                if(confirm_pw.getText().toString().equals(change_pw.getText().toString())){
+                    confirm_pw_text.setText("* 비밀번호가 일치합니다.");
+                    confirm_pw_text.setTextColor(Color.BLACK);
+                }
+
+            }
+        });
+
+        // 뒤로가기
+        ImageButton back_to_find = (ImageButton)view.findViewById(R.id.back_to_find);
+        back_to_find.setOnClickListener(this);
+        // 변경하기
         Button change=(Button)view.findViewById(R.id.change_pwB);
         change.setOnClickListener(this);
 
@@ -46,6 +99,12 @@ public class ChangePWFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.back_to_find:
+                ChangePWFragment fragment = (ChangePWFragment)getActivity().getSupportFragmentManager().findFragmentByTag("change");
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.remove(fragment);
+                ft.commit();
+                break;
             case R.id.change_pwB:
                 String change_pw_string = change_pw.getText().toString();
                 String confirm_pw_string = confirm_pw.getText().toString();

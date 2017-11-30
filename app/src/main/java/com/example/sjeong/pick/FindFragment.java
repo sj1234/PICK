@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -40,6 +41,9 @@ public class FindFragment extends Fragment implements View.OnClickListener {
         id_pw = (EditText)view.findViewById(R.id.id_pw);
         email_pw = (EditText)view.findViewById(R.id.email_pw);
 
+        ImageButton back_to_login = (ImageButton)view.findViewById(R.id.back_to_login);
+        back_to_login.setOnClickListener(this);
+
         Button find_id = (Button)view.findViewById(R.id.find_id);
         find_id.setOnClickListener(this);
         Button find_pw = (Button)view.findViewById(R.id.find_pw);
@@ -53,7 +57,9 @@ public class FindFragment extends Fragment implements View.OnClickListener {
         String id, email;
 
         switch(v.getId()){
-
+            case R.id.back_to_login:
+                getActivity().finish();
+                break;
             case R.id.find_id:
                 email = email_id.getText().toString();
 
@@ -125,7 +131,7 @@ public class FindFragment extends Fragment implements View.OnClickListener {
                         fragment.setArguments(bundle);
 
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.find_fragment, fragment);
+                        ft.add(R.id.find_fragment, fragment, "change");
                         ft.commit();
                     }
                     break;

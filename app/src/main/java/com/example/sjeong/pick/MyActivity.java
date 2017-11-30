@@ -34,9 +34,9 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_my);
+        setContentView(R.layout.fragment_product);
 
-        SharedPreferences prefs = getSharedPreferences("PrefName",MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("person",MODE_PRIVATE);
         usr_id = prefs.getString("id",null);
 
 

@@ -15,12 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import static com.example.sjeong.pick.R.id.spinner;
  * Created by mijin on 2017-11-11.
  */
 
-public class SearchDetailSavingFragment extends Fragment implements View.OnClickListener {
+public class SearchDetailSavingFragment extends Fragment implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
     public static int TIME_OUT = 1001;
 
     private ProgressDialog progressDialog;
@@ -42,11 +42,10 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
     protected CharSequence[] bankList, primecondList, conttermList;
     View view;
     ArrayAdapter<CharSequence> adspin;
-    Button vbank, vprime_cond;
-    Spinner vcont_term;
+    TextView bank, vbank, primeT, vprime_cond, min, month, cont_term;
     CheckBox[] vjoin_target, vjoin_way, vprod_type, vori_pay_method, vrat_pay_method;
-    EditText vmin_intr, vmonth_limit;
-    String cont_term, prime_cond;
+    SeekBar vmin_intr, vmonth_limit, vcont_term;
+    String prime_cond;
     ContentValues values;
     AlertDialog.Builder builder2, builder4;
     int send;
@@ -61,17 +60,22 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
         vjoin_target = new CheckBox[]{(CheckBox)view.findViewById(R.id.radioButton1),(CheckBox)view.findViewById(R.id.radioButton2),(CheckBox)view.findViewById(R.id.radioButton3)};
         //Spinner bank = (Spinner) view.findViewById(R.id.spinner);
-        vbank = (Button) view.findViewById(spinner);
+        bank = (TextView) view.findViewById(R.id.bank);
+        vbank = (TextView) view.findViewById(R.id.spinner);
         vjoin_way = new CheckBox[]{(CheckBox)view.findViewById(R.id.ch1),(CheckBox)view.findViewById(R.id.ch2), (CheckBox)view.findViewById(R.id.ch3), (CheckBox)view.findViewById(R.id.ch4)};
         //Spinner cont_term = (Spinner) view.findViewById(R.id.spinner3);
         //Spinner prime_cond = (Spinner) view.findViewById(R.id.spinner2);
-        vcont_term = (Spinner) view.findViewById(R.id.spinner3);
-        vprime_cond = (Button) view.findViewById(R.id.spinner2);
-        vmin_intr = (EditText) view.findViewById(R.id.min_rate);
+        vcont_term = (SeekBar) view.findViewById(R.id.spinner3);
+        cont_term = (TextView) view.findViewById(R.id.cont_term);
+        primeT = (TextView) view.findViewById(R.id.primeT);
+        vprime_cond = (TextView) view.findViewById(R.id.spinner2);
+        vmin_intr = (SeekBar) view.findViewById(R.id.min_rate);
+        min = (TextView) view.findViewById(R.id.min);
         vprod_type = new CheckBox[]{(CheckBox)view.findViewById(R.id.freeInput), (CheckBox)view.findViewById(R.id.fixInput)};
         vori_pay_method = new CheckBox[]{(CheckBox)view.findViewById(R.id.orifull), (CheckBox)view.findViewById(R.id.oriyear)};
         vrat_pay_method = new CheckBox[]{(CheckBox)view.findViewById(R.id.ratfull), (CheckBox)view.findViewById(R.id.ratyear)};
-        vmonth_limit = (EditText) view.findViewById(R.id.monthInput);
+        vmonth_limit = (SeekBar) view.findViewById(R.id.monthInput);
+        month = (TextView) view.findViewById(R.id.month);
 
         bankList = getResources().getStringArray(R.array.bank);
         primecondList = getResources().getStringArray(R.array.primelist);
@@ -79,11 +83,28 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         vbank.setOnClickListener(this);
         vprime_cond.setOnClickListener(this);
 
+        vjoin_target[0].setOnCheckedChangeListener(this);
+        vjoin_target[1].setOnCheckedChangeListener(this);
+        vjoin_target[2].setOnCheckedChangeListener(this);
+
+        vjoin_way[0].setOnCheckedChangeListener(this);
+        vjoin_way[1].setOnCheckedChangeListener(this);
+        vjoin_way[2].setOnCheckedChangeListener(this);
+        vjoin_way[3].setOnCheckedChangeListener(this);
+
+        vprod_type[0].setOnCheckedChangeListener(this);
+        vprod_type[1].setOnCheckedChangeListener(this);
+
+        vori_pay_method[0].setOnCheckedChangeListener(this);
+        vori_pay_method[1].setOnCheckedChangeListener(this);
+
+        vrat_pay_method[0].setOnCheckedChangeListener(this);
+        vrat_pay_method[1].setOnCheckedChangeListener(this);
 
         //ContentValues
 
 
-
+/*
         adspin = ArrayAdapter.createFromResource(getActivity(), R.array.cont_term, android.R.layout.simple_spinner_item);
 
         adspin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -100,7 +121,57 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
             }
         });
+*/
 
+        vcont_term.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                cont_term.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        vmin_intr.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                String rate_string = String.format("%.2f", ((float)progress)*0.1);
+                min.setText(rate_string);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        vmonth_limit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                month.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         Button sss = (Button) view.findViewById(R.id.sss);
         sss.setOnClickListener(new View.OnClickListener() {
@@ -118,9 +189,11 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                 int no = 0;
 
                 for(CharSequence c : selectedBank){
-                    values.put("bank"+no,c.toString());
-                    Log.d("은행"+no, c.toString());
-                    no++;
+                    if(!c.toString().equals("전체")) {
+                        values.put("bank" + no, c.toString());
+                        Log.d("은행" + no, c.toString());
+                        no++;
+                    }
                 }
                 values.put("no",no);
 
@@ -158,13 +231,11 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
                 values.put("join_way", Integer.valueOf(joinway[0]+""+joinway[1]+""+joinway[2]+""+joinway[3],2));
 
-                if(cont_term.equals("3개월")) values.put("cont_term",3);
-                else if(cont_term.equals("6개월")) values.put("cont_term",6);
-                else if(cont_term.equals("1년")) values.put("cont_term",12);
-                else if(cont_term.equals("2년")) values.put("cont_term",24);
-                else if(cont_term.equals("3년")) values.put("cont_term",36);
+                values.put("cont_term",cont_term.getText().toString());
 
-                values.put("min_intr",vmin_intr.getText().toString());
+
+
+                values.put("min_intr",min.getText().toString());
 
                 char[] prodtype = new char[]{'0','0'};
                 if(vprod_type[0].isChecked()) prodtype[0]='1';
@@ -181,7 +252,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                 if(vrat_pay_method[1].isChecked()) ratpaymethod[1]='1';
                 values.put("rat_pay_method", Integer.valueOf(ratpaymethod[0]+""+ratpaymethod[1],2));
 
-                values.put("month_limit",vmonth_limit.getText().toString());
+                values.put("month_limit",month.getText().toString());
 
                 Log.d("데이터", values.toString());
                 if(values.get("join_target").toString().equals("000")||values.get("no").toString().equals("0")||values.get("prime_cond").toString().equals("000000000000")||values.get("cont_term")==null||values.get("join_way").toString().equals("0000")){
@@ -325,21 +396,26 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                     @Override
                     public void onClick(View v) {
                         Boolean wantToCloseDialog = true;
-                        if(selectedBank.size()==0){
-
+                        if (selectedBank.size() == 0) {
 
 
                             builder2 = new AlertDialog.Builder(builder.getContext());
                             builder2.setMessage("은행을 선택해주세요.");
-                            builder2.setPositiveButton("확인",new DialogInterface.OnClickListener(){
+                            builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
                                 }
                             });
                             builder2.show();
-                            wantToCloseDialog=false;
+                            wantToCloseDialog = false;
 
+                        } else if (selectedBank.size() == 1) {
+                            bank.setText(selectedBank.get(0).toString());
+                        } else if (selectedBank.size() == bankList.length){
+                            bank.setText("전체");
+                        }else{
+                            bank.setText(selectedBank.get(0).toString()+" 외 "+(selectedBank.size()-1)+"개");
                         }
 
 
@@ -408,8 +484,25 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         }; // coloursDialogListener
 */
         final AlertDialog.Builder builder3 = new AlertDialog.Builder(getActivity());
-        builder3.setTitle("Select bankList");
+        builder3.setTitle("Select primeList");
+        builder3.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(selectedBank.size()==0){
 
+
+
+
+                }else {
+                    dialogInterface.dismiss();
+                    Toast.makeText(getActivity().getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
+        /*
         builder3.setNeutralButton("Ok", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which)
@@ -418,7 +511,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                 Toast.makeText(getActivity().getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
             } // onClick()
         }); // setNeutralButton()
-
+*/
         builder3.setMultiChoiceItems(primecondList, checkedprimecondList,new DialogInterface.OnMultiChoiceClickListener()
         {
 
@@ -491,6 +584,12 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                             builder4.show();
                             wantToCloseDialog=false;
 
+                        }else if(selectedPrimeCond.size()==1) {
+                            primeT.setText(selectedPrimeCond.get(0).toString());
+                        }else if(selectedPrimeCond.size()==primecondList.length){
+                            primeT.setText("전체");
+                        }else{
+                            primeT.setText(selectedPrimeCond.get(0).toString()+" 외 "+(selectedPrimeCond.size()-1)+"개");
                         }
 
 
@@ -570,9 +669,30 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
     }
 
-
-
-
-
-
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()){
+            case R.id.radioButton1:
+            case R.id.radioButton2:
+            case R.id.radioButton3:
+            case R.id.ch1:
+            case R.id.ch2:
+            case R.id.ch3:
+            case R.id.ch4:
+            case R.id.freeInput:
+            case R.id.fixInput:
+            case R.id.orifull:
+            case R.id.oriyear:
+            case R.id.ratfull:
+            case R.id.ratyear:
+                if(isChecked){
+                    buttonView.setTextColor(getResources().getColor(R.color.CheckTextView));
+                    buttonView.setTextSize(20);
+                }else{
+                    buttonView.setTextColor(getResources().getColor(R.color.UncheckTextView));
+                    buttonView.setTextSize(15);
+                }
+                break;
+        }
+    }
 }

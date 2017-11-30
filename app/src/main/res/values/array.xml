@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="bank">
+        <item>전체</item>
         <item>신한은행</item>
         <item>우리은행</item>
         <item>국민은행</item>
@@ -22,8 +23,7 @@
     </string-array>
 
     <string-array name="primelist">
-        <item>비과세</item>
-        <item>변동금리</item>
+        <item>전체</item>
         <item>보유/잔액</item>
         <item>실적/결제/대금</item>
         <item>신규/가입/첫거래</item>

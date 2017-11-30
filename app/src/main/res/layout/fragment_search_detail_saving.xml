@@ -5,17 +5,24 @@
     android:background="#cde7ef"
     android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="가입대상 *"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp">
@@ -24,24 +31,29 @@
             <CheckBox
                 android:id="@+id/radioButton1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="개인"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"
+                android:button="@android:color/transparent"
+                android:textColor="@color/UncheckTextView"/>
 
             <CheckBox
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="단체"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"
+                android:button="@android:color/transparent"
+                android:textColor="@color/UncheckTextView"/>
 
             <CheckBox
                 android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="사업자/법인"
-                android:layout_weight="0.5" />
-
+                android:layout_weight="0.5"
+                android:button="@android:color/transparent"
+                android:textColor="@color/UncheckTextView"/>
 
 
 
@@ -49,35 +61,49 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="대상은행 *"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp">
 
-        <Button
+
+        <TextView
+            android:id="@+id/bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="은행을 선택해주세요."
+            android:textAlignment="center"
+            android:layout_weight="2"
+            android:layout_gravity="center"/>
+
+        <TextView
             android:id="@+id/spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="가입방법 *"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp">
 
@@ -87,97 +113,140 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="모바일" />
+            android:text="모바일"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
         <CheckBox
             android:id="@+id/ch2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="인터넷" />
+            android:text="인터넷"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
         <CheckBox
             android:id="@+id/ch3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="영업점" />
+            android:text="영업점"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
         <CheckBox
             android:id="@+id/ch4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="콜센터" />
+            android:text="콜센터"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
     </LinearLayout>
 
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="계약기간 *"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp">
 
 
-        <Spinner
+        <SeekBar
             android:id="@+id/spinner3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:max="36"
+            android:layout_weight="4"/>
+
+        <TextView
+            android:id="@+id/cont_term"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="개월"
+            android:gravity="center"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="우대조건"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp">
 
-        <Button
+        <TextView
+            android:id="@+id/primeT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="우대조건을 선택해주세요."
+            android:textAlignment="center"
+            android:layout_weight="2"
+            android:layout_gravity="center"/>
+
+        <TextView
             android:id="@+id/spinner2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text=">"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
                                 <!--필수조건-->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="약정금리"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_weight="1"
         android:layout_marginBottom="16dp">
 
-        <EditText
+        <SeekBar
             android:id="@+id/min_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:max="100"/>
+
+        <TextView
+            android:id="@+id/min"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="소수 %값으로 입력" />
+            android:layout_weight="1"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
@@ -192,14 +261,14 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="상품유형"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp">
 
@@ -209,28 +278,32 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="자유적립" />
+            android:text="자유적립"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
         <CheckBox
             android:id="@+id/fixInput"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="정액적립" />
+            android:text="정액적립"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="원금지급방식"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp">
 
@@ -240,27 +313,31 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="만기" />
+            android:text="만기"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
         <CheckBox
             android:id="@+id/oriyear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="연" />
+            android:text="연"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="이자지급방식"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp">
 
@@ -270,40 +347,51 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="만기" />
+            android:text="만기"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
         <CheckBox
             android:id="@+id/ratyear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="연" />
+            android:text="연"
+            android:button="@android:color/transparent"
+            android:textColor="@color/UncheckTextView"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:text="월납입금액"
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_weight="1"
         android:layout_marginBottom="16dp">
 
-        <EditText
+        <SeekBar
             android:id="@+id/monthInput"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:max="50000"
+            android:layout_weight="5"/>
+
+
+        <TextView
+            android:id="@+id/month"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="천원 단위로 입력" />
+            android:layout_weight="1"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
@@ -317,7 +405,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="16dp">
 
@@ -338,7 +426,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="초기화"
+            android:text="검색"
             android:id="@+id/sss"
             android:background="#00000000"
             android:layout_margin="8dp"/>
@@ -346,8 +434,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
-
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

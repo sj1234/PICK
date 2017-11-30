@@ -23,8 +23,7 @@
         <activity android:name=".CalculatorActivity" />
         <activity
             android:name=".FAQActivity"
-            android:label="@string/title_activity_faq"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/ActionBarTheme"/>
         <activity android:name=".PersonalSettingActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".SearchSettingActivity" />

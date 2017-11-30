@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu_goal.setOnClickListener(this);
         // 관심
         LinearLayout menu_int = (LinearLayout)findViewById(R.id.menu_int);
-        menu_dep.setOnClickListener(this);
+        menu_int.setOnClickListener(this);
         // faq
         LinearLayout menu_faq = (LinearLayout)findViewById(R.id.menu_faq);
         menu_faq.setOnClickListener(this);
@@ -106,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(goal);
                 break;
             case R.id.menu_int: // 관심
-                //Intent interest = new Intent(MainActivity.this, MyActivity.class);
-                //startActivity(interest);
+                Intent interest = new Intent(MainActivity.this, MyActivity.class);
+                startActivity(interest);
                 break;
             case R.id.menu_faq: // faq
                 Intent faq = new Intent(MainActivity.this, FAQActivity.class);

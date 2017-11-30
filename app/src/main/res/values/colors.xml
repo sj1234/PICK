@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="checkedText">#6dd6ff</color>
+    <color name="UncheckTextView">#5e5e5e</color>
+    <color name="CheckTextView">#25667e</color>
+
+    <color name="BackGround">#d4e9fa</color>
+    <color name="TextDark">#005179</color>
+    <color name="MainDark">#25667e</color>
+    <color name="MainLight">#68b7d4</color>
+    <color name="Black">#000000</color>
+    <color name="White">#ffffff</color>
+    <color name="Alpha">#00000000</color>
 </resources>

@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">PICK</string>
 
+    <dimen name="_7sp">7sp</dimen>
+    <dimen name="_10sp">10sp</dimen>
+    <dimen name="_15sp">15sp</dimen>
+    <dimen name="_20sp">20sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_faq">FAQActivity</string>

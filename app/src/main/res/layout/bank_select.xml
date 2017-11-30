@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="40dp">
+
+    <CheckBox
+        android:id="@+id/ALL"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="전체" />
+
+    <CheckBox
+        android:id="@+id/NH"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="NH농협은행" />
+
+    <CheckBox
+        android:id="@+id/IBK"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="기업은행" />
+
+    <CheckBox
+        android:id="@+id/KB"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="국민은행" />
+
+    <CheckBox
+        android:id="@+id/WooRi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="우리은행" />
+
+    <CheckBox
+        android:id="@+id/HaNa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="KEB하나은행" />
+
+    <CheckBox
+        android:id="@+id/KDB"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="KDB산업은행" />
+
+    <CheckBox
+        android:id="@+id/KN"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="경남은행" />
+
+    <CheckBox
+        android:id="@+id/GJ"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="광주은행" />
+
+    <CheckBox
+        android:id="@+id/DG"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="대구은행" />
+
+    <CheckBox
+        android:id="@+id/BS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="부산은행" />
+
+    <CheckBox
+        android:id="@+id/SH"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="수협은행" />
+
+    <CheckBox
+        android:id="@+id/STANDARD"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="스탠다드차타드은행" />
+
+    <CheckBox
+        android:id="@+id/CITY"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="씨티은행" />
+
+    <CheckBox
+        android:id="@+id/POST"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="우체국예금" />
+
+    <CheckBox
+        android:id="@+id/JB"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="전북은행" />
+
+    <CheckBox
+        android:id="@+id/JJ"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="제주은행" />
+
+    <CheckBox
+        android:id="@+id/K"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="케이뱅크" />
+
+</LinearLayout>

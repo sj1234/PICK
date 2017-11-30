@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(setting);
                 break;
             case R.id.menu_dep: // 예금
-                //Intent dep = new Intent(MainActivity.this, SearchActivity.class);
-                //startActivity(dep);
+                Intent dep = new Intent(MainActivity.this, SearchDepActivity.class);
+                startActivity(dep);
                 break;
             case R.id.menu_sav: // 적금
                 //Intent sav = new Intent(MenuActivity.this, SearchActivity.class);

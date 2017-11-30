@@ -23,7 +23,7 @@
         <activity android:name=".CalculatorActivity" />
         <activity
             android:name=".FAQActivity"
-            android:theme="@style/ActionBarTheme"/>
+            android:theme="@style/ActionBarTheme" />
         <activity android:name=".PersonalSettingActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".SearchSettingActivity" />
@@ -42,8 +42,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".JoinActivity" />
         <activity android:name=".FindInfoActivity" />
-        <activity android:name=".GoalActivity"
-            android:theme="@style/ActionBarTheme"/>
+        <activity
+            android:name=".GoalActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity android:name=".SearchDepActivity"></activity>
     </application>
 
 </manifest>

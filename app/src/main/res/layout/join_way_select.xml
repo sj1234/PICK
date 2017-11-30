@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="40dp">
+
+    <CheckBox
+        android:id="@+id/ALL"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="전체" />
+
+    <CheckBox
+        android:id="@+id/Inter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="인터넷" />
+
+    <CheckBox
+        android:id="@+id/Mobile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="모바일" />
+
+    <CheckBox
+        android:id="@+id/Visit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="영업점" />
+
+    <CheckBox
+        android:id="@+id/Call"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="콜센터" />
+
+</LinearLayout>

@@ -10,11 +10,12 @@
 
     <color name="BackGround">#d4e9fa</color>
     <color name="TextDark">#005179</color>
-    <color name="MainDark">#25667e</color>
+    <color name="MainDark">#1364A1</color>
     <color name="MainLight">#68b7d4</color>
     <color name="Black">#000000</color>
     <color name="LightBlack">#515151</color>
     <color name="White">#ffffff</color>
     <color name="Red">#ff0000</color>
+    <color name="PINK">#fe6186</color>
     <color name="Alpha">#00000000</color>
 </resources>

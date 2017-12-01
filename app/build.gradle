@@ -43,5 +43,8 @@ repositories {
 }
 
 dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
 }

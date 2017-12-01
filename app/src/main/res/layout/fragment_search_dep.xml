@@ -3,40 +3,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.SearchDepFragment"
-    android:orientation="horizontal"
-    android:background="#cde7ef">
+    android:orientation="vertical"
+    android:background="@color/White"
+    android:baselineAligned="false">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
 
-    <Button
-        android:id="@+id/base_detail"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:text="상품명 검색"/>
+        <ImageButton
+            android:id="@+id/back_to_login"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page_dark"/>
 
-    <EditText
-        android:id="@+id/searchText"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="7"
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:hint="Search"
-        android:lines = "1"
-        android:layout_margin="4dp" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_menu_01"/>
 
-    <ImageButton
-        android:id="@+id/searchbutton"
-        android:layout_width="0dp"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textSize="@dimen/_30sp"
+        android:textColor="@color/TextDark"
+        android:gravity="center"
+        android:text="PICK 맞춤 예금 검색"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/_15sp"
+        android:textColor="@color/LightBlack"
+        android:letterSpacing="-0.08"
+        android:lineSpacingExtra="4dp"
+        android:gravity="center"
+        android:text="맞춤 예금 상품을 검색할 수 있습니다.\n찾으시는 상품명을 입력해주세요.\n밑의 버튼을 통해 상세조건으로 검색할 수 있습니다."/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_edge">
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:hint="상품명 검색"
+            android:lines = "1"
+            android:backgroundTint="@color/Alpha"/>
+
+        <ImageButton
+            android:id="@+id/searchbutton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:scaleType="centerInside"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:src="@drawable/confirm_id"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:scaleType="centerInside"
-        android:background="#00000000"
-        android:src="@drawable/join_back"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"/>
+        <Button
+            android:id="@+id/base_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/MainDark"
+            android:text="상세 조건 검색"
+            android:textColor="@color/White"
+            android:textSize="@dimen/_15sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -12,12 +12,9 @@ public class SearchDepActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_dep);
 
-        LogoFragment logo = new LogoFragment();
         SearchDepFragment search = new SearchDepFragment();
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_down, logo);
-        ft.replace(R.id.fragment_up, search);
+        ft.replace(R.id.fragment_search, search, "SearchDep");
         ft.commit();
 
         Log.i("Test", "Test SearchActivity");

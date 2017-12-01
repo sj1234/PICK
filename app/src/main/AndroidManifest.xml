@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+<!--
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -66,7 +74,7 @@
         <activity android:name=".SavingSearchActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ProductActivity"/>
-        <activity android:name=".ProductDetailActivity"/>
+        <activity android:name=".ProductDetailActivity"/>-->
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Trash;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.sjeong.pick.My.ProductView;
+import com.example.sjeong.pick.R;
+import com.example.sjeong.pick.RequestHttpURLConnection;
+import com.example.sjeong.pick.Saving.Item2;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,7 +79,7 @@ public class ProductFragment extends Fragment {
             Item2 item = items.get(i);
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
             ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
-            ((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
+            //((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
             return pView;
         }
 

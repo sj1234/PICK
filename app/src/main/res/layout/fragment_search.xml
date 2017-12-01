@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sjeong.pick.SearchFragment"
+    tools:context="com.example.sjeong.pick.Saving.SearchFragment"
     android:orientation="vertical"
     android:background="#cde7ef">
 

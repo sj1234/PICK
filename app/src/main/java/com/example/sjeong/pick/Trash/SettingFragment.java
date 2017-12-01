@@ -1,12 +1,14 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Trash;
 
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,16 +17,18 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.sjeong.pick.R;
+import com.example.sjeong.pick.RequestHttpURLConnection;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /**
- * Created by mijin on 2017-11-29.
+ * Created by mijin on 2017-08-07.
  */
 
-public class SearchSettingActivity extends AppCompatActivity {
+public class SettingFragment extends Fragment {
     ArrayAdapter<CharSequence> adspin;
     String bank = null;
     String join_target = null;
@@ -33,10 +37,10 @@ public class SearchSettingActivity extends AppCompatActivity {
     EditText editText;
     Spinner spinner;
     int no;
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_setting);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_setting, container, false);
 
         String userUrl = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getUser.php?";
         ContentValues contentValues = new ContentValues();
@@ -46,7 +50,7 @@ public class SearchSettingActivity extends AppCompatActivity {
         NetworkTask networkTask = new NetworkTask(userUrl, contentValues);
         networkTask.execute();
 
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) rootView.findViewById(R.id.button);
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +79,7 @@ public class SearchSettingActivity extends AppCompatActivity {
                 networkTask.execute();
             }
         });
-        radioGroup = (RadioGroup) findViewById(R.id.radioButton);
+        radioGroup = (RadioGroup) rootView.findViewById(R.id.radioButton);
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -97,21 +101,21 @@ public class SearchSettingActivity extends AppCompatActivity {
                         join_target = "000";
                 }
 
-                Toast.makeText(getApplicationContext(), checkedId+":"+join_target, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), checkedId+":"+join_target, Toast.LENGTH_LONG).show();
             }
         });
 
 
 
-        editText = (EditText) findViewById(R.id.profit);
+        editText = (EditText) rootView.findViewById(R.id.profit);
 
 
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) rootView.findViewById(R.id.spinner);
 
         spinner.setPrompt("주거래 은행");
 
-        adspin = ArrayAdapter.createFromResource(getApplicationContext(), R.array.bank, android.R.layout.simple_spinner_item);
+        adspin = ArrayAdapter.createFromResource(getContext(), R.array.bank, android.R.layout.simple_spinner_item);
 
         adspin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adspin);
@@ -121,7 +125,7 @@ public class SearchSettingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 bank = parent.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), bank, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), bank, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -131,6 +135,7 @@ public class SearchSettingActivity extends AppCompatActivity {
         });
 
 
+        return rootView;
 
     }
 
@@ -234,3 +239,5 @@ public class SearchSettingActivity extends AppCompatActivity {
         }
     }
 }
+
+

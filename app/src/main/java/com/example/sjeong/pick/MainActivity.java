@@ -15,6 +15,9 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.sjeong.pick.Calculator.CalculatorActivity;
+import com.example.sjeong.pick.My.MyActivity;
+import com.example.sjeong.pick.Setting.SettingActivity;
 import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
 
 import java.util.ArrayList;

@@ -1,10 +1,12 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.My;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+
+import com.example.sjeong.pick.R;
 
 /**
  * Created by mijin on 2017-08-11.

@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Setting;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.sjeong.pick.R;
+import com.example.sjeong.pick.RequestHttpURLConnection;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Saving;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.sjeong.pick.ItemSearchFragment;
+import com.example.sjeong.pick.R;
+import com.example.sjeong.pick.SearchDetailFragment;
 
 public class SearchFragment extends Fragment {
 

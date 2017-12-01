@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Saving;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.example.sjeong.pick.R;
 
 /**
  * Created by mijin on 2017-12-01.

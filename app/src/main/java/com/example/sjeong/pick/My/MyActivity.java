@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.My;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.example.sjeong.pick.R;
+import com.example.sjeong.pick.RequestHttpURLConnection;
+import com.example.sjeong.pick.Saving.Item2;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +37,8 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_product);
+
+        setContentView(R.layout.activity_my);
 
         SharedPreferences prefs = getSharedPreferences("person",MODE_PRIVATE);
         usr_id = prefs.getString("id",null);
@@ -116,7 +120,7 @@ public class MyActivity extends AppCompatActivity {
             });
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
             ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
-            ((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
+            //((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
             return pView;
         }
 

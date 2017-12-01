@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeLayout">
     <!-- Bottom View Start-->
     <LinearLayout
@@ -20,80 +21,70 @@
             android:focusable="false"
             android:text="삭제"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/Black"
+            android:background="@color/BackGround"/>
 
     </LinearLayout>
     <!-- Bottom View End-->
 
     <!-- Surface View Start -->
     <LinearLayout
-        android:background="#ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:background="@drawable/list_border"
+        android:layout_width="316dp"
+        android:layout_height="80dp"
         android:orientation="vertical">
         <!--What you want to show in SurfaceView-->
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:weightSum="1"
             >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/bank"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:src="@drawable/logo"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:layout_weight="0.30"/>
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginBottom="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/round_light"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:layout_weight="0.5"
-                >
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/profit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
+                android:layout_marginLeft="83dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:letterSpacing="-0.04"
+                android:text="i-ONE 놀이터 예금" />
 
 
+            <TextView
+                android:id="@+id/profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="9dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:textColor="#fe6186"
+                android:textSize="18sp"
+                android:text="1.6%~1.7%"/>
 
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
     <!-- Surface View End -->

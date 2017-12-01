@@ -1,10 +1,12 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Setting;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.sjeong.pick.R;
 
 /**
  * Created by mijin on 2017-11-28.

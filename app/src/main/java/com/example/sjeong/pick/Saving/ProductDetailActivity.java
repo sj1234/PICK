@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Saving;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.example.sjeong.pick.R;
+import com.example.sjeong.pick.RequestHttpURLConnection;
 
 /**
  * Created by mijin on 2017-11-20.

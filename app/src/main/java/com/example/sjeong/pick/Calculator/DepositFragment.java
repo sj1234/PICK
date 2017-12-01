@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Calculator;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
+
+import com.example.sjeong.pick.R;
 
 /**
  * Created by mijin on 2017-08-14.
@@ -54,7 +56,7 @@ public class DepositFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(won.getText()!=null&&dur.getText()!=null&&rate.getText()!=null) {
+                if(won.getText().toString().equals("")&&dur.getText().toString().equals("")&&rate.getText().toString().equals("")) {
                     w = Double.parseDouble(won.getText().toString());
                     d = Double.parseDouble(dur.getText().toString());
                     r = Double.parseDouble(rate.getText().toString());

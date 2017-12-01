@@ -1,4 +1,4 @@
-package com.example.sjeong.pick;
+package com.example.sjeong.pick.Setting;
 
 /**
  * Created by mijin on 2017-11-28.
@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.Toast;
+
+import com.example.sjeong.pick.R;
 
 
 public class SettingFragment1 extends PreferenceFragment {

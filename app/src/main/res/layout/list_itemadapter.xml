@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_background"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:background="@drawable/item_bg"
+    android:background="@drawable/menu"
     android:layout_margin="20dp">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/bank_image"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
@@ -18,34 +19,49 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="9"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:textSize="@dimen/_15sp"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="left"
+            android:text="dep name"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/LightBlack"
+            android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/item_min_rate"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="5"
-            android:gravity="right"
-            android:textSize="@dimen/_15sp"/>
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/item_min_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:gravity="bottom"
+                android:textColor="@color/PINK"
+                android:textSize="@dimen/_15sp"
+                android:text="0.00% ~"/>
+
+
+            <TextView
+                android:id="@+id/item_max_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:textColor="@color/PINK"
+                android:textStyle="bold"
+                android:textSize="@dimen/_20sp"
+                android:text="0.00%"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/item_max_rate"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="4dp"
-        android:layout_weight="4"
-        android:gravity="center"
-        android:textSize="@dimen/_15sp"/>
 
 </LinearLayout>

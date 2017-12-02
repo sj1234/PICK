@@ -549,11 +549,6 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
-
-            ItemSearchFragment fragment;
-            Bundle bundle;
-            FragmentTransaction ft;
-
             switch(msg.what){
                 case 6: //데이터 받아옴
                     Log.i("SearchHandler", "case 6");

@@ -1,12 +1,14 @@
 package com.example.sjeong.pick;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,40 +63,36 @@ public class ItemAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_itemadapter, parent, false);
         }
 
-        if(prime_boolean){
-            String code = arraylist.get(position).getCode().toString();
-            if(prime.contains(code)) {
-                convertView.setBackgroundResource(R.drawable.item_bg_prime);
-                Log.i("prime", code+ " + "+prime.toString());
-            }
-            else
-                convertView.setBackgroundResource(R.drawable.item_bg);
-        }
-
         TextView name = (TextView) convertView.findViewById(R.id.item_name);
         TextView min_rate = (TextView) convertView.findViewById(R.id.item_min_rate);
         TextView max_rate = (TextView)convertView.findViewById(R.id.item_max_rate);
+        ImageView bank_image = (ImageView)convertView.findViewById(R.id.bank_image);
+
+        if(prime_boolean){
+            String code = arraylist.get(position).getCode().toString();
+            if(prime.contains(code)) {
+                convertView.setBackgroundResource(R.drawable.round_pink_gradient);
+                name.setTextColor(Color.WHITE);
+                min_rate.setTextColor(Color.WHITE);
+                max_rate.setTextColor(Color.WHITE);
+                Log.i("prime", code+ " + "+prime.toString());
+            }
+            else {
+                convertView.setBackgroundResource(R.drawable.menu);
+                name.setTextColor(Color.parseColor("#515151"));
+                min_rate.setTextColor(Color.parseColor("#fe6186"));
+                max_rate.setTextColor(Color.parseColor("#fe6186"));
+            }
+        }
 
         name.setText(arraylist.get(position).getName().toString());
         min_rate.setText(arraylist.get(position).getCont_rate().toString()+"% ~");
         max_rate.setText(arraylist.get(position).getMax_rate().toString()+"%");
 
         if(onClickListener != null) {
-            name.setTag(arraylist.get(position).getCode().toString());
-            name.setOnClickListener(onClickListener);
-
-            ImageView image = (ImageView)convertView.findViewById(R.id.image);
-            image.setTag(arraylist.get(position).getCode().toString());
-            image.setOnClickListener(onClickListener);
-
-            name.setTag(arraylist.get(position).getCode().toString());
-            name.setOnClickListener(onClickListener);
-
-            min_rate.setTag(arraylist.get(position).getCode().toString());
-            min_rate.setOnClickListener(onClickListener);
-
-            max_rate.setTag(arraylist.get(position).getCode().toString());
-            max_rate.setOnClickListener(onClickListener);
+            LinearLayout item_background = (LinearLayout) convertView.findViewById(R.id.item_background);
+            item_background.setTag(arraylist.get(position).getCode().toString());
+            item_background.setOnClickListener(onClickListener);
         }
         return convertView;
     }

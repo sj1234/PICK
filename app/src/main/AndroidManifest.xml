@@ -14,21 +14,15 @@
 
             <activity android:name=".MainActivity"
                 android:screenOrientation="portrait"/>
-            <activity
-                android:name=".SearchActivity"
-                android:windowSoftInputMode="adjustPan|stateHidden"
-                android:screenOrientation="portrait"/>
-                # 키보드 올라올 때 화면 사이즈를 바꾸지 않고 자름 | 자동으로 키보드 올라오는것 방지
-            <activity android:name=".ItemActivity"
+        # 키보드 올라올 때 화면 사이즈를 바꾸지 않고 자름 | 자동으로 키보드 올라오는것 방지
+        <activity android:name=".ItemActivity"
                 android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
             <activity android:name=".My.MyActivity"
                 android:screenOrientation="portrait"/>
             <activity android:name=".TargetActivity"
                 android:screenOrientation="portrait"/>
-            <activity android:name=".TargetSettingActivity"
-                android:screenOrientation="portrait"/>
-            <activity android:name=".Calculator.CalculatorActivity"
+        <activity android:name=".Calculator.CalculatorActivity"
                 android:screenOrientation="portrait"/>
             <activity
                 android:name=".FAQActivity"

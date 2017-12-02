@@ -2,7 +2,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#c8e2ea">
+    android:background="@color/BackGround">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp">
+
+        <ImageButton
+            android:id="@+id/back_to_login"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page_dark"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="상품검색 결과"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/MainDark"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="은행"
+            android:letterSpacing="0.3"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/Black"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="상품명"
+            android:letterSpacing="0.3"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/Black"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="금리"
+            android:letterSpacing="0.3"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/Black"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listitem"

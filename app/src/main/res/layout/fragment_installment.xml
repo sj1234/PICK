@@ -4,11 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:text="적금 금리 계산기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:textSize="@dimen/_20sp"/>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
@@ -22,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="월납입액(원)"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -47,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="목표기간(월)"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -72,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="약정금리(%)"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -96,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이자방식"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"/>
 
@@ -160,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="구분"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -169,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="만기지급액"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -178,7 +187,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="세후이자"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -192,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="일반(15.4%)"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -201,7 +210,7 @@
                 android:id="@+id/snormal_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
 
                 />
@@ -210,7 +219,7 @@
                 android:id="@+id/snormal_rat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 />
 
@@ -223,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="우대(9.4%)"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -232,7 +241,7 @@
                 android:id="@+id/sprime_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 />
 
@@ -240,7 +249,7 @@
                 android:id="@+id/sprime_rat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 />
 
@@ -255,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="비과세(0%)"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/tableborder"
                 />
@@ -264,7 +273,7 @@
                 android:id="@+id/sfree_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 />
 
@@ -272,7 +281,7 @@
                 android:id="@+id/sfree_rat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textAlignment="center"
                 />
 

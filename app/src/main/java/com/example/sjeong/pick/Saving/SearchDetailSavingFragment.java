@@ -1,6 +1,5 @@
 package com.example.sjeong.pick.Saving;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -10,21 +9,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
+import com.labo.kaji.fragmentanimations.MoveAnimation;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ import static com.example.sjeong.pick.R.id.spinner;
  * Created by mijin on 2017-11-11.
  */
 
-public class SearchDetailSavingFragment extends Fragment implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
+public class SearchDetailSavingFragment extends Fragment implements View.OnClickListener{//, CheckBox.OnCheckedChangeListener {
     public static int TIME_OUT = 1001;
 
     private ProgressDialog progressDialog;
@@ -45,7 +47,8 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
     protected CharSequence[] bankList, primecondList, conttermList;
     View view;
     ArrayAdapter<CharSequence> adspin;
-    TextView bank, vbank, primeT, vprime_cond, min, month, cont_term;
+    TextView bank, primeT, min, month, cont_term;
+    LinearLayout vbank, vprime_cond;
     CheckBox[] vjoin_target, vjoin_way, vprod_type, vori_pay_method, vrat_pay_method;
     SeekBar vmin_intr, vmonth_limit, vcont_term;
     String prime_cond;
@@ -56,6 +59,27 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
     String json;
 
+    private String animation = "UP";
+    public SearchDetailSavingFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        switch(animation){
+            case "UP":
+                return MoveAnimation.create(MoveAnimation.UP, enter, 500);
+            case "DOWN":
+                animation = "UP";
+                return MoveAnimation.create(MoveAnimation.DOWN, enter, 500);
+        }
+        return null;
+    }
+
+    public void setAnimation(String animation){
+        this.animation = animation;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -64,14 +88,14 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         vjoin_target = new CheckBox[]{(CheckBox)view.findViewById(R.id.radioButton1),(CheckBox)view.findViewById(R.id.radioButton2),(CheckBox)view.findViewById(R.id.radioButton3)};
         //Spinner bank = (Spinner) view.findViewById(R.id.spinner);
         bank = (TextView) view.findViewById(R.id.bank);
-        vbank = (TextView) view.findViewById(R.id.spinner);
+        vbank = (LinearLayout) view.findViewById(R.id.spinner);
         vjoin_way = new CheckBox[]{(CheckBox)view.findViewById(R.id.ch1),(CheckBox)view.findViewById(R.id.ch2), (CheckBox)view.findViewById(R.id.ch3), (CheckBox)view.findViewById(R.id.ch4)};
         //Spinner cont_term = (Spinner) view.findViewById(R.id.spinner3);
         //Spinner prime_cond = (Spinner) view.findViewById(R.id.spinner2);
         vcont_term = (SeekBar) view.findViewById(R.id.spinner3);
         cont_term = (TextView) view.findViewById(R.id.cont_term);
         primeT = (TextView) view.findViewById(R.id.primeT);
-        vprime_cond = (TextView) view.findViewById(R.id.spinner2);
+        vprime_cond = (LinearLayout) view.findViewById(R.id.spinner2);
         vmin_intr = (SeekBar) view.findViewById(R.id.min_rate);
         min = (TextView) view.findViewById(R.id.min);
         vprod_type = new CheckBox[]{(CheckBox)view.findViewById(R.id.freeInput), (CheckBox)view.findViewById(R.id.fixInput)};
@@ -86,6 +110,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         vbank.setOnClickListener(this);
         vprime_cond.setOnClickListener(this);
 
+        /*
         vjoin_target[0].setOnCheckedChangeListener(this);
         vjoin_target[1].setOnCheckedChangeListener(this);
         vjoin_target[2].setOnCheckedChangeListener(this);
@@ -103,7 +128,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
         vrat_pay_method[0].setOnCheckedChangeListener(this);
         vrat_pay_method[1].setOnCheckedChangeListener(this);
-
+*/
         //ContentValues
 
 
@@ -176,7 +201,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
             }
         });
 
-        Button sss = (Button) view.findViewById(R.id.sss);
+        ImageButton sss = (ImageButton) view.findViewById(R.id.sss);
         sss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -671,7 +696,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
 
     }
-
+/*
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()){
@@ -698,4 +723,5 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                 break;
         }
     }
+    */
 }

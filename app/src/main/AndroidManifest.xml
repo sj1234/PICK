@@ -63,7 +63,7 @@
                 android:screenOrientation="portrait"/>
             <activity android:name=".SearchDepActivity"
                 android:screenOrientation="portrait"></activity>
-            <activity android:name=".SavingSearchActivity"
+            <activity android:name=".Saving.SavingSearchActivity"
                 android:screenOrientation="portrait"/>
             <activity android:name=".Saving.ProductActivity"
                 android:screenOrientation="portrait"/>

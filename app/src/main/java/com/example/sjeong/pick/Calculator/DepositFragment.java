@@ -56,7 +56,7 @@ public class DepositFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(won.getText().toString().equals("")&&dur.getText().toString().equals("")&&rate.getText().toString().equals("")) {
+                if(!won.getText().toString().equals("")&&!dur.getText().toString().equals("")&&!rate.getText().toString().equals("")) {
                     w = Double.parseDouble(won.getText().toString());
                     d = Double.parseDouble(dur.getText().toString());
                     r = Double.parseDouble(rate.getText().toString());

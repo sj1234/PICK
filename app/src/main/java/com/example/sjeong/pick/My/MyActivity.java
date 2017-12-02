@@ -44,6 +44,10 @@ public class MyActivity extends AppCompatActivity {
         usr_id = prefs.getString("id",null);
 
 
+        TextView interest_title = (TextView) findViewById(R.id.interest_title);
+        interest_title.setText(usr_id+"님의 관심상품");
+
+
         context = getApplicationContext();
         ListView listView = (ListView) findViewById(R.id.listView);
 

@@ -3,43 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="10dp"
     android:background="@color/BackGround">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:padding="10dp"
-        android:id="@+id/question_layout">
+        android:id="@+id/question_layout"
+        android:orientation="horizontal"
+        android:background="@drawable/round_white">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal|top"
             android:text="Q."
-            android:textSize="@dimen/_20sp"
             android:textColor="@color/MainDark"
-            android:textStyle="bold"
-            android:gravity="center_horizontal|top"/>
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:textSize="@dimen/_15sp"
-            android:textColor="@color/Black"/>
+            android:textColor="@color/Black"
+            android:text="sample"
+            android:gravity="center_vertical"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:padding="10dp"
-        android:id="@+id/answer_layout">
+        android:layout_marginTop="10dp"
+        android:id="@+id/answer_layout"
+        android:orientation="horizontal"
+        android:background="@drawable/round_white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,9 +59,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:textSize="@dimen/_15sp"
-            android:textColor="@color/Black"/>
+            android:padding="5dp"
+            android:textColor="@color/Black"
+            android:text="sample"
+            android:gravity="center_vertical"/>
 
     </LinearLayout>
 

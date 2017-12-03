@@ -15,7 +15,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +55,7 @@ public class ItemActivity extends AppCompatActivity {
     private String data, url;
     private TextView name_textview, item_summary;
     private Button item_homepage;
+    private ScrollView item_scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,7 @@ public class ItemActivity extends AppCompatActivity {
         // 상품정보
         Intent intent = getIntent();
         data = intent.getStringExtra("data");
+
 
         // DB에서 상품 자세한 정보 받아오기
         GetItemHandler handler = new GetItemHandler(this);
@@ -149,13 +153,18 @@ public class ItemActivity extends AppCompatActivity {
         Log.i("table maker", "table maker");
 
         try {
-            Drawable background = ContextCompat.getDrawable(context, R.drawable.round_light_black);
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            int size=Math.round(5*dm.density);
+
             TableRow tr_title = new TableRow(this);
             tr_title.setGravity(Gravity.CENTER);
 
             TextView term_title = new TextView(this);
             term_title.setGravity(Gravity.CENTER);
-            term_title.setBackground(background);
+            term_title.setBackground(ContextCompat.getDrawable(context, R.drawable.round_light_black));
+            term_title.setTextColor(Color.parseColor("#515151"));
+            term_title.setPadding(size,size,size,size);
+            term_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
             term_title.setText("가입기간");
             tr_title.addView(term_title);
 
@@ -167,6 +176,10 @@ public class ItemActivity extends AppCompatActivity {
 
                     TextView cond_title = new TextView(this);
                     cond_title.setGravity(Gravity.CENTER);
+                    cond_title.setBackgroundColor(Color.parseColor("#d9d9d9"));
+                    cond_title.setPadding(size,size,size,size);
+                    cond_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
+                    cond_title.setTextColor(Color.parseColor("#515151"));
 
                     switch(j){
                         case 0:
@@ -197,6 +210,10 @@ public class ItemActivity extends AppCompatActivity {
 
             TextView rate_title = new TextView(this);
             rate_title.setGravity(Gravity.CENTER);
+            rate_title.setBackground(ContextCompat.getDrawable(context, R.drawable.round_light_black_right));
+            rate_title.setTextColor(Color.parseColor("#515151"));
+            rate_title.setPadding(size,size,size,size);
+            rate_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
             rate_title.setText("금리");
             tr_title.addView(rate_title);
 
@@ -210,6 +227,9 @@ public class ItemActivity extends AppCompatActivity {
 
                 TextView term = new TextView(this);
                 term.setGravity(Gravity.CENTER);
+                term.setTextColor(Color.BLACK);
+                term.setPadding(size,size,size,size);
+                term.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
                 term.setText(arrObject.get("CONT_TERM").toString() + "~" + arrObject.get("CONT_TERM_END").toString());
                 tr.addView(term);
 
@@ -219,6 +239,9 @@ public class ItemActivity extends AppCompatActivity {
                     if (!splites[j].equals("")) {
                         TextView colum_cond = new TextView(this);
                         colum_cond.setGravity(Gravity.CENTER);
+                        colum_cond.setTextColor(Color.BLACK);
+                        colum_cond.setPadding(size,size,size,size);
+                        colum_cond.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
 
                         if (j == 0) {
                             switch (splites[j]) {
@@ -339,6 +362,9 @@ public class ItemActivity extends AppCompatActivity {
                 TextView rate = new TextView(this);
 
                 rate.setGravity(Gravity.CENTER);
+                rate.setTextColor(Color.parseColor("#fe6186"));
+                rate.setPadding(size,size,size,size);
+                rate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
                 if(arrObject.get("CONT_RATE").toString().equals(arrObject.get("MAX_RATE").toString()))
                     rate.setText(arrObject.get("CONT_RATE").toString() + "%");
                 else
@@ -409,19 +435,20 @@ public class ItemActivity extends AppCompatActivity {
                         });
 
                         // 가입대상
-                        /*
                         String target= "";
-                        if(!jObject.get("JOIN_TARGET").toString().equals("0,0,0")){
-                            String[] target_split = jObject.get("JOIN_TARGET").toString().split(",");
-                            if(target_split[0].equals("1")) target+="개인 ";
-                            if(target_split[1].equals("1")) target+="단체 ";
-                            if(target_split[2].equals("1")) target+="사업자/법인";
+                        if(Integer.parseInt(jObject.get("JOIN_TARGET").toString()) != 0){
+                            int target_int = Integer.parseInt(jObject.get("JOIN_TARGET").toString());
+                            if((target_int & 4) == 4) target+="개인 ";
+                            if((target_int & 2) == 2) target+="단체 ";
+                            if((target_int-1)%2 == 0) target+="사업자/법인";
                             itemdetails.add(new ItemDetail("가입대상", target));
                         }
-                        */
 
                         itemdetails.add(new ItemDetail("가입방법", jObject.get("J_WAY").toString().replace("<br/>", ", ")));
-                        itemdetails.add(new ItemDetail("가입한도", jObject.get("J_LIMIT").toString()+"원 ~ "+jObject.get("M_LIMIT").toString()+"원"));
+
+                        int j_limit = Integer.parseInt(jObject.get("J_LIMIT").toString()) * 1000;
+                        int m_limit = Integer.parseInt(jObject.get("M_LIMIT").toString()) * 10;
+                        itemdetails.add(new ItemDetail("가입한도", String.format("%,d", j_limit)+"원 ~ "+String.format("%,d", m_limit)+",000,000원"));
 
                         if(jObject.get("CS").toString().equals("0")) itemdetails.add(new ItemDetail("단리복리", "단리"));
                         else itemdetails.add(new ItemDetail("단리복리", "복리"));
@@ -444,7 +471,7 @@ public class ItemActivity extends AppCompatActivity {
                         itemdetails.add(new ItemDetail("만기이율", jObject.get("AFTER").toString().replace("<br/>", "\n")));
 
                         if(!jObject.get("PRIME").toString().isEmpty())
-                            itemdetails.add(new ItemDetail("우대조건", jObject.get("PRIME").toString().replace("<br/>", "\n")));
+                            itemdetails.add(new ItemDetail("우대조건", jObject.get("PRIME").toString().replace("<br/>", "\n").replace("=======>"," - ")));
                         if(!jObject.get("ETC").toString().isEmpty())
                             itemdetails.add(new ItemDetail("기타", jObject.get("ETC").toString().replace("<br/>", "\n")));
 
@@ -471,14 +498,17 @@ public class ItemActivity extends AppCompatActivity {
                         Log.i("height", height+"");
                         listView.setLayoutParams(params);
                         listView.requestLayout();
-
-                        // 스크롤 맨위로 보내기
-                        ScrollView item_scrollview = (ScrollView)findViewById(R.id.item_scrollview);
-                        //item_scrollview.fullScroll(ScrollView.FOCUS_UP);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.i("item_detail", e.toString());
                     }
+                    item_scrollview = (ScrollView)findViewById(R.id.item_scrollview);
+                    item_scrollview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            item_scrollview.scrollTo(0, 0);
+                        }
+                    });
                     break;
                 case 9: // 에러 문제 (발생하는 경우 코드상에는 없음)
                     break;

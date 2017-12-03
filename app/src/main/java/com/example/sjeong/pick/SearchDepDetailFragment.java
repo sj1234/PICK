@@ -3,6 +3,7 @@ package com.example.sjeong.pick;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,9 @@ import android.widget.Toast;
 
 import com.labo.kaji.fragmentanimations.MoveAnimation;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,19 +41,25 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class SearchDepDetailFragment extends Fragment implements View.OnClickListener{
 
     private TextView bank_text, join_way_text, term_text, rate_text, min_join;
     private CheckBox join_1, join_2, join_3, com, sim, first_customer, mobile_internet, fix_rate, float_rate;
     private String[] detail_info = new String[9];
-    private View view;
+    private View view, bank_view, join_way_view;
     private int animation = MoveAnimation.UP;
+    private ArrayList<CheckBox> bank_list = new  ArrayList<CheckBox>();
+    private ArrayList<CheckBox> join_list = new  ArrayList<CheckBox>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search_dep_detail,null);
+        bank_view = getActivity().getLayoutInflater().inflate(R.layout.bank_select,null);
+        join_way_view = getActivity().getLayoutInflater().inflate(R.layout.join_way_select,null);
 
         // 은행선택
         LinearLayout bank = (LinearLayout)view.findViewById(R.id.bank);
@@ -152,7 +162,7 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
         Button search_base = (Button)view.findViewById(R.id.search_base);
         search_base.setOnClickListener(this);
 
-        FormatInfo();
+        SetInit();
         return view;
     }
 
@@ -168,42 +178,13 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
             animation = MoveAnimation.DOWN;
     }
 
-    private View bank_view, join_way_view;
-
     @Override
     public void onClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        bank_view = getActivity().getLayoutInflater().inflate(R.layout.bank_select,null);
-        final ArrayList<CheckBox> bank_list = new  ArrayList<CheckBox>();
-        // 은행 리스트 -> 순서 농협, 기업, 국민, 우리, 하나, 산업, 경남, 광주, 대구, 부산, 수협, 스탠다드, 씨티, 우체국, 전북, 제주, 케이
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.NH));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.IBK));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.KB));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.WooRi));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.HaNa));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.KDB));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.KN));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.GJ));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.DG));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.BS));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.SH));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.STANDARD));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.CITY));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.POST));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.JB));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.JJ));
-        bank_list.add((CheckBox) bank_view.findViewById(R.id.K));
-
-        join_way_view = getActivity().getLayoutInflater().inflate(R.layout.join_way_select,null);
-        final ArrayList<CheckBox> join_list = new  ArrayList<CheckBox>();
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Inter));
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Mobile));
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Visit));
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Call));
 
         switch(v.getId()){
             case R.id.bank:
+                resetView();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("은행선택");
                 builder.setView(bank_view);
                 builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -246,40 +227,14 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
                         dialog.dismiss();
                     }
                 });
-
-                // All 선택시 클릭 리스너 처리
-                CheckBox All_bank = (CheckBox) bank_view.findViewById(R.id.ALL);
-                All_bank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            if ( isChecked ) {
-                                                                for(CheckBox bank : bank_list)
-                                                                    bank.setChecked(true);
-                                                            }
-                                                            else{
-                                                                for(CheckBox bank : bank_list)
-                                                                    bank.setChecked(false);
-                                                            }
-                                                        }
-                                                    }
-                );
-
-                if(!bank_text.getText().toString().isEmpty()){
-                    if(bank_text.getText().toString()=="전체") {
-                        All_bank.setChecked(true);
-                    }
-                    else{
-                        for(CheckBox bank : bank_list){
-                            if(bank_text.getText().toString().contains(bank.getText().toString()))
-                                bank.setChecked(true);
-                        }
-                    }
-                }
                 builder.show();
                 break;
             case R.id.join_way:
-                builder.setTitle("가입방법선택");
-                builder.setView(join_way_view);
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                resetView();
+                AlertDialog.Builder builder_join = new AlertDialog.Builder(getActivity());
+                builder_join.setTitle("가입방법선택");
+                builder_join.setView(join_way_view);
+                builder_join.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -320,36 +275,7 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
                         dialog.dismiss();
                     }
                 });
-
-                // All 선택시 클릭 리스너 처리
-                CheckBox All_join = (CheckBox) join_way_view.findViewById(R.id.ALL);
-                All_join.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            if ( isChecked ) {
-                                                                for(CheckBox join : join_list)
-                                                                    join.setChecked(true);
-                                                            }
-                                                            else{
-                                                                for(CheckBox join : join_list)
-                                                                    join.setChecked(false);
-                                                            }
-                                                        }
-                                                    }
-                );
-
-                if(!join_way_text.getText().toString().isEmpty()){
-                    if(join_way_text.getText().toString()=="전체") {
-                        All_join.setChecked(true);
-                    }
-                    else{
-                        for(CheckBox join : join_list){
-                            if(join_way_text.getText().toString().contains(join.getText().toString()))
-                                join.setChecked(true);
-                        }
-                    }
-                }
-
-                builder.show();
+                builder_join.show();
                 break;
             case R.id.search_base: // 상품명 검색으로 돌아가기
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -369,6 +295,109 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
             case R.id.reset:  //초기화
                 FormatInfo();
                 break;
+        }
+    }
+
+    public void resetView(){
+        bank_view = getActivity().getLayoutInflater().inflate(R.layout.bank_select,null);
+        // 은행 리스트 -> 순서 농협, 기업, 국민, 우리, 하나, 산업, 경남, 광주, 대구, 부산, 수협, 스탠다드, 씨티, 우체국, 전북, 제주, 케이
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.NH));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.IBK));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.KB));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.WooRi));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.HaNa));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.KDB));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.KN));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.GJ));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.DG));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.BS));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.SH));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.STANDARD));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.CITY));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.POST));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.JB));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.JJ));
+        bank_list.add((CheckBox) bank_view.findViewById(R.id.K));
+
+        // All 선택시 클릭 리스너 처리
+        CheckBox All_bank = (CheckBox) bank_view.findViewById(R.id.ALL);
+        All_bank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if ( isChecked ) {
+                    for(CheckBox bank : bank_list)
+                        bank.setChecked(true);
+                }
+                else{
+                    for(CheckBox bank : bank_list)
+                        bank.setChecked(false);
+                }
+            }
+        });
+        if(detail_info[0].equals("All")){
+            All_bank.setChecked(true);
+        }
+
+        for(CheckBox checkBox : bank_list){
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    CheckBox All_bank = (CheckBox) bank_view.findViewById(R.id.ALL);
+                    if(!isChecked && All_bank.isChecked()){
+                        All_bank.setChecked(false);
+                        for(CheckBox checkBox : bank_list){
+                            if(!checkBox.getText().toString().equals(buttonView.getText().toString()) && !checkBox.getText().toString().equals("전체"))
+                                checkBox.setChecked(true);
+                        }
+                    }
+                }
+            });
+
+            if(detail_info[0].contains(checkBox.getText().toString()))
+                checkBox.setChecked(true);
+        }
+
+        join_way_view = getActivity().getLayoutInflater().inflate(R.layout.join_way_select,null);
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Inter));
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Mobile));
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Visit));
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Call));
+
+        // All 선택시 클릭 리스너 처리
+        CheckBox All = (CheckBox) join_way_view.findViewById(R.id.ALL);
+        All.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if ( isChecked ) {
+                    for(CheckBox join : join_list)
+                        join.setChecked(true);
+                }
+                else{
+                    for(CheckBox join : join_list)
+                        join.setChecked(false);
+                }
+            }
+        });
+
+        if(detail_info[3].equals("All")){
+            All.setChecked(true);
+        }
+
+        for(CheckBox checkBox : join_list){
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    CheckBox All = (CheckBox) join_way_view.findViewById(R.id.ALL);
+                    if(!isChecked && All.isChecked()){
+                        All.setChecked(false);
+                        for(CheckBox checkBox : join_list){
+                            if(!checkBox.getText().toString().equals(buttonView.getText().toString()) && !checkBox.getText().toString().equals("전체"))
+                                checkBox.setChecked(true);
+                        }
+                    }
+                }
+            });
+
+            if(detail_info[3].contains(checkBox.getText().toString()))
+                checkBox.setChecked(true);
         }
     }
 
@@ -571,18 +600,140 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
                     intent_8.putExtra("data", msg.obj.toString());
                     startActivity(intent_8);
                     break;
+                case 9: // 초기 검색정보 받아옴
+                    try {
+                        JSONObject jObject = new JSONObject(msg.obj.toString());
+
+                        String bank = jObject.getString("BANK").toString();
+                        if(bank!=null && !bank.isEmpty()){
+                            detail_info[0]=bank;
+                            bank_text.setText(bank);
+                            //체크박스 설정하기
+                            for(CheckBox check : bank_list){
+                                if(check.getText().toString().contains(bank)){
+                                    check.setChecked(true);
+                                    break;
+                                }
+                            }
+                        }
+                        else{
+                            detail_info[0]="All";
+                            bank_text.setText("전체");
+                            CheckBox All_bank = (CheckBox) bank_view.findViewById(R.id.ALL);
+                            All_bank.setChecked(true);
+                        }
+
+                        // 기간
+                        detail_info[1]="0";
+                        SeekBar term_seekbar = (SeekBar) view.findViewById(R.id.term_seekbar);
+                        term_text.setText("0개월 이상");
+                        term_seekbar.setProgress(0);
+
+                        // 금리
+                        String rate_string = jObject.getString("CONT_RATE").toString();
+                        SeekBar rate = (SeekBar)view.findViewById(R.id.rate_seekBar);
+                        if(!rate_string.equals("0.00")){
+                            detail_info[2]=rate_string+"%";
+                            rate_text.setText(rate_string+"%");
+                            rate.setProgress((int)(Double.parseDouble(rate_string)*10));
+                        }
+                        else{
+                            detail_info[2]="0.00%";
+                            rate_text.setText("0.00%");
+                            rate.setProgress(0);
+                        }
+
+                        // 가입방법
+                        detail_info[3]="All";
+                        join_way_text.setText("전체");
+
+                        // 가입대상
+                        int target = Integer.parseInt(jObject.getString("JOIN_TARGET").toString());
+                        if(target!=0){
+                            if((target&4)==4) {
+                                detail_info[4]="1,";
+                                join_1.setChecked(true);
+                            }
+                            else{
+                                detail_info[4]="0,";
+                                join_1.setChecked(false);
+                            }
+
+                            if((target&2)==2) {
+                                detail_info[4]="1,";
+                                join_2.setChecked(true);
+                            }
+                            else{
+                                detail_info[4]="0,";
+                                join_2.setChecked(false);
+                            }
+
+                            if((target&1)==1) {
+                                detail_info[4]="1";
+                                join_3.setChecked(true);
+                            }
+                            else{
+                                detail_info[4]="0";
+                                join_3.setChecked(false);
+                            }
+                        }
+                        else{
+                            detail_info[4]="1,1,1";
+                            join_1.setChecked(true);
+                            join_2.setChecked(true);
+                            join_3.setChecked(true);
+                        }
+
+                        // 복리단리
+                        detail_info[5]="1,1";
+                        sim.setChecked(true);
+                        com.setChecked(true);
+
+                        // 최소가입
+                        detail_info[6]="1000원";
+                        SeekBar min_seekBar = (SeekBar)view.findViewById(R.id.min_seekBar);
+                        min_seekBar.setProgress(0);
+                        min_join.setText("1000원");
+
+                        // 우대조건
+                        detail_info[7]="0,0";
+                        first_customer.setChecked(false);
+                        mobile_internet.setChecked(false);
+
+                        // 변동금리
+                        detail_info[8]="1,1";
+                        fix_rate.setChecked(true);
+                        float_rate.setChecked(true);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.i("Error", e.toString());
+                    }
+                    break;
             }
         }
     }
 
-    public void FormatInfo(){
+    // 사용자 정보에 따른 검색정보 설정
+    public void SetInit(){
 
-        bank_view = getActivity().getLayoutInflater().inflate(R.layout.bank_select,null);
-        join_way_view = getActivity().getLayoutInflater().inflate(R.layout.join_way_select,null);
+        SharedPreferences preferences = getActivity().getSharedPreferences("person", MODE_PRIVATE);
+        String id = preferences.getString("id", "");
+
+        SearchDetailHandler handler = new SearchDetailHandler();
+        UserSearchDB test = new UserSearchDB(id, handler);
+        test.execute();
+
+    }
+    // 초기화
+    public void FormatInfo(){
 
         // 은행
         detail_info[0]="All";
         bank_text.setText("전체");
+        CheckBox All_bank = (CheckBox) bank_view.findViewById(R.id.ALL);
+        All_bank.setChecked(true);
 
         // 기간
         detail_info[1]="0";
@@ -626,7 +777,6 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
         detail_info[8]="1,1";
         fix_rate.setChecked(true);
         float_rate.setChecked(true);
-
     }
 }
 
@@ -733,6 +883,83 @@ class SearchDetailDB extends AsyncTask<Void, Integer, Void> {
                 msg.what=6;
                 msg.obj=data;
             }
+            handler.sendMessage(msg);
+        }
+    }
+}
+
+// 검색정보
+class UserSearchDB extends AsyncTask<Void, Integer, Void> {
+
+    private String data, string;
+    private SearchDepDetailFragment.SearchDetailHandler handler;
+
+    public UserSearchDB(String id, SearchDepDetailFragment.SearchDetailHandler handler){ // 상품명을 바탕으로
+        this.string = "u_id="+id;
+        this.handler = handler;
+    }
+
+    @Override
+    protected Void doInBackground(Void... params) {
+
+        try {
+            URL url=new URL("http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/GetSearchInfo.php");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            if(conn!=null) {
+
+                conn.setConnectTimeout(100000);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.connect();
+
+                OutputStream output = conn.getOutputStream();
+                output.write(string.getBytes("UTF-8"));
+                output.flush();
+                output.close();
+
+                InputStream input = null;
+                BufferedReader in = null;
+
+                input = conn.getInputStream();
+                in = new BufferedReader(new InputStreamReader(input), 8 * 1024);
+                String line = null;
+                StringBuffer buff = new StringBuffer();
+                while ((line = in.readLine()) != null) {
+                    buff.append(line + "\n");
+                }
+                data = buff.toString().trim();
+                Log.i("Result", data);
+
+                if(conn.getResponseCode() != HttpURLConnection.HTTP_OK){
+                    Log.i("Connnection", conn.getResponseCode()+"\n"+conn.getErrorStream() +"");
+                    return null;
+                }
+                else {
+                    Log.i("Connnection", conn.getResponseCode()+"");
+                }
+            }
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (ProtocolException e1) {
+            e1.printStackTrace();
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void result) {
+        super.onPostExecute(result);
+        if(data!=null){
+            Message msg = new Message();
+            msg.what=9;
+            msg.obj=data;
             handler.sendMessage(msg);
         }
     }

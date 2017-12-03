@@ -1,5 +1,6 @@
 package com.example.sjeong.pick;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,13 +37,18 @@ import java.util.ArrayList;
 
 public class FAQActivity extends AppCompatActivity {
 
+    private FloatingActionButton fab;
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
 
+        progressDialog = ProgressDialog.show(FAQActivity.this, "정보를 가져오는 중...", "잠시만 기다려주세요.");
+
         // 이메일 보내기
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.goal_add);
+        fab = (FloatingActionButton)findViewById(R.id.goal_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,9 +62,36 @@ public class FAQActivity extends AppCompatActivity {
         });
 
         ListView FAQ_list = (ListView) findViewById(R.id.FAQ_list);
+        FAQ_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState){
+                if (scrollState==SCROLL_STATE_IDLE)
+                    fab.show();
+                else
+                    fab.hide();
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {}
+        });
+
+        ImageButton back_to_main = (ImageButton)findViewById(R.id.back_to_main);
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Handler mHandler = new Handler() {
+            public void handleMessage(Message msg) {
+                progressDialog.dismiss(); // ProgressDialog를 종료
+            }
+        };
+
         GetFAQHandler handler = new GetFAQHandler(FAQ_list, this);
-        GetFAQDB test = new GetFAQDB(handler);
+        GetFAQDB test = new GetFAQDB(handler, mHandler);
         test.execute();
+
     }
 }
 
@@ -173,9 +208,11 @@ class GetFAQDB extends AsyncTask<Void, Integer, Void> {
 
     private String data, string;
     private GetFAQHandler handler;
+    private Handler mHandler;
 
-    public GetFAQDB(GetFAQHandler handler){
+    public GetFAQDB(GetFAQHandler handler, Handler mHandler){
         this.handler = handler;
+        this.mHandler = mHandler;
     }
 
     @Override
@@ -223,5 +260,6 @@ class GetFAQDB extends AsyncTask<Void, Integer, Void> {
         Message msg = new Message();
         msg.obj = data;
         handler.sendMessage(msg);
+        mHandler.sendMessage(new Message());
     }
 }

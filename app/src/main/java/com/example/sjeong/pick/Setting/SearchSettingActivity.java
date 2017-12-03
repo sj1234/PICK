@@ -1,19 +1,24 @@
 package com.example.sjeong.pick.Setting;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
@@ -36,16 +41,38 @@ public class SearchSettingActivity extends AppCompatActivity {
     EditText editText;
     Spinner spinner;
     int no;
+    String id;
+    AlertDialog.Builder builder2, builder4;
+    ///bankList = getResources().getStringArray(R.array.bank);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_setting);
 
+        SharedPreferences prefs = getSharedPreferences("person", MODE_PRIVATE);
+        id = prefs.getString("id", null);
+
         String userUrl = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getUser.php?";
         ContentValues contentValues = new ContentValues();
-        contentValues.put("usr_id","pick");
+        contentValues.put("usr_id", id);
 
 
+        TextView title2 = (TextView) findViewById(R.id.title2);
+        title2.setText(id + "님의 개인정보 설정");
+
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
+
+        ImageButton back_to_main = (ImageButton) findViewById(R.id.back_to_main);
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         NetworkTask networkTask = new NetworkTask(userUrl, contentValues);
         networkTask.execute();
 
@@ -60,10 +87,10 @@ public class SearchSettingActivity extends AppCompatActivity {
 
                 rate = editText.getEditableText().toString();
                 //rate = editText.getText().toString();
-                if(rate!=null&&!rate.equals("")) {
+                if (rate != null && !rate.equals("")) {
                     cont_rate = Float.parseFloat(rate);
-                }else{
-                    cont_rate=0;
+                } else {
+                    cont_rate = 0;
                 }
 
 
@@ -100,17 +127,16 @@ public class SearchSettingActivity extends AppCompatActivity {
                         join_target = "000";
                 }
 
-                Toast.makeText(getApplicationContext(), checkedId+":"+join_target, Toast.LENGTH_LONG).show();
+
             }
         });
-
 
 
         editText = (EditText) findViewById(R.id.profit);
 
 
-
         spinner = (Spinner) findViewById(R.id.spinner);
+
 
         spinner.setPrompt("주거래 은행");
 
@@ -124,7 +150,7 @@ public class SearchSettingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 bank = parent.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(), bank, Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -132,10 +158,9 @@ public class SearchSettingActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
+
+
 
     public class NetworkTask extends AsyncTask<Void, Void, String> {
 

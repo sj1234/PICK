@@ -8,7 +8,7 @@
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:weightSum="1"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants">
@@ -18,22 +18,19 @@
             android:id="@+id/delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:padding="10dp"
             android:background="@drawable/round_button_red"
             android:focusable="false"
+            android:padding="10dp"
             android:scaleType="centerInside"
-            android:src="@drawable/trash"/>
+            android:src="@drawable/trash" />
 
     </LinearLayout>
-    <!-- Bottom View End-->
 
     <!-- Surface View Start -->
     <LinearLayout
         android:id="@+id/change"
-        android:background="@drawable/list_border"
-        android:layout_width="316dp"
+        android:background="@drawable/round_white"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="vertical"
         android:descendantFocusability="blocksDescendants">

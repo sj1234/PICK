@@ -166,6 +166,8 @@ public class ProductActivity extends AppCompatActivity {
                 pView.findViewById(R.id.change).setBackground(getResources().getDrawable(R.drawable.fit_list_border));
                 ((TextView) pView.findViewById(R.id.title)).setTextColor(getResources().getColor(R.color.White));
                 ((TextView) pView.findViewById(R.id.profit)).setTextColor(getResources().getColor(R.color.White));
+                ((TextView) pView.findViewById(R.id.profit2)).setTextColor(getResources().getColor(R.color.White));
+
             }
             return pView;
         }

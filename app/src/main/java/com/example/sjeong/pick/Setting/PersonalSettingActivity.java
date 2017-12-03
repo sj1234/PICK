@@ -3,7 +3,9 @@ package com.example.sjeong.pick.Setting;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
@@ -38,9 +42,25 @@ public class PersonalSettingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_personal_setting);
 
-        SharedPreferences prefs = getSharedPreferences("PrefName",MODE_PRIVATE);
-        //id = prefs.getString("id",null);
-        id="pick";
+        SharedPreferences prefs = getSharedPreferences("person",MODE_PRIVATE);
+        id = prefs.getString("id",null);
+
+        TextView title2 = (TextView) findViewById(R.id.title2);
+        title2.setText(id+"님의 개인정보 설정");
+
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
+
+        ImageButton back_to_main = (ImageButton) findViewById(R.id.back_to_main);
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         now_pw = (EditText) findViewById(R.id.now_pw);
         new_pw = (EditText) findViewById(R.id.new_pw);

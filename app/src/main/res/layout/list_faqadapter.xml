@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/BackGround">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:id="@+id/question_layout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:text="Q."
             android:textSize="@dimen/_20sp"
             android:textColor="@color/MainDark"
@@ -24,8 +26,8 @@
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:textSize="@dimen/_15sp"
             android:textColor="@color/Black"/>
 
@@ -34,13 +36,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:id="@+id/answer_layout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:text="A."
             android:textSize="@dimen/_20sp"
             android:textColor="@color/MainDark"
@@ -51,8 +54,8 @@
             android:id="@+id/answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:textSize="@dimen/_15sp"
             android:textColor="@color/Black"/>
 

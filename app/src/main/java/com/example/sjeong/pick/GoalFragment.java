@@ -350,7 +350,7 @@ class GoalAdapter extends BaseAdapter {
         SimpleDateFormat CurDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now_date = CurDateFormat.format(new Date(now));
 
-        int persent_int;
+        int month_int, persent_int;
         String[] data_split = now_date.split("-");
         int year_gap = Integer.parseInt(data_split[0])-Integer.parseInt(split[0]);
         int month_gap = Integer.parseInt(data_split[1])-Integer.parseInt(split[1]) ;
@@ -377,6 +377,7 @@ class GoalAdapter extends BaseAdapter {
             }
         }
         persent_int -= Integer.parseInt(arraylist.get(position).getFail().toString());
+        month_int = persent_int;
         persent_int = (persent_int*100)/Integer.parseInt(end_month);
         persent.setText(persent_int+"%");
 
@@ -390,7 +391,18 @@ class GoalAdapter extends BaseAdapter {
         pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#fe6186")));
         pb.setProgress(persent_int);
 
-        // sum 예상금액 설정
+        // sum 예상금액 설정  month_int
+        int start = Integer.parseInt(arraylist.get(position).getStart_sum());
+        int monthly = Integer.parseInt(arraylist.get(position).getMonthly());
+        float before_tax__sum, after_tax__sum, rate_float = Float.parseFloat(arraylist.get(position).getRate());
+        if(arraylist.get(position).getCom_sim().equals("0")) { //단리인 경우
+            if(monthly==0){ // 예금인경우
+
+            }
+            before_tax__sum = start*(1.0f) * (1.0f + (rate_float*(0.01f)));
+        }
+        else
+            ;
         sum.setText("현재금액 : 약 1,000,000원");
 
         // listener

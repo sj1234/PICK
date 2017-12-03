@@ -24,7 +24,6 @@
                 android:screenOrientation="portrait"/>
             <activity
                 android:name=".FAQActivity"
-                android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
             <activity android:name=".Setting.PersonalSettingActivity"
                 android:screenOrientation="portrait"/>

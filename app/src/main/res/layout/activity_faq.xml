@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.FAQActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/White">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back_to_main"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="PICK  FAQ"
+            android:textColor="@color/MainDark"
+            android:textSize="@dimen/_15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="FAQ"
-            android:textSize="@dimen/_30sp"
-            android:textColor="@color/MainDark"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:text="자주 하는 질문(FAQ)을 모았습니다."
             android:textSize="@dimen/_15sp"
-            android:textColor="@color/MainLight"
+            android:textColor="@color/PINK"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:text="먼저 FAQ를 보신 후 더 궁금한 것은 밑에 '1:1 이메일 문의' 버튼을 통해 이메일로 문의해주시면 친절하게 답해드리겠습니다."
-            android:textSize="@dimen/_15sp"
-            android:textColor="@color/Black"
+            android:textSize="@dimen/_10sp"
+            android:textColor="@color/LightBlack"
             android:textStyle="bold"/>
 
         <ListView
@@ -62,4 +78,4 @@
         android:clickable="true"
         android:src="@drawable/email"/>
 
-</FrameLayout>
+</LinearLayout>

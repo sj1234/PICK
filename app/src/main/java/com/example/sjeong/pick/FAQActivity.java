@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,16 +39,11 @@ public class FAQActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
 
-        // toolbar 설정
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
-
         // 이메일 보내기
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.goal_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "구현예정 :-)", Toast.LENGTH_SHORT).show();
                 Intent email = new Intent(Intent.ACTION_SEND);
                 String[] address = {"email@address.com"};
                 email.setType("text/csv");
@@ -63,19 +57,6 @@ public class FAQActivity extends AppCompatActivity {
         GetFAQHandler handler = new GetFAQHandler(FAQ_list, this);
         GetFAQDB test = new GetFAQDB(handler);
         test.execute();
-    }
-
-    // 메뉴 클릭 listener
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        switch(id){
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
 

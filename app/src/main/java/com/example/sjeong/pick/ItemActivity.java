@@ -149,13 +149,13 @@ public class ItemActivity extends AppCompatActivity {
         Log.i("table maker", "table maker");
 
         try {
-
+            Drawable background = ContextCompat.getDrawable(context, R.drawable.round_light_black);
             TableRow tr_title = new TableRow(this);
             tr_title.setGravity(Gravity.CENTER);
 
             TextView term_title = new TextView(this);
-            term_title.setBackgroundColor(Color.rgb(233, 222, 124));
             term_title.setGravity(Gravity.CENTER);
+            term_title.setBackground(background);
             term_title.setText("가입기간");
             tr_title.addView(term_title);
 
@@ -164,8 +164,10 @@ public class ItemActivity extends AppCompatActivity {
             String[] splites = cond.split("/");
             for (int j = 0; j < splites.length; j++) {
                 if (!splites[j].equals("")) {
+
                     TextView cond_title = new TextView(this);
                     cond_title.setGravity(Gravity.CENTER);
+
                     switch(j){
                         case 0:
                             if(!splites[j].equals("선택")) {
@@ -335,11 +337,12 @@ public class ItemActivity extends AppCompatActivity {
                 }
 
                 TextView rate = new TextView(this);
+
                 rate.setGravity(Gravity.CENTER);
                 if(arrObject.get("CONT_RATE").toString().equals(arrObject.get("MAX_RATE").toString()))
                     rate.setText(arrObject.get("CONT_RATE").toString() + "%");
                 else
-                    rate.setText(arrObject.get("CONT_RATE").toString() + "%~\n " + arrObject.get("MAX_RATE").toString() + "%");
+                    rate.setText(arrObject.get("CONT_RATE").toString() + "%~\n  " + arrObject.get("MAX_RATE").toString() + "%");
                 tr.addView(rate);
 
                 table.addView(tr);

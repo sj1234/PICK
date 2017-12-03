@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,6 +41,9 @@ public class MyActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_my);
 
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         SharedPreferences prefs = getSharedPreferences("person",MODE_PRIVATE);
         usr_id = prefs.getString("id",null);
 
@@ -66,6 +70,17 @@ public class MyActivity extends AppCompatActivity {
 
         networkTask2 = new NetworkTask2(url,values);
         networkTask2.execute();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        switch(id){
+            case android.R.id.home:
+              finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
     class ProductAdapter extends BaseAdapter {
         ArrayList<Item2> items = new ArrayList<Item2>();

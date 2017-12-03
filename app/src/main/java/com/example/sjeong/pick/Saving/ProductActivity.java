@@ -1,22 +1,24 @@
 package com.example.sjeong.pick.Saving;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.sjeong.pick.My.ProductView;
 import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
 
@@ -33,15 +35,25 @@ import java.util.ArrayList;
 public class ProductActivity extends AppCompatActivity {
     Context context;
     ProductAdapter adapter;
-    int prime_cond;
+    int prime_cond, prod_code;
+
+    private ProgressDialog progressDialog;
+    public static int TIME_OUT = 1001;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_product);
+        setContentView(R.layout.activity_product);
         context = getApplicationContext();
         ListView listView = (ListView) findViewById(R.id.listView);
 
+        ImageButton back_to_login = (ImageButton) findViewById(R.id.back_to_login);
+        back_to_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         adapter = new ProductAdapter();
 
         listView.setAdapter(adapter);
@@ -58,7 +70,7 @@ public class ProductActivity extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray(json);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    adapter.addItem(new Item2(jsonObject.getInt("id"),jsonObject.getInt("prime_cond"),jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_desc")));
+                    adapter.addItem(new Item2(jsonObject.getInt("id"),jsonObject.getInt("prime_cond"),jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("bank")));
                     Log.d("가져온우대",jsonObject.getInt("prime_cond")+"/"+jsonObject.getInt("id"));
                     Log.d("뭔데", jsonObject.getString("rate_range"));
                 }
@@ -73,12 +85,26 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                int prod_code = ((Item2)adapterView.getAdapter().getItem(i)).getId();
+                prod_code = ((Item2)adapterView.getAdapter().getItem(i)).getId();
 
                 Log.d("선택",prod_code+"");
+
                 Intent intent = new Intent(ProductActivity.this, ProductDetailActivity.class);
                 intent.putExtra("prod_code",prod_code);
                 startActivity(intent);
+                //progressDialog = ProgressDialog.show(ProductActivity.this, "상품 검색 중", "잠시만 기다려주세요.");
+                //mHandler.sendEmptyMessageDelayed(TIME_OUT, 2000);
+
+               /* mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        progressDialog.dismiss();
+                    }
+                },4000);*/
+
+
             }
         });
 
@@ -96,13 +122,15 @@ public class ProductActivity extends AppCompatActivity {
 */
     }
 
-    @Nullable
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_product, container, false);
+    Handler mHandler = new Handler() {
 
+        public void handleMessage(Message msg) {
+            if (msg.what == TIME_OUT) { // 타임아웃이 발생하면
+                progressDialog.dismiss(); // ProgressDialog를 종료
+            }
+        }
 
-        return rootView;
-    }
+    };
 
     class ProductAdapter extends BaseAdapter {
         ArrayList<Item2> items = new ArrayList<Item2>();
@@ -124,8 +152,10 @@ public class ProductActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            ProductView pView = new ProductView(context);
+            ProductView2 pView = new ProductView2(context);
             Item2 item = items.get(i);
+
+
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
             ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
             Log.d("왜이래",item.getProfit());

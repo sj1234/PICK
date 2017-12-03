@@ -8,7 +8,7 @@ public class Item2 {
 
 
     int id, prime_cond;
-    String title, profit, content;
+    String title, profit, bank;
 
     public int getPrime_cond() {
         return prime_cond;
@@ -18,13 +18,13 @@ public class Item2 {
         this.prime_cond = prime_cond;
     }
 
-    public Item2(int id, int prime_cond, String title, String profit, String content) {
+    public Item2(int id, int prime_cond, String title, String profit, String bank) {
 
         this.id=id;
         this.prime_cond=prime_cond;
         this.title = title;
         this.profit = profit;
-        this.content = content;
+        this.bank = bank;
 
     }
 
@@ -52,11 +52,11 @@ public class Item2 {
         this.profit = profit;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public String getBank() {
+        return bank;
     }
 
-    public String getContent() {
-        return content;
+    public void setBank(String bank) {
+        this.bank = bank;
     }
 }

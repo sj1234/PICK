@@ -36,7 +36,7 @@ public class ProductFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_product, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_product, container, false);
 
         context = getActivity().getApplicationContext();
         ListView listView = (ListView) rootView.findViewById(R.id.listView);

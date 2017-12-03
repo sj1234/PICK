@@ -1,0 +1,63 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/change"
+    android:background="@drawable/list_border"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants">
+    <!--What you want to show in SurfaceView-->
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:background="@color/transparent"
+        >
+
+        <ImageView
+            android:id="@+id/bank"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/round_light"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="83dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="48dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:letterSpacing="-0.04"
+            android:text="i-ONE 놀이터 예금" />
+
+
+        <TextView
+            android:id="@+id/profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="9dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="#fe6186"
+            android:textSize="18sp"
+            android:text="1.6%~1.7%"/>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

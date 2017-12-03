@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -44,6 +46,8 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
     protected ArrayList<CharSequence> selectedBank = new ArrayList<CharSequence>();
     protected ArrayList<CharSequence> selectedPrimeCond = new ArrayList<CharSequence>();
+    boolean[] checkedbankList;
+    boolean[] checkedprimecondList;
     protected CharSequence[] bankList, primecondList, conttermList;
     View view;
     ArrayAdapter<CharSequence> adspin;
@@ -57,6 +61,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
     int send;
 
 
+    Button search_base, reset;
     String json;
 
     private String animation = "UP";
@@ -68,10 +73,10 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         switch(animation){
             case "UP":
-                return MoveAnimation.create(MoveAnimation.UP, enter, 500);
+                return MoveAnimation.create(MoveAnimation.UP, enter, 1000);
             case "DOWN":
                 animation = "UP";
-                return MoveAnimation.create(MoveAnimation.DOWN, enter, 500);
+                return MoveAnimation.create(MoveAnimation.DOWN, enter, 1000);
         }
         return null;
     }
@@ -110,6 +115,69 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         vbank.setOnClickListener(this);
         vprime_cond.setOnClickListener(this);
 
+        search_base = (Button) view.findViewById(R.id.search_base);
+        search_base.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                SearchSimpleSavingFragment fragment = (SearchSimpleSavingFragment)getActivity().getSupportFragmentManager().findFragmentByTag("SearchSimpleSaving");
+                SearchDetailSavingFragment detail = (SearchDetailSavingFragment)getActivity().getSupportFragmentManager().findFragmentByTag("SearchDetailSaving");
+
+                fragment.setAnimation("DOWN");
+                detail.setAnimation("DOWN");
+
+                ft.hide(detail);
+                ft.show(fragment);
+                ft.commit();
+            }
+        });
+
+        reset = (Button) view.findViewById(R.id.reset);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(CheckBox ch : vjoin_target){
+                    ch.setChecked(false);
+                }
+
+                for(CheckBox ch : vjoin_way){
+                    ch.setChecked(false);
+                }
+
+                for(CheckBox ch : vprod_type){
+                    ch.setChecked(false);
+                }
+
+                for(CheckBox ch : vori_pay_method){
+                    ch.setChecked(false);
+                }
+
+                for(CheckBox ch : vrat_pay_method){
+                    ch.setChecked(false);
+                }
+
+                bank.setText("은행을 선택해주세요.");
+                primeT.setText("우대조건을 선택해주세요.");
+
+                vmin_intr.setProgress(0);
+                vmonth_limit.setProgress(0);
+                vcont_term.setProgress(0);
+
+                selectedBank.clear();
+                selectedPrimeCond.clear();
+
+                for(boolean b : checkedbankList){
+                    b=false;
+                }
+
+                for(boolean b : checkedprimecondList){
+                    b=false;
+                }
+
+
+
+            }
+        });
         /*
         vjoin_target[0].setOnCheckedChangeListener(this);
         vjoin_target[1].setOnCheckedChangeListener(this);
@@ -154,7 +222,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         vcont_term.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                cont_term.setText(String.valueOf(progress));
+                cont_term.setText(String.valueOf(progress)+"개월 이상");
             }
 
             @Override
@@ -171,7 +239,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 String rate_string = String.format("%.2f", ((float)progress)*0.1);
-                min.setText(rate_string);
+                min.setText(rate_string+"%");
             }
 
             @Override
@@ -187,7 +255,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         vmonth_limit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                month.setText(String.valueOf(progress));
+                month.setText(String.valueOf(progress)+"천원");
             }
 
             @Override
@@ -259,11 +327,12 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
                 values.put("join_way", Integer.valueOf(joinway[0]+""+joinway[1]+""+joinway[2]+""+joinway[3],2));
 
-                values.put("cont_term",cont_term.getText().toString());
+                String[] split=cont_term.getText().toString().split("개월 이상");
+                values.put("cont_term",split[0]);
 
 
-
-                values.put("min_intr",min.getText().toString());
+                split = min.getText().toString().split("%");
+                values.put("min_intr",split[0]);
 
                 char[] prodtype = new char[]{'0','0'};
                 if(vprod_type[0].isChecked()) prodtype[0]='1';
@@ -280,7 +349,8 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
                 if(vrat_pay_method[1].isChecked()) ratpaymethod[1]='1';
                 values.put("rat_pay_method", Integer.valueOf(ratpaymethod[0]+""+ratpaymethod[1],2));
 
-                values.put("month_limit",month.getText().toString());
+                split = month.getText().toString().split("천원");
+                values.put("month_limit",split[0]);
 
                 Log.d("데이터", values.toString());
                 if(values.get("join_target").toString().equals("000")||values.get("no").toString().equals("0")||values.get("prime_cond").toString().equals("000000000000")||values.get("cont_term")==null||values.get("join_way").toString().equals("0000")){
@@ -322,7 +392,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         } // switch
     } // onClick()
 
-    boolean[] checkedbankList;
+
    // int count;
     protected void showSelectBankDialog()
     {
@@ -486,7 +556,6 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
     } // onChangeSelectedColours()
     */
 
-    boolean[] checkedprimecondList;
     protected void showSelectPrimeCondDialog()
     {
         //boolean[]
@@ -681,7 +750,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
             super.onPostExecute(result);
 
             json=result;
-            progressDialog = ProgressDialog.show(getContext(), "Title", "Message");
+            progressDialog = ProgressDialog.show(getContext(), "상품 검색 중", "잠시만 기다려주세요.");
             mHandler.sendEmptyMessageDelayed(TIME_OUT, 2000);
 
 

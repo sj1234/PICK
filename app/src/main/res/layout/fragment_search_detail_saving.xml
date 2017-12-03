@@ -52,6 +52,14 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*은 필수 선택입니다."
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/LightBlack"
+        android:textSize="15dp"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -90,7 +98,8 @@
                 android:layout_height="match_parent"
                 android:text="개인"
                 android:layout_weight="0.5"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black"
+                android:buttonTint="@color/PINK"/>
 
             <CheckBox
                 android:id="@+id/radioButton2"
@@ -98,7 +107,8 @@
                 android:layout_height="match_parent"
                 android:text="단체"
                 android:layout_weight="0.5"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black"
+                android:buttonTint="@color/PINK"/>
 
             <CheckBox
                 android:id="@+id/radioButton3"
@@ -106,7 +116,8 @@
                 android:layout_height="match_parent"
                 android:text="사업자/법인"
                 android:layout_weight="0.5"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black"
+                android:buttonTint="@color/PINK"/>
 
 
 
@@ -188,7 +199,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="모바일"
-            android:textColor="@color/Black"/>
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
         <CheckBox
             android:id="@+id/ch2"
@@ -196,7 +208,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="인터넷"
-            android:textColor="@color/Black"/>
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
         <CheckBox
             android:id="@+id/ch3"
@@ -204,7 +217,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="영업점"
-            android:textColor="@color/Black"/>
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
         <CheckBox
             android:id="@+id/ch4"
@@ -212,12 +226,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="콜센터"
-            android:textColor="@color/Black"/>
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
     </LinearLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -238,28 +253,17 @@
 
             <TextView
                 android:id="@+id/cont_term"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|right"
                 android:letterSpacing="-0.08"
                 android:padding="4dp"
-                android:text="0"
+                android:text="0개월 이상"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/_15sp"
-                android:textStyle="bold"
-                android:layout_marginRight="60dp"
-                android:layout_alignParentRight="true"/>
+                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="개월 이상"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|right"
-                android:textStyle="bold"/>
-
-         </RelativeLayout>
+         </LinearLayout>
 
 
         <SeekBar
@@ -306,7 +310,7 @@
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:letterSpacing="-0.08"
-                android:text="전체"
+                android:text="우대조건을 설정해주세요."
                 android:textColor="@color/LightBlack"
                 android:textSize="@dimen/_15sp" />
 
@@ -347,17 +351,10 @@
                 android:gravity="center_vertical|right"
                 android:letterSpacing="-0.08"
                 android:padding="4dp"
-                android:text="0.00"
+                android:text="0.0%"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/_15sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="%"
-                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -403,16 +400,18 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="자유적립"
-            android:textColor="@color/Black"/>
+            android:text="자유적립식"
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
         <CheckBox
             android:id="@+id/fixInput"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="정액적립"
-            android:textColor="@color/Black"/>
+            android:text="정액적립식"
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
 
     </LinearLayout>
@@ -445,16 +444,18 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="만기"
-            android:textColor="@color/Black"/>
+            android:text="만기 지급식"
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
         <CheckBox
             android:id="@+id/oriyear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="연"
-            android:textColor="@color/Black"/>
+            android:text="연 지급식"
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
     </LinearLayout>
 
@@ -486,16 +487,18 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="만기"
-            android:textColor="@color/Black"/>
+            android:text="만기 지급식"
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
         <CheckBox
             android:id="@+id/ratyear"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="연"
-            android:textColor="@color/Black"/>
+            android:text="연 지급식"
+            android:textColor="@color/Black"
+            android:buttonTint="@color/PINK"/>
 
     </LinearLayout>
 
@@ -525,16 +528,10 @@
                 android:gravity="center_vertical|right"
                 android:letterSpacing="-0.08"
                 android:padding="4dp"
+                android:text="0천원"
                 android:textColor="@color/Black"
                 android:textSize="@dimen/_15sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="천원"
-                android:gravity="center"/>
         </LinearLayout>
 
         <SeekBar

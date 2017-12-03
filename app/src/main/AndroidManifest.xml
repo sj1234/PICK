@@ -19,6 +19,7 @@
                 android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
             <activity android:name=".My.MyActivity"
+                android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
             <activity android:name=".TargetActivity"
                 android:screenOrientation="portrait"/>
@@ -62,6 +63,7 @@
             <activity android:name=".Saving.ProductActivity"
                 android:screenOrientation="portrait"/>
             <activity android:name=".Saving.ProductDetailActivity"
+                android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
     </application>
 

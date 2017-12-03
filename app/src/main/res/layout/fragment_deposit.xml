@@ -34,7 +34,8 @@
                 android:text="예치금액(원)"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
                 />
 
             <EditText
@@ -59,7 +60,8 @@
                 android:text="예치기간(월)"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
                 />
 
             <EditText
@@ -84,7 +86,8 @@
                 android:text="약정금리(%)"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
                 />
 
             <EditText
@@ -108,7 +111,8 @@
                 android:text="이자방식"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"/>
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"/>
 
             <RadioGroup
                 android:id="@+id/radio"
@@ -147,9 +151,15 @@
     <Button
         android:id="@+id/cal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="계산"/>
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/round_round_dark"
+        android:text="계산"
+        android:textColor="@color/White"
+        android:textSize="@dimen/_15sp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:id="@+id/result"
@@ -161,7 +171,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:stretchColumns="*"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="@drawable/table">
 
         <TableRow
             android:textAlignment="center">
@@ -172,7 +183,8 @@
             android:text="구분"
             android:padding="10dp"
             android:textAlignment="center"
-            android:background="@drawable/tableborder"
+            android:textColor="@color/CheckTextView"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -181,7 +193,8 @@
             android:text="만기지급액"
             android:padding="10dp"
             android:textAlignment="center"
-            android:background="@drawable/tableborder"
+            android:textColor="@color/CheckTextView"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -190,7 +203,8 @@
             android:text="세후이자"
             android:padding="10dp"
             android:textAlignment="center"
-            android:background="@drawable/tableborder"
+            android:textColor="@color/CheckTextView"
+            android:textStyle="bold"
             />
 
         </TableRow>
@@ -204,7 +218,8 @@
                 android:text="일반(15.4%)"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -234,7 +249,8 @@
                 android:text="우대(9.4%)"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -266,7 +282,8 @@
                 android:text="비과세(0%)"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:background="@drawable/tableborder"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
                 />
 
             <TextView

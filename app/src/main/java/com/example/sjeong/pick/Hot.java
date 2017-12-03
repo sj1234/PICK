@@ -6,8 +6,24 @@ package com.example.sjeong.pick;
 
 public class Hot {
     String Name;
-    Double maxRate;
-    int bankIcon;
+    Double minRate,maxRate;
+    int bankIcon, rank;
+
+    public Double getMinRate() {
+        return minRate;
+    }
+
+    public void setMinRate(Double minRate) {
+        this.minRate = minRate;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 
     public String getName() {
         return Name;
@@ -33,9 +49,11 @@ public class Hot {
         this.bankIcon = bankIcon;
     }
 
-    public Hot(String name, Double maxRate, int bankIcon) {
-        Name = name;
+    public Hot(String name, Double minRate, Double maxRate, int bankIcon, int rank) {
+        this.Name = name;
+        this.minRate = minRate;
         this.maxRate = maxRate;
         this.bankIcon = bankIcon;
+        this.rank = rank;
     }
 }

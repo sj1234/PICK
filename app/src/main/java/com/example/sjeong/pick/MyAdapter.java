@@ -35,8 +35,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.Name.setText(Hots.get(position).getName());
+        holder.minRate.setText(Hots.get(position).getMinRate().toString()+"~");
         holder.maxRate.setText(Hots.get(position).getMaxRate().toString());
         holder.bankIcon.setImageResource(Hots.get(position).getBankIcon());
+        holder.rank.setImageResource(Hots.get(position).getRank());
+
     }
 
     @Override
@@ -46,14 +49,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView Name, maxRate;
-        public ImageView bankIcon;
+        public TextView Name, maxRate, minRate;
+        public ImageView bankIcon, rank;
 
         public ViewHolder(View itemView) {
             super(itemView);
             Name = (TextView) itemView.findViewById(R.id.Name);
+            minRate = (TextView) itemView.findViewById(R.id.minRate);
             maxRate = (TextView) itemView.findViewById(R.id.maxRate);
             bankIcon = (ImageView) itemView.findViewById(R.id.bankIcon);
+            rank = (ImageView) itemView.findViewById(R.id.rank);
+
         }
     }
 }

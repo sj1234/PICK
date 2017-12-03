@@ -1,10 +1,12 @@
 package com.example.sjeong.pick;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +22,10 @@ import com.example.sjeong.pick.My.MyActivity;
 import com.example.sjeong.pick.Saving.SavingSearchActivity;
 import com.example.sjeong.pick.Setting.SettingActivity;
 import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -39,81 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
-
-        final LoopRecyclerViewPager viewPager = (LoopRecyclerViewPager) findViewById(R.id.viewPager);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-
         // RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        ArrayList<Hot> Hots = new ArrayList<Hot>();
-        Hots.add(new Hot("name",0.8,R.drawable.ic_menu_01));
-        Hots.add(new Hot("name",0.8,R.drawable.ic_menu_02));
-        Hots.add(new Hot("name",0.8,R.drawable.ic_menu_03));
-        Hots.add(new Hot("name",0.8,R.drawable.ic_menu_04));
-        MyAdapter myAdapter = new MyAdapter(Hots);
-        viewPager.setTriggerOffset(0.15f);
+        String url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/hot.php?";
+        NetworkTask21 networkTask21 = new NetworkTask21(url,new ContentValues());
+        networkTask21.execute();
 
-        viewPager.setFlingFactor(0.25f);
-        viewPager.setLayoutManager(layoutManager);
-        viewPager.setAdapter(myAdapter);
-        viewPager.setHasFixedSize(true);
-        viewPager.setLongClickable(true);
-
-        viewPager.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int i, int i2) {
-//                mPositionText.setText("First: " + viewPager.getFirstVisiblePosition());
-                int childCount = viewPager.getChildCount();
-                int width = viewPager.getChildAt(0).getWidth();
-                int padding = (viewPager.getWidth() - width) / 2;
-
-                for (int j = 0; j < childCount; j++) {
-                    View v = recyclerView.getChildAt(j);
-
-                    float rate = 0;
-                    if (v.getLeft() <= padding) {
-                        if (v.getLeft() >= padding - v.getWidth()) {
-                            rate = (padding - v.getLeft()) * 1f / v.getWidth();
-                        } else {
-                            rate = 1;
-                        }
-                        v.setScaleY(1 - rate * 0.1f);
-                    } else {
-
-                        if (v.getLeft() <= recyclerView.getWidth() - padding) {
-                            rate = (recyclerView.getWidth() - padding - v.getLeft()) * 1f / v.getWidth();
-                        }
-                        v.setScaleY(0.9f + rate * 0.1f);
-                    }
-                }
-            }
-        });
-
-        viewPager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (viewPager.getChildCount() < 3) {
-                    if (viewPager.getChildAt(1) != null) {
-                        View v1 = viewPager.getChildAt(1);
-                        v1.setScaleY(0.9f);
-                    }
-                } else {
-                    if (viewPager.getChildAt(0) != null) {
-                        View v0 = viewPager.getChildAt(0);
-                        v0.setScaleY(0.9f);
-                    }
-                    if (viewPager.getChildAt(2) != null) {
-                        View v2 = viewPager.getChildAt(2);
-                        v2.setScaleY(0.9f);
-                    }
-                }
-
-            }
-        });
 
         // 로그아웃 버튼
         ImageButton menu_logout = (ImageButton) findViewById(R.id.menu_logout);
@@ -201,6 +137,133 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent faq = new Intent(MainActivity.this, FAQActivity.class);
                 startActivity(faq);
                 break;
+        }
+    }
+
+
+    public class NetworkTask21 extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask21(String url, ContentValues values) {
+
+            this.url = url;
+            this.values = values;
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);
+            // 해당 URL로 부터 결과물을 얻어온다.
+
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+
+            ArrayList<Hot> Hots = new ArrayList<Hot>();
+            int ranking;
+            try {
+                if(result!=null) {
+                    JSONArray jarr = new JSONArray(result);
+                    for(int i=0;i<jarr.length();i++){
+
+                        JSONObject json = (JSONObject) jarr.get(i);
+                        if(i==0) ranking = R.drawable.gold;
+                        else if(i==1) ranking = R.drawable.silver;
+                        else ranking = R.drawable.metal;
+
+                        Hots.add(new Hot(json.getString("prod_name"),json.getDouble("min"),json.getDouble("max"),R.drawable.ic_menu_01,ranking));
+
+                    }
+
+                    final LoopRecyclerViewPager viewPager = (LoopRecyclerViewPager) findViewById(R.id.viewPager);
+                    final LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL,false);
+
+                    MyAdapter myAdapter = new MyAdapter(Hots);
+                    viewPager.setLayoutManager(layoutManager);
+                    viewPager.setTriggerOffset(0.15f);
+                    viewPager.setAdapter(myAdapter);
+                    viewPager.setFlingFactor(0.25f);
+
+
+                    viewPager.setHasFixedSize(true);
+                    viewPager.setLongClickable(true);
+
+                    viewPager.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                        @Override
+                        public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
+
+                        }
+
+                        @Override
+                        public void onScrolled(RecyclerView recyclerView, int i, int i2) {
+//                mPositionText.setText("First: " + viewPager.getFirstVisiblePosition());
+                            int childCount = viewPager.getChildCount();
+                            int width = viewPager.getChildAt(0).getWidth();
+                            int padding = (viewPager.getWidth() - width) / 2;
+
+                            for (int j = 0; j < childCount; j++) {
+                                View v = recyclerView.getChildAt(j);
+
+                                float rate = 0;
+                                if (v.getLeft() <= padding) {
+                                    if (v.getLeft() >= padding - v.getWidth()) {
+                                        rate = (padding - v.getLeft()) * 1f / v.getWidth();
+                                    } else {
+                                        rate = 1;
+                                    }
+                                    v.setScaleY(1 - rate * 0.1f);
+                                } else {
+
+                                    if (v.getLeft() <= recyclerView.getWidth() - padding) {
+                                        rate = (recyclerView.getWidth() - padding - v.getLeft()) * 1f / v.getWidth();
+                                    }
+                                    v.setScaleY(0.9f + rate * 0.1f);
+                                }
+                            }
+                        }
+                    });
+
+                    viewPager.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                        @Override
+                        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                            if (viewPager.getChildCount() < 3) {
+                                if (viewPager.getChildAt(1) != null) {
+                                    View v1 = viewPager.getChildAt(1);
+                                    v1.setScaleY(0.9f);
+                                }
+                            } else {
+                                if (viewPager.getChildAt(0) != null) {
+                                    View v0 = viewPager.getChildAt(0);
+                                    v0.setScaleY(0.9f);
+                                }
+                                if (viewPager.getChildAt(2) != null) {
+                                    View v2 = viewPager.getChildAt(2);
+                                    v2.setScaleY(0.9f);
+                                }
+                            }
+
+                        }
+                    });
+
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 }

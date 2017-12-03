@@ -23,6 +23,7 @@
             android:padding="10dp"
             android:background="@drawable/round_button_red"
             android:focusable="false"
+            android:scaleType="centerInside"
             android:src="@drawable/trash"/>
 
     </LinearLayout>

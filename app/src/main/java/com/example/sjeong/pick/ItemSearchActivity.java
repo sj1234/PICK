@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -68,7 +69,14 @@ public class ItemSearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         listView.setAdapter(listAdapter);
+
+        ImageButton back_to_search = (ImageButton)findViewById(R.id.back_to_search);
+        back_to_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

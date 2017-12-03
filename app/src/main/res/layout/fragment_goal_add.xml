@@ -4,12 +4,37 @@
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.GoalAddFragment"
     android:orientation="vertical"
-    android:layout_margin="20dp">
+    android:background="@color/White">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back_to_goal"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="PICK 목표치 추가하기"
+            android:textColor="@color/MainDark"
+            android:textSize="@dimen/_15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,67 +44,90 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="목표이름"
-                android:textSize="@dimen/_15sp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:padding="5dp"
-                android:gravity="center_vertical"/>
+                android:text="목표이름"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <EditText
                 android:id="@+id/goal_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:lines="1"
-                android:maxLength="20"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:hint="목표이름을 입력해주세요."
-                android:gravity="center"/>
+                android:textSize="@dimen/_15sp"
+                android:lines="1"
+                android:maxLength="10"
+                android:padding="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
-                android:layout_marginTop="15dp"
                 android:text="시작날짜"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <LinearLayout
+                android:id="@+id/start"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/round_edge"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/start_month"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:textSize="@dimen/_15sp"
-                    android:padding="5dp"
-                    android:gravity="center"/>
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="-0.08"
+                    android:text="2017-00-00"
+                    android:textColor="@color/LightBlack"
+                    android:textSize="@dimen/_15sp" />
 
                 <TextView
-                    android:id="@+id/start_month_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical|right"
                     android:text=">"
-                    android:textSize="@dimen/_15sp"
-                    android:layout_gravity="center"/>
+                    android:textColor="@color/LightBlack"
+                    android:textSize="@dimen/_30sp" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
-                android:layout_marginTop="15dp"
                 android:text="가입개월"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <NumberPicker
@@ -87,64 +135,81 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
-                    android:padding="5dp"/>
+                    android:padding="5dp" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text=" 개월"
+                    android:gravity="center"
                     android:padding="5dp"
-                    android:textSize="@dimen/_15sp"
-                    android:gravity="center"/>
+                    android:text=" 개월"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp" />
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="금리"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
-                <SeekBar
-                    android:id="@+id/rate_seekBar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:padding="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="금리"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp" />
 
                 <TextView
                     android:id="@+id/rate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:gravity="center"
-                    android:text="0.00%"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:letterSpacing="-0.08"
+                    android:padding="4dp"
+                    android:text="0.00%"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/rate_seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:progressTint="@color/PINK"
+                android:thumbTint="@color/PINK" />
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="단리복리"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -152,43 +217,56 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:buttonTint="@color/PINK"
+                    android:checked="true"
                     android:padding="5dp"
                     android:text="단리"
-                    android:textSize="@dimen/_10sp"
-                    android:checked="true"/>
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp" />
 
                 <RadioButton
                     android:id="@+id/sim"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:buttonTint="@color/PINK"
                     android:padding="5dp"
                     android:text="복리"
-                    android:textSize="@dimen/_10sp"/>
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="* 가입금액과 월납입금액 중 한가지 이상을 입력하여야 합니다.\n* 입력하지 않은 값에 대해서는 0으로 입력됩니다."
-                android:layout_marginTop="10dp"
-                android:textSize="@dimen/_10sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/LightBlack"
+                android:textSize="@dimen/_10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="가입금액"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <EditText
@@ -196,7 +274,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:hint="숫자만 입력해주세요."
+                    android:gravity="center_vertical"
+                    android:hint="가입금액을 입력해주세요."
+                    android:textSize="@dimen/_15sp"
                     android:inputType="number"
                     android:lines="1"
                     android:padding="5dp" />
@@ -206,9 +286,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:padding="5dp"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:text=" 원"
+                    android:textColor="@color/Black"
                     android:textSize="@dimen/_15sp" />
 
             </LinearLayout>
@@ -216,15 +297,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="월납입금액"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <EditText
@@ -232,19 +319,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:hint="월납입금액을 입력해주세요."
+                    android:textSize="@dimen/_15sp"
                     android:inputType="number"
                     android:lines="1"
-                    android:padding="5dp"
-                    android:hint="숫자만 입력해주세요."/>
+                    android:padding="5dp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text=" 원"
-                    android:textSize="@dimen/_15sp"
-                    android:gravity="center"/>
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp" />
 
             </LinearLayout>
 
@@ -252,47 +343,59 @@
                 android:id="@+id/fail_month1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
                 android:padding="5dp"
                 android:text="실패한 달"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/_15sp"
-                android:gravity="center_vertical"/>
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_15sp" />
 
             <LinearLayout
+                android:id="@+id/fail_month2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:id="@+id/fail_month2">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <NumberPicker
                     android:id="@+id/fail_month_num"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
-                    android:padding="5dp"/>
+                    android:padding="5dp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text=" 개월"
+                    android:gravity="center"
                     android:padding="5dp"
-                    android:textSize="@dimen/_15sp"
-                    android:gravity="center"/>
+                    android:text=" 개월"
+                    android:textColor="@color/Black"
+                    android:textSize="@dimen/_15sp" />
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/goal_add"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/round_round_dark"
+                android:text="목표 추가하기"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_15sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/goal_add"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:padding="5dp"
-        android:text="목표 추가하기"/>
 
 </LinearLayout>

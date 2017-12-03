@@ -16,12 +16,9 @@
                 android:screenOrientation="portrait"/>
         # 키보드 올라올 때 화면 사이즈를 바꾸지 않고 자름 | 자동으로 키보드 올라오는것 방지
         <activity android:name=".ItemActivity"
-                android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
             <activity android:name=".My.MyActivity"
                 android:theme="@style/ActionBarTheme"
-                android:screenOrientation="portrait"/>
-            <activity android:name=".TargetActivity"
                 android:screenOrientation="portrait"/>
         <activity android:name=".Calculator.CalculatorActivity"
                 android:screenOrientation="portrait"/>
@@ -52,12 +49,11 @@
             <activity android:name=".FindInfoActivity"
                 android:screenOrientation="portrait"/>
             <activity android:name=".GoalActivity"
-                android:theme="@style/ActionBarTheme"
                 android:screenOrientation="portrait"/>
             <activity android:name=".ItemSearchActivity"
                 android:screenOrientation="portrait"/>
             <activity android:name=".SearchDepActivity"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait"/>
             <activity android:name=".Saving.SavingSearchActivity"
                 android:screenOrientation="portrait"/>
             <activity android:name=".Saving.ProductActivity"

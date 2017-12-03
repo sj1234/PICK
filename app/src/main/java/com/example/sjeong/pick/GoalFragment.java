@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,14 +11,13 @@ import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -52,14 +50,23 @@ public class GoalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal, container, false);
 
         SharedPreferences preferences = getActivity().getSharedPreferences("person", MODE_PRIVATE);
         String id = preferences.getString("id", "");
 
+        // 뒤로 가기
+        ImageButton back_to_main = (ImageButton)view.findViewById(R.id.back_to_main);
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
+        // 목표 이름설정
         TextView title = (TextView)view.findViewById(R.id.goal_title);
-        title.setText(id+"님의 목표");
+        title.setText("'"+id+"'님의 목표");
 
         ListView listView = (ListView)view.findViewById(R.id.list_goal);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -115,6 +122,7 @@ public class GoalFragment extends Fragment {
                 case 10: // 성공
                     ArrayList<Goal> goals = new ArrayList<Goal>();
                     String text = msg.obj.toString();
+                    View.OnClickListener listener = null;
 
                     // listAdapter에 정보 저장, Goal 데이터가 있는 경우
                     if(!text.contains("No Data")){
@@ -132,6 +140,23 @@ public class GoalFragment extends Fragment {
                             e.printStackTrace();
                             Log.i("Goal Error", e.toString());
                         }
+
+                        listener = new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String data = v.getTag().toString();
+
+                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                GoalAddFragment goaladd = new GoalAddFragment();
+                                Bundle bundle = new Bundle(1);
+                                bundle.putString("data", data);
+                                goaladd.setArguments(bundle);
+
+                                ft.hide(getActivity().getSupportFragmentManager().findFragmentByTag("goal_fragment"));
+                                ft.add(R.id.fragment_goal, goaladd, "goal_add_fragment");
+                                ft.commit();
+                            }
+                        };
                     }
                     else{ // 데이터가 없는경우
                         long now = System.currentTimeMillis();  // 현재시간
@@ -142,22 +167,7 @@ public class GoalFragment extends Fragment {
                     }
 
                     // ListView 에 목표내용 출력
-                    GoalAdapter goalAdapter = new GoalAdapter(context, goals,  new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String data = v.getTag().toString();
-
-                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                            GoalAddFragment goaladd = new GoalAddFragment();
-                            Bundle bundle = new Bundle(1);
-                            bundle.putString("data", data);
-                            goaladd.setArguments(bundle);
-
-                            ft.hide(getActivity().getSupportFragmentManager().findFragmentByTag("goal_fragment"));
-                            ft.add(R.id.fragment_goal, goaladd, "goal_add_fragment");
-                            ft.commit();
-                        }
-                    });
+                    GoalAdapter goalAdapter = new GoalAdapter(context, goals, listener);
                     view.setAdapter(goalAdapter);
 
                     break;
@@ -278,10 +288,10 @@ class GoalAdapter extends BaseAdapter {
 
         // 종료 일자 계산 및 data 출력
         String[] split = start_month.split("-");
-        int month = Integer.parseInt(split[1])+Integer.parseInt(end_month);
+        int month = Integer.parseInt(split[1])+Integer.parseInt(end_month) + Integer.parseInt(arraylist.get(position).getFail().toString());
         int year = Integer.parseInt(split[0]) + (month/12);
         month = month%12;
-        if(month==0) month=12;
+        if(month==0){ month=12; year--; }
         date.setText(split[0]+". "+split[1]+". "+split[2]+" - "+year+". "+month+". "+split[2]);
 
         // 목표 이름 출력
@@ -318,17 +328,9 @@ class GoalAdapter extends BaseAdapter {
                     persent_int-=1;
             }
         }
+        persent_int -= Integer.parseInt(arraylist.get(position).getFail().toString());
         persent_int = (persent_int*100)/Integer.parseInt(end_month);
         persent.setText(persent_int+"%");
-
-        //image 설정
-        ImageView image = (ImageView)convertView.findViewById(R.id.goal_image);
-        Drawable image_drawable = ContextCompat.getDrawable(context, R.drawable.coins);
-        if(persent_int>=66)
-            image_drawable = ContextCompat.getDrawable(context, R.drawable.rich);
-        else if(persent_int>=33)
-            image_drawable = ContextCompat.getDrawable(context, R.drawable.bill);
-        image.setImageDrawable(image_drawable);
 
         TextView gap = (TextView)convertView.findViewById(R.id.goal_gap);
         TextView gap2 = (TextView)convertView.findViewById(R.id.goal_gap2);
@@ -337,8 +339,7 @@ class GoalAdapter extends BaseAdapter {
         gap2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 10f-a));
 
         // progressbar 설정
-        pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#6dd6ff")));
-        pb.setBackgroundColor(Color.parseColor("#ffffff"));
+        pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#fe6186")));
         pb.setProgress(persent_int);
 
         // sum 예상금액 설정

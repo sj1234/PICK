@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:scaleType="centerInside"
-        android:src="@drawable/up"
+        android:background="@drawable/menu"
+        android:padding="4dp"
+        android:src="@drawable/ibk"
         android:layout_margin="8dp"/>
 
     <LinearLayout

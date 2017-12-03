@@ -4,27 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.GoalFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/goal_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:textStyle="bold"
-            android:textSize="@dimen/_20sp"/>
-
-        <ListView
-            android:id="@+id/list_goal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"/>
-
-    </LinearLayout>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/goal_add"
         android:layout_width="wrap_content"
@@ -33,5 +12,65 @@
         android:src="@drawable/add"
         android:layout_gravity="bottom|right"
         android:layout_margin="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/White">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/back_to_main"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/back_page_dark" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="PICK 목표치"
+                android:textColor="@color/MainDark"
+                android:textSize="@dimen/_15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/goal_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/_15sp"
+            android:textStyle="bold"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/BackGround">
+
+            <ListView
+                android:id="@+id/list_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/BackGround"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

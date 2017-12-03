@@ -12,7 +12,7 @@
         android:layout_marginLeft="10dp">
 
         <ImageButton
-            android:id="@+id/back_to_login"
+            android:id="@+id/back_to_search"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_marginRight="40dp"

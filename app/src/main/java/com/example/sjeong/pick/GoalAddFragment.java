@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -62,6 +63,10 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_add, container, false);
 
+        // 뒤로가기
+        ImageButton back_to_goal = (ImageButton)view.findViewById(R.id.back_to_goal);
+        back_to_goal.setOnClickListener(this);
+
         // 목표이름
         goal_name = (EditText)view.findViewById(R.id.goal_name);
 
@@ -71,7 +76,8 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
 
         start_month = (TextView)view.findViewById(R.id.start_month);
         start_month.setText(CurDateFormat.format(new Date(now)));
-        start_month.setOnClickListener(this);
+        LinearLayout start = (LinearLayout)view.findViewById(R.id.start);
+        start.setOnClickListener(this);
 
         // 가입개월
         month = (NumberPicker)view.findViewById(R.id.month);
@@ -156,6 +162,14 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.back_to_goal: // 뒤로 가기
+                GoalAddFragment fragment = (GoalAddFragment)getActivity().getSupportFragmentManager().findFragmentByTag("goal_add_fragment");
+                GoalFragment goal = (GoalFragment)getActivity().getSupportFragmentManager().findFragmentByTag("goal_fragment");
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.remove(fragment);
+                ft.show(goal);
+                ft.commit();
+                break;
             case R.id.goal_add: // 목표추가
                 // 이름, 시작달, 목표달, 금리, 단복리, 가입금액, 월납입
                 String name = goal_name.getText().toString(), start= start_month.getText().toString(), end = (month.getValue()-1)+"", rate_persent = rate.getText().toString().replace("%",""),
@@ -209,7 +223,7 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
                 }
 
                 break;
-            case R.id.start_month:// 날짜선택
+            case R.id.start:// 날짜선택
                 long now = System.currentTimeMillis();  // 현재시간
                 String[] date = start_month.getText().toString().split("-");
 

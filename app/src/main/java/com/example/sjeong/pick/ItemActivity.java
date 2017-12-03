@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,11 +17,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -46,6 +47,7 @@ import java.util.ArrayList;
 
 public class ItemActivity extends AppCompatActivity {
 
+    private Context context;
     private String data, url;
     private TextView name_textview;
     private Button item_homepage;
@@ -53,11 +55,15 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item);
+        // 상단바
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
 
-        // toolbar 설정
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+        setContentView(R.layout.activity_item);
+        context = getApplicationContext();
 
         // 상품정보
         Intent intent = getIntent();
@@ -71,54 +77,55 @@ public class ItemActivity extends AppCompatActivity {
 
         item_homepage= (Button)findViewById(R.id.item_homepage);
         name_textview = (TextView) findViewById(R.id.item_name);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_item, menu);
-
-        MenuItem item = menu.findItem(R.id.star);
-        // id 정보가져오기
-        SharedPreferences preferences = this.getSharedPreferences("person", MODE_PRIVATE);
-        String user_id = preferences.getString("id", "");
-
-        // 관심상품인지 정보
-        ConfirmInterestHandler handler = new ConfirmInterestHandler(this, item);
-        ConfirmInterestDB test = new ConfirmInterestDB(user_id, data, handler);
-        test.execute();
-        return true;
-    }
-
-    // 메뉴 클릭 listener
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        Bitmap bitmap1 = ((BitmapDrawable)ContextCompat.getDrawable(this, R.drawable.full_star)).getBitmap();
-
-        // id 정보가져오기
-        SharedPreferences preferences = this.getSharedPreferences("person", MODE_PRIVATE);
-        String user_id = preferences.getString("id", "");
-
-        switch(id){
-            case android.R.id.home:
+        ImageButton back_to_search = (ImageButton)findViewById(R.id.back_to_search);
+        back_to_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
-                break;
-            case R.id.star:
+            }
+        });
+        ImageButton star = (ImageButton)findViewById(R.id.star);
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageButton image = (ImageButton)v;
                 Log.i("Test", "Click star button");
-                Bitmap bitmap3 = ((BitmapDrawable)(item.getIcon())).getBitmap();
+                Bitmap bitmap1 = ((BitmapDrawable)ContextCompat.getDrawable(context, R.drawable.full_star)).getBitmap();
+                Bitmap bitmap3 = ((BitmapDrawable)(image.getDrawable())).getBitmap();
+
+                // id 정보가져오기
+                SharedPreferences preferences = context.getSharedPreferences("person", MODE_PRIVATE);
+                String user_id = preferences.getString("id", "");
 
                 // DB연동
-                SetInterestHandler handler = new SetInterestHandler(this,item);
+                SetInterestHandler handler = new SetInterestHandler(getBaseContext(), v);
                 SetInterestDB test;
                 if(bitmap3.equals(bitmap1))
                     test = new SetInterestDB("delete", user_id, data, handler);
                 else
                     test = new SetInterestDB("add", user_id, data, handler);
                 test.execute();
-                break;
+            }
+        });
 
-        }
-        return super.onOptionsItemSelected(item);
+        LinearLayout item_cal = (LinearLayout)view.findViewById(R.id.item_cal);
+        item_cal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // id 정보가져오기
+        SharedPreferences preferences = getBaseContext().getSharedPreferences("person", MODE_PRIVATE);
+        String user_id = preferences.getString("id", "");
+
+        // 관심상품인지 정보
+        ConfirmInterestHandler interestHandler = new ConfirmInterestHandler(this, star);
+        ConfirmInterestDB interestDB = new ConfirmInterestDB(user_id, data, interestHandler);
+        interestDB.execute();
+
     }
 
     public void tableMaker(TableLayout table, JSONArray arr) {
@@ -427,26 +434,26 @@ public class ItemActivity extends AppCompatActivity {
     class SetInterestHandler extends Handler {
 
         private Context context;
-        private MenuItem item;
+        private ImageButton item;
 
-        public SetInterestHandler(Context context, MenuItem item){
+        public SetInterestHandler(Context context, View item){
             this.context = context;
-            this.item = item;
+            this.item = (ImageButton)item;
         }
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
             if(msg.obj.toString().equals("OK")){
                 Log.i("Test", "Click star button");
+                Bitmap bitmap1 = ((BitmapDrawable)ContextCompat.getDrawable(context, R.drawable.full_star)).getBitmap();
+                Bitmap bitmap3 = ((BitmapDrawable)(item.getDrawable())).getBitmap();
                 Drawable full = ContextCompat.getDrawable(context, R.drawable.full_star);
                 Drawable empty = ContextCompat.getDrawable(context, R.drawable.empty_star);
-                Bitmap bitmap1 = ((BitmapDrawable)full).getBitmap();
 
-                Bitmap bitmap3 = ((BitmapDrawable)(item.getIcon())).getBitmap();
                 if(bitmap3.equals(bitmap1))
-                    item.setIcon(empty);
+                    item.setImageDrawable(empty);
                 else
-                    item.setIcon(full);
+                    item.setImageDrawable(full);
             }
             else{
                 // 에러가 났음을 토스 메세지로!
@@ -459,9 +466,9 @@ public class ItemActivity extends AppCompatActivity {
     class ConfirmInterestHandler extends Handler {
 
         private Context context;
-        private MenuItem item;
+        private ImageButton item;
 
-        public ConfirmInterestHandler(Context context, MenuItem item){
+        public ConfirmInterestHandler(Context context, ImageButton item){
             this.context = context;
             this.item = item;
         }
@@ -470,7 +477,7 @@ public class ItemActivity extends AppCompatActivity {
             super.handleMessage(msg);
             if(msg.obj.toString().equals("YES")){
                 Drawable full = ContextCompat.getDrawable(context, R.drawable.full_star);
-                item.setIcon(full);
+                item.setImageDrawable(full);
             }
             else if(!msg.obj.toString().equals("NO")){
                 Log.i("Interest Star", "Interest Star Error");

@@ -1,9 +1,8 @@
 package com.example.sjeong.pick;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 
 public class SearchDepActivity extends AppCompatActivity {
 
@@ -16,7 +15,5 @@ public class SearchDepActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_search, search, "SearchDep");
         ft.commit();
-
-        Log.i("Test", "Test SearchActivity");
     }
 }

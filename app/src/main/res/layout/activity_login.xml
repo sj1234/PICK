@@ -5,11 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.LoginActivity"
-    android:layout_marginLeft="70dp"
-    android:layout_marginRight="70dp"
-    android:layout_marginTop="80dp"
-    android:layout_marginBottom="80dp"
-    android:backgroundTint="@color/White">
+    android:padding="70dp"
+    android:background="@color/White">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,33 +67,33 @@
         android:textColor="@color/White"
         android:background="@drawable/round_button_dark"/>
 
-
     <CheckBox
         android:id="@+id/auto_login"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:text="자동 로그인"
+        android:buttonTint="@color/PINK"
         android:gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/join"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:layout_marginBottom="5dp"
         android:text="회원가입"
         android:textColor="@color/MainDark"
-        android:gravity="right|center_vertical"/>
+        android:layout_gravity="right|center_vertical"/>
 
     <TextView
         android:id="@+id/find"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:layout_marginBottom="10dp"
         android:text="아이디/비밀번호 찾기"
         android:textColor="@color/MainDark"
-        android:gravity="right"/>
+        android:layout_gravity="right|center_vertical"/>
 
 </LinearLayout>

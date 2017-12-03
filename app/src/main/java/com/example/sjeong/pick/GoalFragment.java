@@ -1,6 +1,8 @@
 package com.example.sjeong.pick;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -22,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.daimajia.swipe.SwipeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -118,6 +122,10 @@ public class GoalFragment extends Fragment {
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
+
+            SharedPreferences preferences = getActivity().getSharedPreferences("person", MODE_PRIVATE);
+            String id = preferences.getString("id", "");
+
             switch(msg.what){
                 case 10: // 성공
                     ArrayList<Goal> goals = new ArrayList<Goal>();
@@ -133,7 +141,7 @@ public class GoalFragment extends Fragment {
                             jarray = new JSONArray(text);
                             for(int i=0; i<jarray.length(); i++){
                                 JSONObject jObject = jarray.getJSONObject(i);
-                                goals.add(new Goal(jObject.get("GOAL_NAME").toString(), jObject.get("GOAL_MONTH").toString(), jObject.get("START_SUM").toString(), jObject.get("MONTHLY_SUM").toString(),
+                                goals.add(new Goal(id, jObject.get("GOAL_NAME").toString(), jObject.get("GOAL_MONTH").toString(), jObject.get("START_SUM").toString(), jObject.get("MONTHLY_SUM").toString(),
                                         jObject.get("CONT_RATE").toString(), jObject.get("COM_SIM").toString(), jObject.get("START_MONTH").toString(), jObject.get("FAIL_MONTH").toString()));
                             }
                         } catch (JSONException e) {
@@ -163,13 +171,16 @@ public class GoalFragment extends Fragment {
                         Date date = new Date(now);
                         SimpleDateFormat CurDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-                        goals.add(new Goal("목표를 만들어주세요!", "12", "0", "10000", "2.0","0", CurDateFormat.format(date), "0"));
+                        goals.add(new Goal(id, "목표를 만들어주세요!", "12", "0", "10000", "2.0","0", CurDateFormat.format(date), "0"));
                     }
 
                     // ListView 에 목표내용 출력
-                    GoalAdapter goalAdapter = new GoalAdapter(context, goals, listener);
+                    GoalAdapter goalAdapter = new GoalAdapter(context, goals, this, listener);
                     view.setAdapter(goalAdapter);
-
+                    break;
+                case 11: // 삭제요청
+                    GetGoalDB test = new GetGoalDB(id, this);
+                    test.execute();
                     break;
             }
         }
@@ -178,19 +189,26 @@ public class GoalFragment extends Fragment {
 
 class GetGoalDB extends AsyncTask<Void, Integer, Void> {
 
-    private String data, string;
+    private String data, string, url_string;
     private GoalFragment.GetGoalHandler handler;
 
     public GetGoalDB(String string, GoalFragment.GetGoalHandler handler){
         this.string = "u_id="+string;
         this.handler = handler;
+        this.url_string = "getGoal.php";
+    }
+
+    public GetGoalDB(String id, String name, GoalFragment.GetGoalHandler handler){
+        this.string = "u_query=DELETE FROM GOAL WHERE USR_ID='"+id+"' AND GOAL_NAME='"+name+"'";
+        this.handler = handler;
+        this.url_string = "SetDepContent.php";
     }
 
     @Override
     protected Void doInBackground(Void... params) {
 
         try {
-            URL url = new URL("http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getGoal.php");
+            URL url = new URL("http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/"+url_string);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             if(conn !=null){
@@ -234,7 +252,8 @@ class GetGoalDB extends AsyncTask<Void, Integer, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
         Message msg = new Message();
-        msg.what = 10;
+       if(url_string.equals("getGoal.php")) msg.what = 10;
+        else msg.what = 11;
         msg.obj = data;
         handler.sendMessage(msg);
     }
@@ -245,11 +264,13 @@ class GoalAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Goal> arraylist;
     private View.OnClickListener listener;
+    private GoalFragment.GetGoalHandler handler;
 
-    public GoalAdapter(Context context, ArrayList<Goal> arraylist, View.OnClickListener listener){
+    public GoalAdapter(Context context, ArrayList<Goal> arraylist, GoalFragment.GetGoalHandler handler,View.OnClickListener listener){
         this.context = context;
         this.arraylist = arraylist;
         this.listener = listener;
+        this.handler = handler;
     }
 
     //리스트 객체 내의 item의 갯수를 반환해주는 함수. 리스트 객체의 size를 반환해주면된다
@@ -275,7 +296,34 @@ class GoalAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_goaladapter, parent, false);
+            convertView.setTag(position+"");
         }
+
+        SwipeLayout swipeLayout =  (SwipeLayout) convertView.findViewById(R.id.swipeGoal);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        LinearLayout bottom_wrapper = (LinearLayout)convertView.findViewById(R.id.bottom_wrapper);
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, bottom_wrapper);
+
+        ImageButton button = (ImageButton) convertView.findViewById(R.id.delete);
+        button.setTag(position+"");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 삭제
+                int position = Integer.parseInt(v.getTag().toString());
+                deletegoal listener = new deletegoal(arraylist.get(position).getId().toString(), arraylist.get(position).getName().toString(), handler);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("DELETE")
+                        .setMessage("해당 목표를 삭제하시겠습니까?")
+                        .setPositiveButton("확인", listener).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                });
+                builder.show();
+            }
+        });
 
         TextView date = (TextView)convertView.findViewById(R.id.goal_date);
         TextView name = (TextView)convertView.findViewById(R.id.goal_name);
@@ -353,5 +401,23 @@ class GoalAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+}
+
+class deletegoal implements DialogInterface.OnClickListener {
+
+    private String id, name;
+    private GoalFragment.GetGoalHandler handler;
+
+    public deletegoal(String id, String name, GoalFragment.GetGoalHandler handler){
+        this.id = id;
+        this.name = name;
+        this.handler = handler;
+    }
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        dialog.dismiss();
+        GetGoalDB test = new GetGoalDB(id, name, handler);
+        test.execute();
     }
 }

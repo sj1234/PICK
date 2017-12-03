@@ -29,6 +29,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sjeong.pick.Calculator.CalculatorActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +51,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private Context context;
     private String data, url;
-    private TextView name_textview;
+    private TextView name_textview, item_summary;
     private Button item_homepage;
 
     @Override
@@ -77,6 +79,7 @@ public class ItemActivity extends AppCompatActivity {
 
         item_homepage= (Button)findViewById(R.id.item_homepage);
         name_textview = (TextView) findViewById(R.id.item_name);
+        item_summary = (TextView) findViewById(R.id.item_summary);
 
         ImageButton back_to_search = (ImageButton)findViewById(R.id.back_to_search);
         back_to_search.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +116,20 @@ public class ItemActivity extends AppCompatActivity {
         item_cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ItemActivity.this, CalculatorActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
+        // 목표화면 (목표화면에 상품이름 연결하도록할 예정?)
+        LinearLayout item_goal = (LinearLayout)view.findViewById(R.id.item_goal);
+        item_goal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ItemActivity.this, GoalActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -352,9 +368,13 @@ public class ItemActivity extends AppCompatActivity {
                     try {
                         jObject = new JSONObject(msg.obj.toString());
 
+                        // 이름
                         name_textview.setText(jObject.get("NAME").toString());
-                        itemdetails.add(new ItemDetail("은행", jObject.get("BANK").toString()));
+                        // 상품정보
+                        item_summary.setText(jObject.get("PROD_DETAIL").toString());
 
+                        // 은행
+                        itemdetails.add(new ItemDetail("은행", jObject.get("BANK").toString()));
                         String bank = jObject.get("BANK").toString();
                         url = "";
                         switch(bank){
@@ -385,15 +405,45 @@ public class ItemActivity extends AppCompatActivity {
                             }
                         });
 
+                        // 가입대상
+                        /*
+                        String target= "";
+                        if(!jObject.get("JOIN_TARGET").toString().equals("0,0,0")){
+                            String[] target_split = jObject.get("JOIN_TARGET").toString().split(",");
+                            if(target_split[0].equals("1")) target+="개인 ";
+                            if(target_split[1].equals("1")) target+="단체 ";
+                            if(target_split[2].equals("1")) target+="사업자/법인";
+                            itemdetails.add(new ItemDetail("가입대상", target));
+                        }
+                        */
+
                         itemdetails.add(new ItemDetail("가입방법", jObject.get("J_WAY").toString().replace("<br/>", ", ")));
                         itemdetails.add(new ItemDetail("가입한도", jObject.get("J_LIMIT").toString()+"원 ~ "+jObject.get("M_LIMIT").toString()+"원"));
-                        if(jObject.get("CS").toString().equals("0"))
-                            itemdetails.add(new ItemDetail("단리복리", "단리"));
-                        else
-                            itemdetails.add(new ItemDetail("단리복리", "복리"));
+
+                        if(jObject.get("CS").toString().equals("0")) itemdetails.add(new ItemDetail("단리복리", "단리"));
+                        else itemdetails.add(new ItemDetail("단리복리", "복리"));
+
+                        if(jObject.get("FLOAT_RATE").toString().equals("0")) itemdetails.add(new ItemDetail("고정/변동금리", "고정금리"));
+                        else itemdetails.add(new ItemDetail("고정/변동금리", "변동금리"));
+
+                        itemdetails.add(new ItemDetail("이자지급방법", jObject.get("INTER_GIVE_WAY").toString().replace("<br/>", "\n")));
+                        itemdetails.add(new ItemDetail("원급지급방법", jObject.get("PRIM_GIVE_WAY").toString().replace("<br/>", "\n")));
+                        if(!jObject.get("DEP_COUNT").toString().equals("0"))
+                            itemdetails.add(new ItemDetail("가입갯수", jObject.get("DEP_COUNT").toString()));
+
+                        if(jObject.get("TAX_FREE").toString().equals("0")) itemdetails.add(new ItemDetail("비과세해택", "없음"));
+                        else itemdetails.add(new ItemDetail("비과세해택", "있음"));
+
+                        if(jObject.get("ADDITIONAL").toString().equals("0")) itemdetails.add(new ItemDetail("추가납입여부", "불가능"));
+                        else itemdetails.add(new ItemDetail("추가납입여부", "가능"));
+
+                        itemdetails.add(new ItemDetail("중도해지", jObject.get("MID_END_DETAIL").toString().replace("<br/>", "\n")));
                         itemdetails.add(new ItemDetail("만기이율", jObject.get("AFTER").toString().replace("<br/>", "\n")));
-                        itemdetails.add(new ItemDetail("우대조건", jObject.get("PRIME").toString().replace("<br/>", "\n")));
-                        itemdetails.add(new ItemDetail("기타", jObject.get("ETC").toString().replace("<br/>", "\n")));
+
+                        if(!jObject.get("PRIME").toString().isEmpty())
+                            itemdetails.add(new ItemDetail("우대조건", jObject.get("PRIME").toString().replace("<br/>", "\n")));
+                        if(!jObject.get("ETC").toString().isEmpty())
+                            itemdetails.add(new ItemDetail("기타", jObject.get("ETC").toString().replace("<br/>", "\n")));
 
                         if(jObject.get("RATE")!=null){
                             JSONArray arr = (JSONArray) jObject.get("RATE");
@@ -406,14 +456,15 @@ public class ItemActivity extends AppCompatActivity {
                         listView.setAdapter(listAdapter);
 
                         // 리스트뷰 화면에 꽉 차는 높이가 되도록
-                        ViewGroup.LayoutParams params = listView.getLayoutParams();
+                        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
                         int height = 0;
-                        for (int size = 0; size < listAdapter.getCount(); size++) {
-                            View listItem = listAdapter.getView(size, null, listView);
-                            listItem.measure(0,0);
+                        for (int i = 0; i < listAdapter.getCount(); i++) {
+                            View listItem = listAdapter.getView(i, null, listView);
+                            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
                             height += listItem.getMeasuredHeight();
                         }
-                        params.height = height + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+                        ViewGroup.LayoutParams params = listView.getLayoutParams();
+                        params.height = height+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
                         Log.i("height", height+"");
                         listView.setLayoutParams(params);
                         listView.requestLayout();
@@ -423,6 +474,7 @@ public class ItemActivity extends AppCompatActivity {
                         //item_scrollview.fullScroll(ScrollView.FOCUS_UP);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.i("item_detail", e.toString());
                     }
                     break;
                 case 9: // 에러 문제 (발생하는 경우 코드상에는 없음)

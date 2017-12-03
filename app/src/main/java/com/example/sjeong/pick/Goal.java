@@ -5,9 +5,10 @@ package com.example.sjeong.pick;
  */
 
 public class Goal {
-    private String name, month, start_sum, monthly, rate, com_sim, start, fail;
+    private String id, name, month, start_sum, monthly, rate, com_sim, start, fail;
 
-    public Goal(String name, String month, String start_sum, String monthly, String rate, String com_sim, String start, String fail){
+    public Goal(String id, String name, String month, String start_sum, String monthly, String rate, String com_sim, String start, String fail){
+        this.id = id;
         this.name = name;
         this.month = month;
         this.start_sum = start_sum;
@@ -17,6 +18,8 @@ public class Goal {
         this.start = start;
         this.fail = fail;
     }
+
+    public String getId(){return id;}
 
     public String getName() {return name;}
 

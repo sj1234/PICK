@@ -18,7 +18,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -48,11 +47,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class GoalAddFragment extends Fragment implements View.OnClickListener {
 
-    private TextView start_month, rate;
+    private TextView start_month, rate, month_text, fail_text;
     private EditText goal_name, join_sum, monthly_sum;
     private Boolean com_sim=true;
-    private NumberPicker month, fail_month_num;
-    private SeekBar rate_seekBar;
+    private SeekBar rate_seekBar, month, fail_month_num;
     private Button goal_add;
     private RadioButton com, sim;
     private String data;
@@ -80,8 +78,21 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
         start.setOnClickListener(this);
 
         // 가입개월
-        month = (NumberPicker)view.findViewById(R.id.month);
-        month.setMaxValue(120);
+        month_text =  (TextView)view.findViewById(R.id.month_text);
+        month = (SeekBar)view.findViewById(R.id.month);
+        month.setMax(120);
+        month.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                month_text.setText(progress+"개월");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
 
         // 금리
         rate = (TextView)view.findViewById(R.id.rate);
@@ -129,8 +140,22 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
         monthly_sum = (EditText)view.findViewById(R.id.monthly_sum);
 
         // 실패한 달
-        fail_month_num=(NumberPicker)view.findViewById(R.id.fail_month_num);
-        fail_month_num.setMaxValue(120);
+        fail_text =  (TextView)view.findViewById(R.id.fail_text);
+        fail_month_num = (SeekBar)view.findViewById(R.id.fail_month_num);
+        fail_month_num.setMax(120);
+        fail_month_num.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                fail_text.setText(progress+"개월");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
 
         // 목표추가
         goal_add = (Button)view.findViewById(R.id.goal_add);
@@ -150,10 +175,9 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
             test.execute();
         }
         else{
-            TextView fail_month1 = (TextView)view.findViewById(R.id.fail_month1);
-            LinearLayout fail_month2 = (LinearLayout)view.findViewById(R.id.fail_month2);
-            fail_month1.setVisibility(View.GONE);
-            fail_month2.setVisibility(View.GONE);
+            LinearLayout fail = (LinearLayout)view.findViewById(R.id.fail);
+            fail_month_num.setVisibility(View.GONE);
+            fail.setVisibility(View.GONE);
         }
 
         return view;
@@ -172,14 +196,14 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.goal_add: // 목표추가
                 // 이름, 시작달, 목표달, 금리, 단복리, 가입금액, 월납입
-                String name = goal_name.getText().toString(), start= start_month.getText().toString(), end = (month.getValue()-1)+"", rate_persent = rate.getText().toString().replace("%",""),
-                        join = join_sum.getText().toString(), monthly = monthly_sum.getText().toString(), comsim, fail = (fail_month_num.getValue()-1)+"";
+                String name = goal_name.getText().toString(), start= start_month.getText().toString(), end = month.getProgress()+"", rate_persent = rate.getText().toString().replace("%",""),
+                        join = join_sum.getText().toString(), monthly = monthly_sum.getText().toString(), comsim, fail = fail_month_num.getProgress()+"";
                 if(com_sim)
                     comsim="b'0'";
                 else
                     comsim="b'1'";
 
-                if(name.isEmpty() || start.isEmpty() || end.isEmpty() || end.equals("0") || rate_persent.equals("0.00%") || (join.isEmpty() && monthly.isEmpty()))
+                if(name.isEmpty() || start.isEmpty() || end.isEmpty() || Integer.parseInt(end)<=0 || rate_persent.equals("0.00") || (join.isEmpty() && monthly.isEmpty()))
                     Toast.makeText(getActivity(), "모든 내용을 입력해 주세요. :-)", Toast.LENGTH_SHORT).show();
                 else{
                     if(!v.getTag().toString().equals("add")){
@@ -242,6 +266,7 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
     class SetGoalHandler extends Handler {
 
         private String origin_name, id, name,  start,  end,  rate,  comsim,  join,  monthly, fail;
+        private Goal goal;
 
         public SetGoalHandler(String id, String name, String start, String end, String rate, String comsim, String join, String monthly){
             this.id = id;
@@ -317,7 +342,7 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
                             start=jObject.getString("START_MONTH").toString();
                             start_month.setText(start);
                             end = jObject.getString("GOAL_MONTH").toString();
-                            month.setValue(Integer.parseInt(end));
+                            month.setProgress(Integer.parseInt(end));
                             rate = jObject.getString("CONT_RATE").toString().replace("%","");
                             rate_seekBar.setProgress(Integer.parseInt(jObject.getString("CONT_RATE").toString().replace(".",""))/10);
                             comsim = jObject.getString("START_MONTH").toString();
@@ -334,8 +359,9 @@ public class GoalAddFragment extends Fragment implements View.OnClickListener {
                             monthly=jObject.getString("MONTHLY_SUM").toString();
                             monthly_sum.setText(monthly);
                             fail=jObject.getString("FAIL_MONTH").toString();
-                            fail_month_num.setValue(Integer.parseInt(fail));
+                            fail_month_num.setProgress(Integer.parseInt(fail));
 
+                            goal = new Goal(id, name, end, join, monthly, rate, comsim, start, fail);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

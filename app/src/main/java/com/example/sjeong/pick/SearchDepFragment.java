@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,28 @@ public class SearchDepFragment extends Fragment {
         });
 
         searchtext = (EditText)view.findViewById(R.id.searchText);
+        searchtext.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if((event.getAction()==KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    // 기본검색
+                    SearchHandler handler = new SearchHandler();
+                    String text = searchtext.getText().toString();
+                    Log.i("Test", text);
+
+                    if(text.isEmpty())
+                        Toast.makeText(getActivity(), "상품명을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    else{
+                        String sql = "SELECT A.PROD_CODE AS CODE, MIN(A.CONT_RATE) AS MIN, MAX(MAX_RATE) AS MAX, B.PROD_NAME AS NAME, B.BANK AS BANK FROM DEP_RATE A INNER JOIN (SELECT PROD_CODE, PROD_NAME, BANK FROM DEPOSITE WHERE PROD_NAME LIKE '%"+ text+"%') B ON A.PROD_CODE = B.PROD_CODE GROUP BY A.PROD_CODE";
+                        SearchDB test = new SearchDB(sql, handler);
+                        test.execute();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
         ImageButton searchbutton = (ImageButton)view.findViewById(R.id.searchbutton);
         searchbutton.setOnClickListener(new View.OnClickListener() {
             @Override

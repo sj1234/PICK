@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -52,6 +53,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         context = this;
         id = (EditText)findViewById(R.id.id);
         pw = (EditText)findViewById(R.id.pw);
+        pw.setOnKeyListener(new View.OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if((event.getAction()==KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    if(id.getText().toString().isEmpty()||pw.getText().toString().isEmpty()){
+                        Toast.makeText(context, "ID와 PW를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        LoginDB test = new LoginDB(id.getText().toString(), pw.getText().toString(), handler);
+                        test.execute();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
         Button login  = (Button)findViewById(R.id.login);
         TextView join = (TextView)findViewById(R.id.join);
         TextView find = (TextView)findViewById(R.id.find);

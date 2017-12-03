@@ -3,28 +3,44 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@drawable/hotborder"
+    android:background="@drawable/hot"
+    android:layout_gravity="center"
     >
 
     <ImageView
         android:id="@+id/bankIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="50dp"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="bottom|left"
+            android:textSize="25dp"
+            android:textColor="@color/CheckTextView"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/maxRate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/LightBlack"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

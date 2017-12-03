@@ -44,17 +44,28 @@
             android:text="i-ONE 놀이터 예금" />
 
 
-        <TextView
-            android:id="@+id/profit"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:layout_marginRight="9dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:textColor="#fe6186"
-            android:textSize="18sp"
-            android:text="1.6%~1.7%"/>
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fe6186"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/profit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fe6186"
+                android:textSize="22sp"/>
+        </LinearLayout>
 
 
 

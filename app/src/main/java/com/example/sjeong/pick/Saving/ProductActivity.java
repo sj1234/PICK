@@ -155,9 +155,10 @@ public class ProductActivity extends AppCompatActivity {
             ProductView2 pView = new ProductView2(context);
             Item2 item = items.get(i);
 
-
+            String[] splits= item.getProfit().split("~");
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
-            ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
+            ((TextView)pView.findViewById(R.id.profit)).setText(splits[0]+"~");
+            ((TextView)pView.findViewById(R.id.profit2)).setText(splits[1]);
             Log.d("왜이래",item.getProfit());
            // ((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
 

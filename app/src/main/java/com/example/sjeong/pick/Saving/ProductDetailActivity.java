@@ -4,12 +4,11 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,17 +17,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.sjeong.pick.Calculator.CalculatorActivity;
+import com.example.sjeong.pick.GoalActivity;
 import com.example.sjeong.pick.ItemDetail;
 import com.example.sjeong.pick.ItemDetailAdapter;
 import com.example.sjeong.pick.R;
@@ -40,15 +41,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.sjeong.pick.R.drawable.empty_star;
-
 /**
  * Created by mijin on 2017-11-20.
  */
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    private TextView name_textview;
+    private TextView name_textview, item_summary;
     private Button item_homepage;
     String url;
     ContentValues values;
@@ -56,7 +55,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     String usr_id;
     int prod_code;
     MenuItem item;
-
+    ImageButton star;
+    boolean flag1 = false;
 
     private ProgressDialog progressDialog;
     public static int TIME_OUT = 1001;
@@ -66,11 +66,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
+
         progressDialog = ProgressDialog.show(ProductDetailActivity.this, "상품 검색 중", "잠시만 기다려주세요.");
         mHandler.sendEmptyMessageDelayed(TIME_OUT, 2000);
-        // toolbar 설정
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
         SharedPreferences preferences = this.getSharedPreferences("person", MODE_PRIVATE);
         usr_id = preferences.getString("id", null);
@@ -85,28 +83,70 @@ public class ProductDetailActivity extends AppCompatActivity {
         networkTask2 = new NetworkTask2(url,values);
         networkTask2.execute();
 
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
+
+        ImageButton back_to_search = (ImageButton) findViewById(R.id.back_to_search);
+        back_to_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
 
+        star = (ImageButton) findViewById(R.id.star);
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/deleteOrAddInterest.php?";
+                values = new ContentValues();
+                values.put("usr_id",usr_id);
+                values.put("prod_code",prod_code);
+
+                if(flag1==true) values.put("flag","delete");
+                else values.put("flag","add");
+
+                networkTask2 = new NetworkTask2(url, values);
+                networkTask2.execute();
+            }
+        });
+
+        url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getInterest.php?";
+        values = new ContentValues();
+        values.put("usr_id",usr_id);
+        values.put("prod_code",prod_code);
+
+        networkTask2 = new NetworkTask2(url, values);
+        networkTask2.execute();
 
         item_homepage= (Button)findViewById(R.id.item_homepage);
         name_textview = (TextView) findViewById(R.id.item_name);
+        item_summary = (TextView) findViewById(R.id.item_summary);
 
 
-        Button goCalculator = (Button) findViewById(R.id.goCalculator);
+        LinearLayout goCalculator = (LinearLayout) findViewById(R.id.goCalculator);
         goCalculator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductDetailActivity.this, CalculatorActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
-        Button goGoal = (Button) findViewById(R.id.goGoal);
+        LinearLayout goGoal = (LinearLayout) findViewById(R.id.goGoal);
         goGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ProductDetailActivity.this, GoalActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -122,88 +162,34 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_item, menu);
 
-        item = menu.findItem(R.id.star);
-
-        // 관심상품인지 정보
-        url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getInterest.php?";
-        values = new ContentValues();
-        values.put("usr_id",usr_id);
-        values.put("prod_code",prod_code);
-
-        networkTask2 = new NetworkTask2(url, values);
-        networkTask2.execute();
-
-
-
-
-        return true;
-
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        Bitmap bitmap1 = ((BitmapDrawable) ContextCompat.getDrawable(getApplicationContext(), R.drawable.full_star)).getBitmap();
-        Log.d("선택되었을때1",bitmap1.toString());
-
-        switch(id){
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.star:
-                Log.i("Test", "Click star button");
-                Bitmap bitmap3 = ((BitmapDrawable)(item.getIcon())).getBitmap();
-
-                Log.d("선택되었을때3",bitmap3.toString());
-                // DB연동
-                url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/deleteOrAddInterest.php?";
-                values = new ContentValues();
-                values.put("usr_id",usr_id);
-                values.put("prod_code",prod_code);
-
-                if(bitmap3.equals(bitmap1)) values.put("flag","delete");
-                else values.put("flag","add");
-
-                networkTask2 = new NetworkTask2(url, values);
-                networkTask2.execute();
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void tableMaker(TableLayout table, JSONArray arr) {
 
         Log.i("table maker", "table maker");
 
         try {
-
+            Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.round_light_black);
             TableRow tr_title = new TableRow(this);
             tr_title.setGravity(Gravity.CENTER);
 
             TextView cont_term = new TextView(this);
-            cont_term.setBackgroundColor(Color.rgb(233, 222, 124));
+            cont_term.setBackground(background);
             cont_term.setGravity(Gravity.CENTER);
             cont_term.setText("가입기간");
             tr_title.addView(cont_term);
 
             TextView policy_no = new TextView(this);
-            policy_no.setBackgroundColor(Color.rgb(233, 222, 124));
             policy_no.setGravity(Gravity.CENTER);
             policy_no.setText("분류");
             tr_title.addView(policy_no);
 
             TextView policy_id = new TextView(this);
-            policy_id.setBackgroundColor(Color.rgb(233, 222, 124));
             policy_id.setGravity(Gravity.CENTER);
             policy_id.setText("조건");
             tr_title.addView(policy_id);
 
             TextView intr = new TextView(this);
-            intr.setBackgroundColor(Color.rgb(233, 222, 124));
             intr.setGravity(Gravity.CENTER);
             intr.setText("금리");
             tr_title.addView(intr);
@@ -327,24 +313,19 @@ public class ProductDetailActivity extends AppCompatActivity {
             try {
                 if (result != null) {
                     if(result.trim().equals("success")){
-                        Drawable full = ContextCompat.getDrawable(getApplicationContext(), R.drawable.full_star);
-                        item.setIcon(full);
+                        star.setImageResource(R.drawable.full_star);
+                        flag1 = true;
                     }else if(result.trim().equals("successno")){
-                        Drawable empty_star = ContextCompat.getDrawable(getApplicationContext(), R.drawable.empty_star);
-                        item.setIcon(empty_star);
+                        star.setImageResource(R.drawable.empty_star);
+                        flag1 = false;
                     }else if(result.trim().equals("success2")){
-
-                        Drawable full = ContextCompat.getDrawable(getApplicationContext(), R.drawable.full_star);
-                        Drawable empty = ContextCompat.getDrawable(getApplicationContext(), empty_star);
-                        Bitmap bitmap1 = ((BitmapDrawable)full).getBitmap();
-
-                        Log.d("설정에서1",bitmap1.toString());
-                        Bitmap bitmap3 = ((BitmapDrawable)(item.getIcon())).getBitmap();
-                        Log.d("설정에서3",bitmap3.toString());
-                        if(bitmap3.equals(bitmap1))
-                            item.setIcon(empty);
-                        else
-                            item.setIcon(full);
+                        if(flag1==true) {
+                            star.setImageResource(R.drawable.empty_star);
+                            flag1 = false;
+                        }else{
+                            star.setImageResource(R.drawable.full_star);
+                            flag1 = true;
+                        }
                     }else {
                         JSONObject json = new JSONObject(result);
 
@@ -532,6 +513,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         ArrayList<ItemDetail> itemdetails = new ArrayList<ItemDetail>();
 
                         name_textview.setText(prod_name);
+                        item_summary.setText(prod_desc);
                         itemdetails.add(new ItemDetail("은행", bank));
 
                         url = "";
@@ -597,7 +579,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             }
                         });
 
-                        itemdetails.add(new ItemDetail("상품설명", prod_desc));
+
                         itemdetails.add(new ItemDetail("상품유형", sprod_type));
                         itemdetails.add(new ItemDetail("원금지급방식", sori_pay_method));
                         itemdetails.add(new ItemDetail("이자지급방식", srat_pay_method));

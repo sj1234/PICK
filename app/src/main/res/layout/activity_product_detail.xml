@@ -4,31 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sjeong.pick.Saving.ProductDetailActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/White">
+
+    <LinearLayout
+        android:background="@color/White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:id="@+id/back_to_search"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="240dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page_dark"/>
+
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:id="@+id/star"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/empty_star"
+            android:scaleType="centerInside"
+            android:padding="12dp"
+            android:background="@color/Alpha" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp">
+        android:background="@color/White">
 
-        <TextView
-            android:id="@+id/item_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="10dp"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="item name"
+                    android:textSize="@dimen/_15sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="5dp"/>
 
+                <TextView
+                    android:id="@+id/item_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="item summary"
+                    android:textSize="@dimen/_10sp"
+                    android:textColor="@color/LightBlack"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -51,7 +104,9 @@
     <ScrollView
         android:id="@+id/item_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="@color/BackGround">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,44 +131,77 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp">
-
-                <Button
-                    android:id="@+id/goCalculator"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@drawable/round_round_dark"
-                    android:layout_weight="1"
-                    android:text="금리 계산기"
-                    android:textColor="@color/White"
-                    android:textSize="@dimen/_15sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/goGoal"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/round_round_dark"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="24dp"
-                    android:text="목표설정"
-                    android:textColor="@color/White"
-                    android:textSize="@dimen/_15sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/goCalculator"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/round_round_dark">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_calculator_24"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="계산기"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_15sp"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goGoal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/round_round_dark">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_objectives_24"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="목표치"
+                android:textColor="@color/White"
+                android:textSize="@dimen/_15sp"
+                android:gravity="center_vertical"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,54 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/BackGround">
 
-    <android.support.design.widget.CoordinatorLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/White"
+        android:elevation="0dp">
 
-        <android.support.design.widget.AppBarLayout
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:id="@+id/back_to_main"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_page_dark" />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="금리계산기"
+            android:textColor="@color/MainDark"
+            android:textSize="@dimen/_15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:elevation="1dp"
+        android:background="@color/BackGround"
+        android:id="@+id/toolBar2">
+
+    </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme">
-
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                android:elevation="1dp"
-                android:background="@color/BackGround"
-                android:id="@+id/toolBar2">
-
-            </android.support.v7.widget.Toolbar>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="1dp"
-                app:tabMode="fixed"
-                app:tabGravity="fill"
-                android:background="@color/BackGround"
-                app:tabTextColor="@color/UncheckTextView"
-                app:tabSelectedTextColor="@color/CheckTextView">
+            android:elevation="0dp"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            android:background="@color/White"
+            app:tabTextColor="@color/UncheckTextView"
+            app:tabSelectedTextColor="@color/CheckTextView">
 
 
-            </android.support.design.widget.TabLayout>
-        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.TabLayout>
+
 
         <ScrollView
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/BackGround">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:id="@+id/container2"></FrameLayout>
+                android:id="@+id/container2"
+                android:background="@color/BackGround"/>
         </ScrollView>
 
 
-    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

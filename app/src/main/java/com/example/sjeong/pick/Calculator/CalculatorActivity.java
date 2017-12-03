@@ -1,11 +1,15 @@
 package com.example.sjeong.pick.Calculator;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.sjeong.pick.R;
 
@@ -24,8 +28,19 @@ public class CalculatorActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar2);
         setSupportActionBar(toolbar);
 
-        //dfragment = new DepositFragment();
-        //ifragment = new InstallmentFragment();
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
+
+        ImageButton back_to_main = (ImageButton) findViewById(R.id.back_to_main);
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getSupportFragmentManager().beginTransaction().add(R.id.container2, new DepositFragment()).commit();//dfragment).commit();
 
@@ -63,5 +78,7 @@ public class CalculatorActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
 

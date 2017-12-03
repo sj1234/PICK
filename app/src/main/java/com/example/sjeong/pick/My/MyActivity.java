@@ -2,16 +2,19 @@ package com.example.sjeong.pick.My;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +23,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
 import com.example.sjeong.pick.Saving.Item2;
+import com.example.sjeong.pick.Saving.ProductDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +45,6 @@ public class MyActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_my);
 
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences prefs = getSharedPreferences("person",MODE_PRIVATE);
         usr_id = prefs.getString("id",null);
@@ -51,6 +53,19 @@ public class MyActivity extends AppCompatActivity {
         TextView interest_title = (TextView) findViewById(R.id.interest_title);
         interest_title.setText(usr_id+"님의 관심상품");
 
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
+
+        ImageButton back_to_main = (ImageButton) findViewById(R.id.back_to_main);
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         context = getApplicationContext();
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -61,6 +76,15 @@ public class MyActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MyActivity.this, ProductDetailActivity.class);
+                intent.putExtra("prod_code",((Item2)parent.getAdapter().getItem(position)).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     public void load(){
@@ -72,16 +96,7 @@ public class MyActivity extends AppCompatActivity {
         networkTask2.execute();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
 
-        switch(id){
-            case android.R.id.home:
-              finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
     class ProductAdapter extends BaseAdapter {
         ArrayList<Item2> items = new ArrayList<Item2>();
 
@@ -97,7 +112,7 @@ public class MyActivity extends AppCompatActivity {
 
         @Override
         public long getItemId(int i) {
-            return i;
+            return id;
         }
 
         @Override
@@ -108,10 +123,10 @@ public class MyActivity extends AppCompatActivity {
             id = item.getId();
             SwipeLayout swipeLayout =  (SwipeLayout) pView.findViewById(R.id.swipeLayout);
 
-//set show mode.
+            //set show mode.
             swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
-//add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
+            //add drag edge.(If the BottomView has 'layout_gravity' attribute, this line is unnecessary)
             swipeLayout.addDrag(SwipeLayout.DragEdge.Left, pView.findViewById(R.id.bottom_wrapper));
 
             swipeLayout.addSwipeListener(new SimpleSwipeListener(){
@@ -121,7 +136,7 @@ public class MyActivity extends AppCompatActivity {
                 }
             });
 
-            Button button = (Button) pView.findViewById(R.id.delete);
+            ImageButton button = (ImageButton) pView.findViewById(R.id.delete);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,8 +152,12 @@ public class MyActivity extends AppCompatActivity {
                     load();
                 }
             });
+
+            String[] splits= item.getProfit().split("~");
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
             ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
+            ((TextView)pView.findViewById(R.id.profit)).setText(splits[0]+"~");
+            ((TextView)pView.findViewById(R.id.profit2)).setText(splits[1]);
             //((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
             return pView;
         }

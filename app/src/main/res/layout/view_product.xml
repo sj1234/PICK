@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeLayout">
+    android:id="@+id/swipeLayout"
+    android:descendantFocusability="blocksDescendants">
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
         android:layout_width="wrap_content"
         android:weightSum="1"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
         <!--What you want to show-->
 
-        <Button
+        <ImageButton
             android:id="@+id/delete"
-            android:layout_width="50dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/round_button_red"
             android:focusable="false"
-            android:text="삭제"
-            android:textStyle="bold"
-            android:textColor="@color/Black"
-            android:background="@color/BackGround"/>
+            android:src="@drawable/trash"/>
 
     </LinearLayout>
     <!-- Bottom View End-->
@@ -44,7 +45,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:background="@color/transparent"
-            >
+            android:descendantFocusability="blocksDescendants">
 
             <ImageView
                 android:id="@+id/bank"
@@ -72,20 +73,28 @@
                 android:letterSpacing="-0.04"
                 android:text="i-ONE 놀이터 예금" />
 
-
-            <TextView
-                android:id="@+id/profit"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:layout_marginRight="9dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="#fe6186"
-                android:textSize="18sp"
-                android:text="1.6%~1.7%"/>
+                android:textSize="18sp" />
 
-
+            <TextView
+                android:id="@+id/profit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fe6186"
+                android:textSize="22sp"/>
+            </LinearLayout>
 
         </RelativeLayout>
 

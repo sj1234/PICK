@@ -4,11 +4,13 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -157,18 +160,67 @@ public class ProductActivity extends AppCompatActivity {
 
             String[] splits= item.getProfit().split("~");
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
-            ((TextView)pView.findViewById(R.id.profit)).setText(splits[0]+"~");
-            ((TextView)pView.findViewById(R.id.profit2)).setText(splits[1]);
+            ((TextView)pView.findViewById(R.id.profit)).setText(splits[0]+"% ~");
+            ((TextView)pView.findViewById(R.id.profit2)).setText(splits[1]+"%");
             Log.d("왜이래",item.getProfit());
            // ((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
 
             if((item.getPrime_cond()&prime_cond)==prime_cond){
-                pView.findViewById(R.id.change).setBackground(getResources().getDrawable(R.drawable.fit_list_border));
-                ((TextView) pView.findViewById(R.id.title)).setTextColor(getResources().getColor(R.color.White));
-                ((TextView) pView.findViewById(R.id.profit)).setTextColor(getResources().getColor(R.color.White));
-                ((TextView) pView.findViewById(R.id.profit2)).setTextColor(getResources().getColor(R.color.White));
+                pView.findViewById(R.id.change).setBackgroundResource(R.drawable.round_pink_gradient);
+                ((TextView) pView.findViewById(R.id.title)).setTextColor(Color.WHITE);
+                ((TextView) pView.findViewById(R.id.profit)).setTextColor(Color.WHITE);
+                ((TextView) pView.findViewById(R.id.profit2)).setTextColor(Color.WHITE);
 
             }
+            else{
+                pView.findViewById(R.id.change).setBackgroundResource(R.drawable.menu);
+                ((TextView) pView.findViewById(R.id.title)).setTextColor(Color.parseColor("#515151"));
+                ((TextView) pView.findViewById(R.id.profit)).setTextColor(Color.parseColor("#fe6186"));
+                ((TextView) pView.findViewById(R.id.profit2)).setTextColor(Color.parseColor("#fe6186"));
+            }
+
+            ImageView bank_image = (ImageView)pView.findViewById(R.id.bank);
+            switch(item.getBank().toString()){
+                case "NH농협은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nh));
+                    break;
+                case "기업은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ibk));
+                    break;
+                case "국민은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kb)); break;
+                case "우리은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.woori)); break;
+                case "KEB하나은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.keb)); break;
+                case "KDB산업은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kdb)); break;
+                case "경남은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gn)); break;
+                case "광주은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gj)); break;
+                case "대구은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dg)); break;
+                case "부산은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bs)); break;
+                case "수협은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sh)); break;
+                case "스탠다드차타드은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sc)); break;
+                case "씨티은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.citi)); break;
+                case "우체국예금":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.post)); break;
+                case "전북은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jb)); break;
+                case "제주은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jj)); break;
+                case "케이뱅크":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kbank)); break;
+                case "신한은행" :
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.shinhan)); break;
+            }
+
             return pView;
         }
 

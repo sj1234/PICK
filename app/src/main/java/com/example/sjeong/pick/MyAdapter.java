@@ -35,8 +35,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.Name.setText(Hots.get(position).getName());
-        holder.minRate.setText(Hots.get(position).getMinRate().toString()+"~");
-        holder.maxRate.setText(Hots.get(position).getMaxRate().toString());
+        holder.minRate.setText(Hots.get(position).getMinRate().toString()+"% ~");
+        holder.maxRate.setText("최고 "+Hots.get(position).getMaxRate().toString()+"%");
         holder.bankIcon.setImageResource(Hots.get(position).getBankIcon());
         holder.rank.setImageResource(Hots.get(position).getRank());
 

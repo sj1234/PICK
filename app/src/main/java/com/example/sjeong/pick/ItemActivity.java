@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -56,6 +57,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView name_textview, item_summary;
     private Button item_homepage;
     private ScrollView item_scrollview;
+    private ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class ItemActivity extends AppCompatActivity {
         item_homepage= (Button)findViewById(R.id.item_homepage);
         name_textview = (TextView) findViewById(R.id.item_name);
         item_summary = (TextView) findViewById(R.id.item_summary);
+        logo = (ImageView)findViewById(R.id.logo);
 
         ImageButton back_to_search = (ImageButton)findViewById(R.id.back_to_search);
         back_to_search.setOnClickListener(new View.OnClickListener() {
@@ -407,23 +410,46 @@ public class ItemActivity extends AppCompatActivity {
                         String bank = jObject.get("BANK").toString();
                         url = "";
                         switch(bank){
-                            case "NH농협은행": url= "https://smartmarket.nonghyup.com/"; break;
-                            case "기업은행": url= "https://mybank.ibk.co.kr/uib/jsp/index.jsp"; break;
-                            case "국민은행": url= "https://obank.kbstar.com/quics?page=C016528"; break;
-                            case "우리은행": url= "https://spot.wooribank.com/pot/Dream?withyou=po"; break;
-                            case "KEB하나은행": url= "https://www.kebhana.com/cont/mall/index.jsp"; break;
-                            case "KDB산업은행": url= "https://wbiz.kdb.co.kr/wb/simpleJsp.do"; break;
-                            case "경남은행": url= "https://www.knbank.co.kr/ib20/mnu/FPM000000000001"; break;
-                            case "광주은행": url= "http://www.kjbank.com/banking/index.jsp"; break;
-                            case "대구은행": url= "https://www.dgb.co.kr/com_ebz_fpm_sub_main.jsp"; break;
-                            case "부산은행": url= "https://www.busanbank.co.kr/ib20/mnu/FPM00001"; break;
-                            case "수협은행": url= "https://mybank.ibk.co.kr/uib/jsp/index.jsp"; break;
-                            case "스탠다드차타드은행": url= "http://www.standardchartered.co.kr/np/kr/ProductMall.jsp?ptfrm=HIN.KOR.INTROPC.topmenu1"; break;
-                            case "씨티은행": url= "https://www.citibank.co.kr/MndMdtrMain0100.act?MENU_TYPE=pre&MENU_C_SQNO=M0_000020"; break;
-                            case "우체국예금": url= "https://www.epostbank.go.kr/"; break;
-                            case "전북은행": url= "https://www.jbbank.co.kr/"; break;
-                            case "제주은행": url= "https://www.e-jejubank.com/HomeFinanceMall.do"; break;
-                            case "케이뱅크": url= "https://www.kbanknow.com/ib20/mnu/FPMMAN000000#n"; break;
+                            case "NH농협은행":
+                                url= "https://smartmarket.nonghyup.com/";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nh));
+                                break;
+                            case "기업은행":
+                                url= "https://mybank.ibk.co.kr/uib/jsp/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ibk));
+                                break;
+                            case "국민은행": url= "https://obank.kbstar.com/quics?page=C016528";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kb)); break;
+                            case "우리은행": url= "https://spot.wooribank.com/pot/Dream?withyou=po";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.woori)); break;
+                            case "KEB하나은행": url= "https://www.kebhana.com/cont/mall/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.keb)); break;
+                            case "KDB산업은행": url= "https://wbiz.kdb.co.kr/wb/simpleJsp.do";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kdb)); break;
+                            case "경남은행": url= "https://www.knbank.co.kr/ib20/mnu/FPM000000000001";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gn)); break;
+                            case "광주은행": url= "http://www.kjbank.com/banking/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gj)); break;
+                            case "대구은행": url= "https://www.dgb.co.kr/com_ebz_fpm_sub_main.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dg)); break;
+                            case "부산은행": url= "https://www.busanbank.co.kr/ib20/mnu/FPM00001";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bs)); break;
+                            case "수협은행": url= "https://mybank.ibk.co.kr/uib/jsp/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sh)); break;
+                            case "스탠다드차타드은행": url= "http://www.standardchartered.co.kr/np/kr/ProductMall.jsp?ptfrm=HIN.KOR.INTROPC.topmenu1";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sc)); break;
+                            case "씨티은행": url= "https://www.citibank.co.kr/MndMdtrMain0100.act?MENU_TYPE=pre&MENU_C_SQNO=M0_000020";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.citi)); break;
+                            case "우체국예금": url= "https://www.epostbank.go.kr/";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.post)); break;
+                            case "전북은행": url= "https://www.jbbank.co.kr/";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jb)); break;
+                            case "제주은행": url= "https://www.e-jejubank.com/HomeFinanceMall.do";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jj)); break;
+                            case "케이뱅크": url= "https://www.kbanknow.com/ib20/mnu/FPMMAN000000#n";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kbank)); break;
+                            case "신한은행" : url= "https://bank.shinhan.com/index.jsp#020001000000";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.shinhan)); break;
                         }
 
                         item_homepage.setOnClickListener(new View.OnClickListener() {

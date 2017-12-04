@@ -2,6 +2,7 @@ package com.example.sjeong.pick;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,6 +89,48 @@ public class ItemAdapter extends BaseAdapter {
         name.setText(arraylist.get(position).getName().toString());
         min_rate.setText(arraylist.get(position).getCont_rate().toString()+"% ~");
         max_rate.setText(arraylist.get(position).getMax_rate().toString()+"%");
+
+
+        switch(arraylist.get(position).getBank().toString()){
+            case "NH농협은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nh));
+                break;
+            case "기업은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ibk));
+                break;
+            case "국민은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kb)); break;
+            case "우리은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.woori)); break;
+            case "KEB하나은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.keb)); break;
+            case "KDB산업은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kdb)); break;
+            case "경남은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gn)); break;
+            case "광주은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gj)); break;
+            case "대구은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dg)); break;
+            case "부산은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bs)); break;
+            case "수협은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sh)); break;
+            case "스탠다드차타드은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sc)); break;
+            case "씨티은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.citi)); break;
+            case "우체국예금":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.post)); break;
+            case "전북은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jb)); break;
+            case "제주은행":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jj)); break;
+            case "케이뱅크":
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kbank)); break;
+            case "신한은행" :
+                bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.shinhan)); break;
+        }
 
         if(onClickListener != null) {
             LinearLayout item_background = (LinearLayout) convertView.findViewById(R.id.item_background);

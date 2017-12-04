@@ -8,27 +8,28 @@
     android:orientation="vertical"
     android:background="@color/BackGround">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <ImageButton
             android:id="@+id/menu_logout"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_btn_menu_signout_24"
-            android:background="@color/Alpha"/>
+            android:background="@color/Alpha"
+            android:layout_gravity="center_vertical|left"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="105dp"
             android:textSize="18sp"
             android:textColor="@color/TextDark"
             android:letterSpacing="0.3"
-            android:gravity="center_horizontal"
+            android:layout_gravity="center"
             android:text="PICK"
             android:textStyle="bold"
             />
@@ -37,38 +38,37 @@
             android:id="@+id/menu_setting"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="106dp"
             android:src="@drawable/ic_menu_settings_24"
             android:scaleType="centerInside"
-            android:background="@color/Alpha"/>
+            android:background="@color/Alpha"
+            android:layout_gravity="center_vertical|right"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="10dp">
-
+        android:layout_height="0dp"
+        android:layout_weight="3">
 
         <com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_margin="17dp"
             android:clipToPadding="false"
             android:paddingBottom="15dp"
-            android:paddingTop="15dp" />
+            android:paddingTop="15dp"
+            android:layout_gravity="center"/>
 
 
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="136dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:layout_gravity="center"
+        android:layout_marginTop="17dp"
         android:layout_marginLeft="17dp"
         android:layout_marginRight="17dp">
 
@@ -159,11 +159,9 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="136dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="17dp">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_gravity="center">
 
         <LinearLayout
             android:id="@+id/menu_goal"
@@ -211,12 +209,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="11dp"
                 android:letterSpacing="-0.03"
+                android:text="관심상품"
                 android:textColor="@color/Black"
-                android:textSize="12sp"
-                android:text="관심상품" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 

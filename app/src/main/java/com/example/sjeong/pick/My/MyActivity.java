@@ -9,17 +9,21 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.example.sjeong.pick.ItemActivity;
 import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
 import com.example.sjeong.pick.Saving.Item2;
@@ -70,21 +74,28 @@ public class MyActivity extends AppCompatActivity {
         context = getApplicationContext();
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        adapter = new ProductAdapter();
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = v.getTag().toString();
+                int code = Integer.parseInt(data);
+                Intent intent;
+                if(code>=1010 && code<=1695) {
+                    intent = new Intent(MyActivity.this, ItemActivity.class);
+                    intent.putExtra("data",data);
+                }
+                else {
+                    intent = new Intent(MyActivity.this, ProductDetailActivity.class);
+                    intent.putExtra("prod_code", code);
+                }
+                startActivity(intent);
+            }
+        };
+        adapter = new ProductAdapter(listener);
 
         load();
 
         listView.setAdapter(adapter);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MyActivity.this, ProductDetailActivity.class);
-                intent.putExtra("prod_code",((Item2)parent.getAdapter().getItem(position)).getId());
-                startActivity(intent);
-            }
-        });
     }
 
     public void load(){
@@ -98,8 +109,13 @@ public class MyActivity extends AppCompatActivity {
 
 
     class ProductAdapter extends BaseAdapter {
+
+        private View.OnClickListener listener;
         ArrayList<Item2> items = new ArrayList<Item2>();
 
+        public ProductAdapter(View.OnClickListener listener){
+            this.listener = listener;
+        }
         @Override
         public int getCount() {
             return items.size();
@@ -156,9 +172,59 @@ public class MyActivity extends AppCompatActivity {
             String[] splits= item.getProfit().split("~");
             ((TextView)pView.findViewById(R.id.title)).setText(item.getTitle());
             ((TextView)pView.findViewById(R.id.profit)).setText(item.getProfit());
-            ((TextView)pView.findViewById(R.id.profit)).setText(splits[0]+"~");
-            ((TextView)pView.findViewById(R.id.profit2)).setText(splits[1]);
+            ((TextView)pView.findViewById(R.id.profit)).setText(splits[0]+"% ~");
+            ((TextView)pView.findViewById(R.id.profit2)).setText(splits[1]+"%");
             //((TextView)pView.findViewById(R.id.content)).setText(item.getContent());
+
+            ImageView bank_image = (ImageView)pView.findViewById(R.id.bank);
+            Log.i("관심 로고", item.getBank().toString());
+            switch(item.getBank().toString()){
+                case "NH농협은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nh));
+                    break;
+                case "기업은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ibk));
+                    break;
+                case "국민은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kb)); break;
+                case "우리은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.woori)); break;
+                case "KEB하나은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.keb)); break;
+                case "KDB산업은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kdb)); break;
+                case "경남은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gn)); break;
+                case "광주은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gj)); break;
+                case "대구은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dg)); break;
+                case "부산은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bs)); break;
+                case "수협은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sh)); break;
+                case "스탠다드차타드은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sc)); break;
+                case "씨티은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.citi)); break;
+                case "우체국예금":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.post)); break;
+                case "전북은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jb)); break;
+                case "제주은행":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jj)); break;
+                case "케이뱅크":
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kbank)); break;
+                case "신한은행" :
+                    bank_image.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.shinhan)); break;
+            }
+
+            if(listener!=null){
+                LinearLayout layout = (LinearLayout)pView.findViewById(R.id.change);
+                layout.setTag(item.getId()+"");
+                layout.setOnClickListener(listener);
+            }
+
             return pView;
         }
 

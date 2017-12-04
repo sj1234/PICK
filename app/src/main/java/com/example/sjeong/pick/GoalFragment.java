@@ -391,48 +391,53 @@ class GoalAdapter extends BaseAdapter {
         pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#fe6186")));
         pb.setProgress(persent_int);
 
-        // sum 예상금액 설정
-        double start =  Double.parseDouble(arraylist.get(position).getStart_sum());
-        double monthly =  Double.parseDouble(arraylist.get(position).getMonthly());
-        double rate_float = Double.parseDouble(arraylist.get(position).getRate())*(0.01);
-        double before_tax__sum, after_tax__sum;
-
-        if(arraylist.get(position).getCom_sim().equals("0")) { //단리인 경우
-            if(monthly==0){ // 예금인경우
-                before_tax__sum = start*month_int*(rate_float)/12.0;
-                after_tax__sum = start + (before_tax__sum*0.846);
-                before_tax__sum += start;
-            }
-            else{
-                before_tax__sum = (monthly*(month_int+(month_int+1))*0.5*(rate_float/12))*0.846;
-                after_tax__sum = start + monthly*month_int + (before_tax__sum*0.846);
-                before_tax__sum += (monthly*month_int) + start;
-            }
-        }
-        else{
-            if(monthly==0) { // 예금인경우
-                before_tax__sum = start;
-                for(int i=0; i<month_int; i++){
-                    before_tax__sum *= (1.0+(rate_float/12));
-                }
-                after_tax__sum = start + ((before_tax__sum - start)*0.846);
-            }
-            else{
-                before_tax__sum = 0.0;
-                for(int i=0; i<month_int; i++){
-                    before_tax__sum = (before_tax__sum*(rate_float/12)) + (monthly*(rate_float/12));
-                }
-                after_tax__sum = start + monthly*month_int + (before_tax__sum*0.846);
-                before_tax__sum += (monthly*month_int) + start;
-            }
-        }
-        sum.setText("세전 : 약 "+String.format("%,d", (int)before_tax__sum)+"원 / 세후 : 약 "+String.format("%,d", (int)after_tax__sum)+"원");
 
         // listener
         if(listener != null) {
+
+            // sum 예상금액 설정
+            double start =  Double.parseDouble(arraylist.get(position).getStart_sum());
+            double monthly =  Double.parseDouble(arraylist.get(position).getMonthly());
+            double rate_float = Double.parseDouble(arraylist.get(position).getRate())*(0.01);
+            double before_tax__sum, after_tax__sum;
+
+            if(arraylist.get(position).getCom_sim().equals("0")) { //단리인 경우
+                if(monthly==0){ // 예금인경우
+                    before_tax__sum = start*month_int*(rate_float)/12.0;
+                    after_tax__sum = start + (before_tax__sum*0.846);
+                    before_tax__sum += start;
+                }
+                else{
+                    before_tax__sum = (monthly*(month_int+(month_int+1))*0.5*(rate_float/12))*0.846;
+                    after_tax__sum = start + monthly*month_int + (before_tax__sum*0.846);
+                    before_tax__sum += (monthly*month_int) + start;
+                }
+            }
+            else{
+                if(monthly==0) { // 예금인경우
+                    before_tax__sum = start;
+                    for(int i=0; i<month_int; i++){
+                        before_tax__sum *= (1.0+(rate_float/12));
+                    }
+                    after_tax__sum = start + ((before_tax__sum - start)*0.846);
+                }
+                else{
+                    before_tax__sum = 0.0;
+                    for(int i=0; i<month_int; i++){
+                        before_tax__sum = (before_tax__sum*(rate_float/12)) + (monthly*(rate_float/12));
+                    }
+                    after_tax__sum = start + monthly*month_int + (before_tax__sum*0.846);
+                    before_tax__sum += (monthly*month_int) + start;
+                }
+            }
+            sum.setText("세전 : 약 "+String.format("%,d", (int)before_tax__sum)+"원 / 세후 : 약 "+String.format("%,d", (int)after_tax__sum)+"원");
+
             LinearLayout layout = (LinearLayout)convertView.findViewById(R.id.goal_list_adapter);
             layout.setTag(arraylist.get(position).getName().toString());
             layout.setOnClickListener(listener);
+        }
+        else{
+            sum.setText("세전 : 약 0원 / 세후 : 약 0원");
         }
 
         return convertView;

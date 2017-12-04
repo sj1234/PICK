@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             ArrayList<Hot> Hots = new ArrayList<Hot>();
-            int ranking;
+            int ranking, bank_image=R.drawable.ibk;
             try {
                 if(result!=null) {
                     JSONArray jarr = new JSONArray(result);
@@ -183,8 +183,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         else if(i==1) ranking = R.drawable.silver;
                         else ranking = R.drawable.metal;
 
-                        Hots.add(new Hot(json.getString("prod_name"),json.getDouble("min"),json.getDouble("max"),R.drawable.ic_menu_01,ranking));
-
+                        switch (json.getString("bank")){
+                            case "NH농협은행":
+                                bank_image=R.drawable.nh; break;
+                            case "기업은행": bank_image=R.drawable.ibk;
+                                break;
+                            case "국민은행":
+                                bank_image=R.drawable.kb; break;
+                            case "우리은행":
+                                bank_image=R.drawable.woori; break;
+                            case "KEB하나은행":
+                                bank_image=R.drawable.keb; break;
+                            case "KDB산업은행":
+                                bank_image=R.drawable.kdb; break;
+                            case "경남은행":
+                                bank_image=R.drawable.gn;break;
+                            case "광주은행":
+                                bank_image=R.drawable.gj;break;
+                            case "대구은행":
+                                bank_image=R.drawable.dg; break;
+                            case "부산은행":
+                                bank_image=R.drawable.bs; break;
+                            case "수협은행":
+                                bank_image=R.drawable.sh; break;
+                            case "스탠다드차타드은행":
+                                bank_image=R.drawable.sc; break;
+                            case "씨티은행":
+                                bank_image=R.drawable.citi; break;
+                            case "우체국예금":
+                                bank_image=R.drawable.post;break;
+                            case "전북은행":
+                                bank_image=R.drawable.jb; break;
+                            case "제주은행":
+                                bank_image=R.drawable.jj; break;
+                            case "케이뱅크":
+                                bank_image=R.drawable.kbank; break;
+                            case "신한은행" :
+                                bank_image=R.drawable.shinhan; break;
+                        }
+                        Hots.add(new Hot(json.getString("prod_name"),json.getDouble("min"),json.getDouble("max"),bank_image,ranking));
                     }
 
                     final LoopRecyclerViewPager viewPager = (LoopRecyclerViewPager) findViewById(R.id.viewPager);

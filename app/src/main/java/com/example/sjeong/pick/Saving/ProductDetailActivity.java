@@ -2,10 +2,10 @@ package com.example.sjeong.pick.Saving;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,15 +15,19 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -49,6 +53,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private TextView name_textview, item_summary;
     private Button item_homepage;
+    private ImageView logo;
+    private ScrollView item_scrollview;
     String url;
     ContentValues values;
     NetworkTask2 networkTask2;
@@ -57,6 +63,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     MenuItem item;
     ImageButton star;
     boolean flag1 = false;
+    private Context context;
 
     private ProgressDialog progressDialog;
     public static int TIME_OUT = 1001;
@@ -65,7 +72,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-
+        context = getApplicationContext();
 
         progressDialog = ProgressDialog.show(ProductDetailActivity.this, "상품 검색 중", "잠시만 기다려주세요.");
         mHandler.sendEmptyMessageDelayed(TIME_OUT, 2000);
@@ -128,7 +135,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         item_homepage= (Button)findViewById(R.id.item_homepage);
         name_textview = (TextView) findViewById(R.id.item_name);
         item_summary = (TextView) findViewById(R.id.item_summary);
-
+        logo = (ImageView)findViewById(R.id.logo);
 
         LinearLayout goCalculator = (LinearLayout) findViewById(R.id.goCalculator);
         goCalculator.setOnClickListener(new View.OnClickListener() {
@@ -169,28 +176,45 @@ public class ProductDetailActivity extends AppCompatActivity {
         Log.i("table maker", "table maker");
 
         try {
-            Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.round_light_black);
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            int size=Math.round(5*dm.density);
+
             TableRow tr_title = new TableRow(this);
             tr_title.setGravity(Gravity.CENTER);
 
             TextView cont_term = new TextView(this);
-            cont_term.setBackground(background);
             cont_term.setGravity(Gravity.CENTER);
+            cont_term.setBackground(ContextCompat.getDrawable(context, R.drawable.round_light_black));
+            cont_term.setTextColor(Color.parseColor("#515151"));
+            cont_term.setPadding(size,size,size,size);
+            cont_term.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
             cont_term.setText("가입기간");
             tr_title.addView(cont_term);
 
             TextView policy_no = new TextView(this);
             policy_no.setGravity(Gravity.CENTER);
+            policy_no.setBackgroundColor(Color.parseColor("#d9d9d9"));
+            policy_no.setTextColor(Color.parseColor("#515151"));
+            policy_no.setPadding(size,size,size,size);
+            policy_no.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
             policy_no.setText("분류");
             tr_title.addView(policy_no);
 
             TextView policy_id = new TextView(this);
             policy_id.setGravity(Gravity.CENTER);
+            policy_id.setBackgroundColor(Color.parseColor("#d9d9d9"));
+            policy_id.setTextColor(Color.parseColor("#515151"));
+            policy_id.setPadding(size,size,size,size);
+            policy_id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
             policy_id.setText("조건");
             tr_title.addView(policy_id);
 
             TextView intr = new TextView(this);
             intr.setGravity(Gravity.CENTER);
+            intr.setBackground(ContextCompat.getDrawable(context, R.drawable.round_light_black_right));
+            intr.setTextColor(Color.parseColor("#515151"));
+            intr.setPadding(size,size,size,size);
+            intr.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
             intr.setText("금리");
             tr_title.addView(intr);
 
@@ -206,21 +230,33 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                 TextView term = new TextView(this);
                 term.setGravity(Gravity.CENTER);
+                term.setTextColor(Color.BLACK);
+                term.setPadding(size,size,size,size);
+                term.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
                 term.setText(String.valueOf(json.getInt("cont_term")));
                 tr.addView(term);
 
                 TextView no = new TextView(this);
                 no.setGravity(Gravity.CENTER);
+                no.setTextColor(Color.BLACK);
+                no.setPadding(size,size,size,size);
+                no.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
                 no.setText(policy_no(json.getInt("policy_no")));
                 tr.addView(no);
 
                 TextView id = new TextView(this);
                 id.setGravity(Gravity.CENTER);
+                id.setTextColor(Color.BLACK);
+                id.setPadding(size,size,size,size);
+                id.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
                 id.setText(policy_id(json.getInt("policy_no"), json.getInt("policy_id")));
                 tr.addView(id);
 
                 TextView intrr = new TextView(this);
                 intrr.setGravity(Gravity.CENTER);
+                intrr.setTextColor(Color.parseColor("#fe6186"));
+                intrr.setPadding(size,size,size,size);
+                intrr.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f);
                 intrr.setText(String.valueOf(json.getDouble("intr")));
                 tr.addView(intrr);
 
@@ -517,58 +553,48 @@ public class ProductDetailActivity extends AppCompatActivity {
                         itemdetails.add(new ItemDetail("은행", bank));
 
                         url = "";
-                        switch (bank) {
+                        switch(bank){
                             case "NH농협은행":
-                                url = "https://smartmarket.nonghyup.com/";
+                                url= "https://smartmarket.nonghyup.com/";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.nh));
                                 break;
                             case "기업은행":
-                                url = "https://mybank.ibk.co.kr/uib/jsp/index.jsp";
+                                url= "https://mybank.ibk.co.kr/uib/jsp/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ibk));
                                 break;
-                            case "국민은행":
-                                url = "https://obank.kbstar.com/quics?page=C016528";
-                                break;
-                            case "우리은행":
-                                url = "https://spot.wooribank.com/pot/Dream?withyou=po";
-                                break;
-                            case "KEB하나은행":
-                                url = "https://www.kebhana.com/cont/mall/index.jsp";
-                                break;
-                            case "KDB산업은행":
-                                url = "https://wbiz.kdb.co.kr/wb/simpleJsp.do";
-                                break;
-                            case "경남은행":
-                                url = "https://www.knbank.co.kr/ib20/mnu/FPM000000000001";
-                                break;
-                            case "광주은행":
-                                url = "http://www.kjbank.com/banking/index.jsp";
-                                break;
-                            case "대구은행":
-                                url = "https://www.dgb.co.kr/com_ebz_fpm_sub_main.jsp";
-                                break;
-                            case "부산은행":
-                                url = "https://www.busanbank.co.kr/ib20/mnu/FPM00001";
-                                break;
-                            case "수협은행":
-                                url = "https://mybank.ibk.co.kr/uib/jsp/index.jsp";
-                                break;
-                            case "스탠다드차타드은행":
-                                url = "http://www.standardchartered.co.kr/np/kr/ProductMall.jsp?ptfrm=HIN.KOR.INTROPC.topmenu1";
-                                break;
-                            case "씨티은행":
-                                url = "https://www.citibank.co.kr/MndMdtrMain0100.act?MENU_TYPE=pre&MENU_C_SQNO=M0_000020";
-                                break;
-                            case "우체국예금":
-                                url = "https://www.epostbank.go.kr/";
-                                break;
-                            case "전북은행":
-                                url = "https://www.jbbank.co.kr/";
-                                break;
-                            case "제주은행":
-                                url = "https://www.e-jejubank.com/HomeFinanceMall.do";
-                                break;
-                            case "케이뱅크":
-                                url = "https://www.kbanknow.com/ib20/mnu/FPMMAN000000#n";
-                                break;
+                            case "국민은행": url= "https://obank.kbstar.com/quics?page=C016528";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kb)); break;
+                            case "우리은행": url= "https://spot.wooribank.com/pot/Dream?withyou=po";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.woori)); break;
+                            case "KEB하나은행": url= "https://www.kebhana.com/cont/mall/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.keb)); break;
+                            case "KDB산업은행": url= "https://wbiz.kdb.co.kr/wb/simpleJsp.do";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kdb)); break;
+                            case "경남은행": url= "https://www.knbank.co.kr/ib20/mnu/FPM000000000001";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gn)); break;
+                            case "광주은행": url= "http://www.kjbank.com/banking/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.gj)); break;
+                            case "대구은행": url= "https://www.dgb.co.kr/com_ebz_fpm_sub_main.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dg)); break;
+                            case "부산은행": url= "https://www.busanbank.co.kr/ib20/mnu/FPM00001";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bs)); break;
+                            case "수협은행": url= "https://mybank.ibk.co.kr/uib/jsp/index.jsp";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sh)); break;
+                            case "스탠다드차타드은행": url= "http://www.standardchartered.co.kr/np/kr/ProductMall.jsp?ptfrm=HIN.KOR.INTROPC.topmenu1";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sc)); break;
+                            case "씨티은행": url= "https://www.citibank.co.kr/MndMdtrMain0100.act?MENU_TYPE=pre&MENU_C_SQNO=M0_000020";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.citi)); break;
+                            case "우체국예금": url= "https://www.epostbank.go.kr/";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.post)); break;
+                            case "전북은행": url= "https://www.jbbank.co.kr/";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jb)); break;
+                            case "제주은행": url= "https://www.e-jejubank.com/HomeFinanceMall.do";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.jj)); break;
+                            case "케이뱅크": url= "https://www.kbanknow.com/ib20/mnu/FPMMAN000000#n";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.kbank)); break;
+                            case "신한은행" : url= "https://bank.shinhan.com/index.jsp#020001000000";
+                                logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.shinhan)); break;
+
                         }
 
                         item_homepage.setOnClickListener(new View.OnClickListener() {
@@ -586,7 +612,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         itemdetails.add(new ItemDetail("가입방법", sjoin_way));
                         if(min_join_limit!=0) itemdetails.add(new ItemDetail("가입최소한도", String.valueOf(min_join_limit) + "원"));
                         else itemdetails.add(new ItemDetail("가입최소한도", "제한없음"));
-                        if(max_save_limit!=0) itemdetails.add(new ItemDetail("최대납입한도", String.valueOf(max_save_limit * 1000000) + "원"));
+                        if(max_save_limit!=0) itemdetails.add(new ItemDetail("최대납입한도", max_save_limit +"000000원"));
                         else itemdetails.add(new ItemDetail("최대납입한도", "제한없음"));
                         itemdetails.add(new ItemDetail("월납입한도", month_limit));
                         itemdetails.add(new ItemDetail("단리복리", scom_sim));
@@ -601,17 +627,27 @@ public class ProductDetailActivity extends AppCompatActivity {
                         listView.setAdapter(listAdapter);
 
                         // 리스트뷰 화면에 꽉 차는 높이가 되도록
-                        ViewGroup.LayoutParams params = listView.getLayoutParams();
+                        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
                         int height = 0;
-                        for (int size = 0; size < listAdapter.getCount(); size++) {
-                            View listItem = listAdapter.getView(size, null, listView);
-                            listItem.measure(0, 0);
+                        for (int i = 0; i < listAdapter.getCount(); i++) {
+                            View listItem = listAdapter.getView(i, null, listView);
+                            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
                             height += listItem.getMeasuredHeight();
                         }
-                        params.height = height + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-                        Log.i("height", height + "");
+                        ViewGroup.LayoutParams params = listView.getLayoutParams();
+                        params.height = height+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+                        Log.i("height", height+"");
                         listView.setLayoutParams(params);
                         listView.requestLayout();
+
+
+                        item_scrollview = (ScrollView)findViewById(R.id.item_scrollview);
+                        item_scrollview.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                item_scrollview.scrollTo(0, 0);
+                            }
+                        });
                     }
                 }
             }catch (JSONException e) {

@@ -27,7 +27,7 @@
             android:layout_marginBottom="12dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/round_light"/>
+            android:background="@drawable/menu"/>
 
         <TextView
             android:id="@+id/title"
@@ -38,9 +38,10 @@
             android:layout_marginBottom="48dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:textSize="14sp"
-            android:textColor="#000000"
-            android:letterSpacing="-0.04"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/LightBlack"
+            android:textStyle="bold"
+            android:letterSpacing="-0.08"
             android:text="i-ONE 놀이터 예금" />
 
 
@@ -55,16 +56,23 @@
             <TextView
                 android:id="@+id/profit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#fe6186"
-                android:textSize="18sp" />
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:gravity="bottom"
+                android:textColor="@color/PINK"
+                android:textSize="@dimen/_15sp"
+                android:text="0.00% ~"/>
 
             <TextView
                 android:id="@+id/profit2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#fe6186"
-                android:textSize="22sp"/>
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:textColor="@color/PINK"
+                android:textStyle="bold"
+                android:textSize="@dimen/_20sp"
+                android:text="0.00%"/>
+
         </LinearLayout>
 
 

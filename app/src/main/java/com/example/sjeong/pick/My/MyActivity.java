@@ -54,8 +54,10 @@ public class MyActivity extends AppCompatActivity {
         usr_id = prefs.getString("id",null);
 
 
-        TextView interest_title = (TextView) findViewById(R.id.interest_title);
-        interest_title.setText(usr_id+"님의 관심상품");
+
+
+        //TextView interest_title = (TextView) findViewById(R.id.interest_title);
+        //interest_title.setText(usr_id+"님의 관심상품");
 
         View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
@@ -274,7 +276,7 @@ public class MyActivity extends AppCompatActivity {
                     JSONArray jsonArray = new JSONArray(result);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                        adapter.addItem(new Item2(jsonObject.getInt("prod_code"),0,jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("prod_detail")));
+                        adapter.addItem(new Item2(jsonObject.getInt("prod_code"),0,jsonObject.getString("prod_name"), jsonObject.getString("rate_range"), jsonObject.getString("bank")));
                     }
                     adapter.notifyDataSetChanged();
                 }

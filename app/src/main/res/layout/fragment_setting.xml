@@ -41,67 +41,56 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="30dp"
-        android:layout_marginLeft="-10dp"
+        android:layout_marginLeft="20dp"
         android:stretchColumns="*"
         >
 
-    <TableRow>
+        <TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="고객 유형"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/CheckTextView"
-            android:textStyle="bold"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="고객 유형"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/CheckTextView"
+                android:textStyle="bold"
+                />
+        </TableRow>
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:stretchColumns="*"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            >
+        <TableRow>
 
-            <TableRow
-                android:layout_gravity="fill">
 
-                <RadioGroup
-                    android:id="@+id/radioButton"
+            <RadioGroup
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="개인"
+                    android:layout_weight="1" />
 
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="개인"
-                        android:layout_weight="1" />
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="단체"
+                    android:layout_weight="1" />
 
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="단체"
-                        android:layout_weight="1" />
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사업자/법인"
+                    android:layout_weight="1" />
 
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="사업자/법인"
-                        android:layout_weight="1" />
+            </RadioGroup>
 
-                </RadioGroup>
-
-            </TableRow>
-        </TableLayout>
     </TableRow>
 
     <TableRow
@@ -114,11 +103,11 @@
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:textAlignment="center"
             android:textColor="@color/CheckTextView"
             android:textStyle="bold"
             />
-
+    </TableRow>
+    <TableRow>
 
             <EditText
                 android:id="@+id/profit"
@@ -143,11 +132,11 @@
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:textAlignment="center"
             android:textColor="@color/CheckTextView"
             android:textStyle="bold"
             />
-
+    </TableRow>
+    <TableRow>
 
         <Spinner
             android:id="@+id/spinner"
@@ -157,21 +146,40 @@
 
 
     </TableRow>
-    <TableRow>
 
-        <Button
+    </TableLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/round_round_dark"
+        android:text="초기화"
+        android:textColor="@color/White"
+        android:textSize="@dimen/_15sp"
+        android:textStyle="bold" />
+
+    <Button
             android:id="@+id/button"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/round_round_dark"
             android:text="설정"
             android:textColor="@color/White"
             android:textSize="@dimen/_15sp"
             android:textStyle="bold" />
-    </TableRow>
-</TableLayout>
+        </LinearLayout>
+
 </LinearLayout>

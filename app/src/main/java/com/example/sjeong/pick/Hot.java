@@ -8,6 +8,15 @@ public class Hot {
     String Name;
     Double minRate,maxRate;
     int bankIcon, rank;
+    int prod_code;
+
+    public int getProd_code() {
+        return prod_code;
+    }
+
+    public void setProd_code(int prod_code) {
+        this.prod_code = prod_code;
+    }
 
     public Double getMinRate() {
         return minRate;
@@ -49,11 +58,12 @@ public class Hot {
         this.bankIcon = bankIcon;
     }
 
-    public Hot(String name, Double minRate, Double maxRate, int bankIcon, int rank) {
+    public Hot(String name, Double minRate, Double maxRate, int bankIcon, int rank, int prod_code) {
         this.Name = name;
         this.minRate = minRate;
         this.maxRate = maxRate;
         this.bankIcon = bankIcon;
         this.rank = rank;
+        this.prod_code = prod_code;
     }
 }

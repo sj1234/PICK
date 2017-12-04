@@ -40,6 +40,7 @@ public class SearchSettingActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     EditText editText;
     Spinner spinner;
+    TextView textView;
     int no;
     String id;
     AlertDialog.Builder builder2, builder4;
@@ -76,6 +77,16 @@ public class SearchSettingActivity extends AppCompatActivity {
         NetworkTask networkTask = new NetworkTask(userUrl, contentValues);
         networkTask.execute();
 
+
+        Button reset = (Button) findViewById(R.id.reset);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radioGroup.clearCheck();
+                editText.setText("");
+                spinner.setSelection(0);
+            }
+        });
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -97,7 +108,7 @@ public class SearchSettingActivity extends AppCompatActivity {
                 values.put("join_target", join_target);
                 values.put("cont_rate", cont_rate);
                 values.put("bank", bank);
-                values.put("usr_id", "pick");
+                values.put("usr_id", id);
 
 
                 NetworkTask networkTask = new NetworkTask(url, values);
@@ -140,7 +151,7 @@ public class SearchSettingActivity extends AppCompatActivity {
 
         spinner.setPrompt("주거래 은행");
 
-        adspin = ArrayAdapter.createFromResource(getApplicationContext(), R.array.bank, android.R.layout.simple_spinner_item);
+        adspin = ArrayAdapter.createFromResource(getApplicationContext(), R.array.bank1, android.R.layout.simple_spinner_item);
 
         adspin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adspin);

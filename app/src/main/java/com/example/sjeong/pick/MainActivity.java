@@ -221,13 +221,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case "신한은행" :
                                 bank_image=R.drawable.shinhan; break;
                         }
-                        Hots.add(new Hot(json.getString("prod_name"),json.getDouble("min"),json.getDouble("max"),bank_image,ranking));
+                        Hots.add(new Hot(json.getString("prod_name"),json.getDouble("min"),json.getDouble("max"),bank_image,ranking,json.getInt("prod_code")));
                     }
 
                     final LoopRecyclerViewPager viewPager = (LoopRecyclerViewPager) findViewById(R.id.viewPager);
                     final LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL,false);
 
-                    MyAdapter myAdapter = new MyAdapter(Hots);
+                    final MyAdapter myAdapter = new MyAdapter(getApplicationContext(), Hots);
                     viewPager.setLayoutManager(layoutManager);
                     viewPager.setTriggerOffset(0.15f);
                     viewPager.setAdapter(myAdapter);
@@ -293,6 +293,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         }
                     });
+
+
 
 
                 }

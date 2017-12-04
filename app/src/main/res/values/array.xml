@@ -22,6 +22,27 @@
         <item>케이뱅크</item>
     </string-array>
 
+    <string-array name="bank1">
+        <item>신한은행</item>
+        <item>우리은행</item>
+        <item>국민은행</item>
+        <item>KEB하나은행</item>
+        <item>씨티은행</item>
+        <item>NH농협은행</item>
+        <item>스탠다드차타드</item>
+        <item>기업은행</item>
+        <item>우체국예금</item>
+        <item>수협은행</item>
+        <item>KDB산업은행</item>
+        <item>경남은행</item>
+        <item>대구은행</item>
+        <item>전북은행</item>
+        <item>부산은행</item>
+        <item>제주은행</item>
+        <item>광주은행</item>
+        <item>케이뱅크</item>
+    </string-array>
+
     <string-array name="primelist">
         <item>전체</item>
         <item>보유/잔액</item>

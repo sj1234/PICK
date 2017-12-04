@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,8 +31,14 @@ import com.example.sjeong.pick.R;
 import com.example.sjeong.pick.RequestHttpURLConnection;
 import com.labo.kaji.fragmentanimations.MoveAnimation;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.sjeong.pick.R.id.min_rate;
 import static com.example.sjeong.pick.R.id.spinner;
 
 
@@ -62,7 +69,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
 
     Button search_base, reset;
-    String json;
+    String json, id;
 
     private String animation = "UP";
     public SearchDetailSavingFragment() {
@@ -90,6 +97,11 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search_detail_saving, container, false);
 
+        SharedPreferences prefs = getContext().getSharedPreferences("person", MODE_PRIVATE);
+        id = prefs.getString("id", null);
+
+        Log.d("넘어온거야?",id);
+
         vjoin_target = new CheckBox[]{(CheckBox)view.findViewById(R.id.radioButton1),(CheckBox)view.findViewById(R.id.radioButton2),(CheckBox)view.findViewById(R.id.radioButton3)};
         //Spinner bank = (Spinner) view.findViewById(R.id.spinner);
         bank = (TextView) view.findViewById(R.id.bank);
@@ -101,7 +113,7 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         cont_term = (TextView) view.findViewById(R.id.cont_term);
         primeT = (TextView) view.findViewById(R.id.primeT);
         vprime_cond = (LinearLayout) view.findViewById(R.id.spinner2);
-        vmin_intr = (SeekBar) view.findViewById(R.id.min_rate);
+        vmin_intr = (SeekBar) view.findViewById(min_rate);
         min = (TextView) view.findViewById(R.id.min);
         vprod_type = new CheckBox[]{(CheckBox)view.findViewById(R.id.freeInput), (CheckBox)view.findViewById(R.id.fixInput)};
         vori_pay_method = new CheckBox[]{(CheckBox)view.findViewById(R.id.orifull), (CheckBox)view.findViewById(R.id.oriyear)};
@@ -218,6 +230,8 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
             }
         });
 */
+
+        load();
 
         vcont_term.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -374,6 +388,17 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
 
 
         return view;
+    }
+
+    public void load(){
+
+
+        String url = "http://ec2-13-58-182-123.us-east-2.compute.amazonaws.com/getUser.php?";
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("usr_id", id);
+
+        NetworkTask2 networkTask2 = new NetworkTask2(url, contentValues);
+        networkTask2.execute();
     }
     public void onClick(View view)
     {
@@ -793,4 +818,77 @@ public class SearchDetailSavingFragment extends Fragment implements View.OnClick
         }
     }
     */
+
+
+
+    public class NetworkTask2 extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask2(String url, ContentValues values) {
+
+            this.url = url;
+            this.values = values;
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);
+            // 해당 URL로 부터 결과물을 얻어온다.
+
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String jsonn) {
+            super.onPostExecute(jsonn);
+
+            try {
+                JSONArray jarr = new JSONArray(jsonn);
+                for (int i = 0; i < jarr.length(); i++) {
+                    JSONObject json = (JSONObject) jarr.get(i);
+                    if (json.getString("join_target") != null)
+                        switch (json.getInt("join_target")) {
+                            case 4:
+                                vjoin_target[0].setChecked(true);
+                                break;
+                            case 2:
+                                vjoin_target[1].setChecked(true);
+                                break;
+                            case 1:
+                                vjoin_target[2].setChecked(true);
+                                break;
+                            default:
+                                break;
+                        }
+
+
+                    Double cont_rate = json.getDouble("cont_rate");
+                    if (cont_rate != null){
+                        vmin_intr.setProgress((int)(cont_rate*10));
+                        min.setText(String.valueOf(cont_rate)+"%");
+                    }
+
+                    if (json.getString("bank") != null) {
+                        selectedBank.add(json.getString("bank"));
+                        checkedbankList = new boolean[bankList.length];
+                        for(int j = 0; j < bankList.length; j++)
+                            checkedbankList[j] = selectedBank.contains(bankList[j]);
+                        bank.setText(json.getString("bank"));
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
 }

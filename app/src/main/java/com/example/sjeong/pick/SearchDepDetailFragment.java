@@ -181,10 +181,11 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         switch(v.getId()){
             case R.id.bank:
-                resetView();
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                resetbankView();
                 builder.setTitle("은행선택");
                 builder.setView(bank_view);
                 builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -230,11 +231,10 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
                 builder.show();
                 break;
             case R.id.join_way:
-                resetView();
-                AlertDialog.Builder builder_join = new AlertDialog.Builder(getActivity());
-                builder_join.setTitle("가입방법선택");
-                builder_join.setView(join_way_view);
-                builder_join.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                resetjoinView();
+                builder.setTitle("가입방법선택");
+                builder.setView(join_way_view);
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -275,7 +275,7 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
                         dialog.dismiss();
                     }
                 });
-                builder_join.show();
+                builder.show();
                 break;
             case R.id.search_base: // 상품명 검색으로 돌아가기
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -298,9 +298,58 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    public void resetView(){
+    public void resetjoinView(){
+
+        join_way_view = getActivity().getLayoutInflater().inflate(R.layout.join_way_select,null);
+        join_list.clear();
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Inter));
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Mobile));
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Visit));
+        join_list.add((CheckBox) join_way_view.findViewById(R.id.Call));
+
+        // All 선택시 클릭 리스너 처리
+        CheckBox All = (CheckBox) join_way_view.findViewById(R.id.ALL);
+        All.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if ( isChecked ) {
+                    for(CheckBox join : join_list)
+                        join.setChecked(true);
+                }
+                else{
+                    for(CheckBox join : join_list)
+                        join.setChecked(false);
+                }
+            }
+        });
+
+        if(detail_info[3].equals("All")){
+            All.setChecked(true);
+        }
+
+        for(CheckBox checkBox : join_list){
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    CheckBox All = (CheckBox) join_way_view.findViewById(R.id.ALL);
+                    if(!isChecked && All.isChecked()){
+                        All.setChecked(false);
+                        for(CheckBox checkBox : join_list){
+                            if(!checkBox.getText().toString().equals(buttonView.getText().toString()) && !checkBox.getText().toString().equals("전체"))
+                                checkBox.setChecked(true);
+                        }
+                    }
+                }
+            });
+
+            if(detail_info[3].contains(checkBox.getText().toString()))
+                checkBox.setChecked(true);
+        }
+    }
+
+    public void resetbankView(){
         bank_view = getActivity().getLayoutInflater().inflate(R.layout.bank_select,null);
         // 은행 리스트 -> 순서 농협, 기업, 국민, 우리, 하나, 산업, 경남, 광주, 대구, 부산, 수협, 스탠다드, 씨티, 우체국, 전북, 제주, 케이
+        bank_list.clear();
         bank_list.add((CheckBox) bank_view.findViewById(R.id.NH));
         bank_list.add((CheckBox) bank_view.findViewById(R.id.IBK));
         bank_list.add((CheckBox) bank_view.findViewById(R.id.KB));
@@ -353,50 +402,6 @@ public class SearchDepDetailFragment extends Fragment implements View.OnClickLis
             });
 
             if(detail_info[0].contains(checkBox.getText().toString()))
-                checkBox.setChecked(true);
-        }
-
-        join_way_view = getActivity().getLayoutInflater().inflate(R.layout.join_way_select,null);
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Inter));
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Mobile));
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Visit));
-        join_list.add((CheckBox) join_way_view.findViewById(R.id.Call));
-
-        // All 선택시 클릭 리스너 처리
-        CheckBox All = (CheckBox) join_way_view.findViewById(R.id.ALL);
-        All.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if ( isChecked ) {
-                    for(CheckBox join : join_list)
-                        join.setChecked(true);
-                }
-                else{
-                    for(CheckBox join : join_list)
-                        join.setChecked(false);
-                }
-            }
-        });
-
-        if(detail_info[3].equals("All")){
-            All.setChecked(true);
-        }
-
-        for(CheckBox checkBox : join_list){
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    CheckBox All = (CheckBox) join_way_view.findViewById(R.id.ALL);
-                    if(!isChecked && All.isChecked()){
-                        All.setChecked(false);
-                        for(CheckBox checkBox : join_list){
-                            if(!checkBox.getText().toString().equals(buttonView.getText().toString()) && !checkBox.getText().toString().equals("전체"))
-                                checkBox.setChecked(true);
-                        }
-                    }
-                }
-            });
-
-            if(detail_info[3].contains(checkBox.getText().toString()))
                 checkBox.setChecked(true);
         }
     }

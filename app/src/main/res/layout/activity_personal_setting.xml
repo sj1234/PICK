@@ -63,7 +63,11 @@
                 android:inputType="textPassword"
                 android:layout_weight="1"
                 android:layout_span="3"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:maxLength="10"
+                android:background="@drawable/menu"
+                android:padding="5dp"
+                android:hint="PASSWORD"/>
 
         </TableRow>
         <TableRow>
@@ -85,7 +89,11 @@
                 android:inputType="textPassword"
                 android:layout_weight="1"
                 android:layout_span="3"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:maxLength="10"
+                android:background="@drawable/menu"
+                android:padding="5dp"
+                android:hint="NEW PASSWORD"/>
 
         </TableRow>
         <TableRow>
@@ -107,7 +115,11 @@
                 android:inputType="textPassword"
                 android:layout_weight="1"
                 android:layout_span="3"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:maxLength="10"
+                android:background="@drawable/menu"
+                android:padding="5dp"
+                android:hint="NEW PASSWORD CONFIRM"/>
 
         </TableRow>
         <TableRow>
@@ -128,7 +140,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_span="3"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:maxLength="20"
+                android:background="@drawable/menu"
+                android:padding="5dp"/>
 
         </TableRow>
 

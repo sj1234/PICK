@@ -46,18 +46,13 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_my);
-
 
         SharedPreferences prefs = getSharedPreferences("person",MODE_PRIVATE);
         usr_id = prefs.getString("id",null);
 
-
-
-
-        //TextView interest_title = (TextView) findViewById(R.id.interest_title);
-        //interest_title.setText(usr_id+"님의 관심상품");
+        TextView interest_title = (TextView) findViewById(R.id.interest_title);
+        interest_title.setText("'"+usr_id+"'님의 관심상품");
 
         View view = getWindow().getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
@@ -94,10 +89,15 @@ public class MyActivity extends AppCompatActivity {
             }
         };
         adapter = new ProductAdapter(listener);
-
         load();
-
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        load();
+        adapter.notifyDataSetChanged();
     }
 
     public void load(){

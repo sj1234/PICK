@@ -51,10 +51,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 if(prod_code>=1010&&prod_code<=1695){
                     intent = new Intent(context, ItemActivity.class);
                     intent.putExtra("data",String.valueOf(prod_code));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }else{
                     intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra("prod_code",prod_code);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             }

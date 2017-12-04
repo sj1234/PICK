@@ -108,6 +108,14 @@ public class SearchDepFragment extends Fragment {
             }
         });
 
+        ImageButton back_to_login = (ImageButton)view.findViewById(R.id.back_to_login);
+        back_to_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
         return view;
     }
 

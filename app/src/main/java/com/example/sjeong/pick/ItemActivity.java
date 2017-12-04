@@ -48,7 +48,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ItemActivity extends AppCompatActivity {
 
@@ -58,6 +60,7 @@ public class ItemActivity extends AppCompatActivity {
     private Button item_homepage;
     private ScrollView item_scrollview;
     private ImageView logo;
+    private ImageButton star;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +98,13 @@ public class ItemActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ImageButton star = (ImageButton)findViewById(R.id.star);
+        star = (ImageButton)findViewById(R.id.star);
         star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageButton image = (ImageButton)v;
                 Log.i("Test", "Click star button");
                 Bitmap bitmap1 = ((BitmapDrawable)ContextCompat.getDrawable(context, R.drawable.full_star)).getBitmap();
-                Bitmap bitmap3 = ((BitmapDrawable)(image.getDrawable())).getBitmap();
+                Bitmap bitmap3 = ((BitmapDrawable)(star.getDrawable())).getBitmap();
 
                 // id 정보가져오기
                 SharedPreferences preferences = context.getSharedPreferences("person", MODE_PRIVATE);
@@ -111,7 +113,7 @@ public class ItemActivity extends AppCompatActivity {
                 // DB연동
                 SetInterestHandler handler = new SetInterestHandler(getBaseContext(), v);
                 SetInterestDB test;
-                if(bitmap3.equals(bitmap1))
+                if(sameAs(bitmap3, bitmap1))
                     test = new SetInterestDB("delete", user_id, data, handler);
                 else
                     test = new SetInterestDB("add", user_id, data, handler);
@@ -381,6 +383,15 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
+    public boolean sameAs(Bitmap bitmap1, Bitmap bitmap2) {
+        ByteBuffer buffer1 = ByteBuffer.allocate(bitmap1.getHeight() * bitmap1.getRowBytes());
+        bitmap1.copyPixelsToBuffer(buffer1);
+
+        ByteBuffer buffer2 = ByteBuffer.allocate(bitmap2.getHeight() * bitmap2.getRowBytes());
+        bitmap2.copyPixelsToBuffer(buffer2);
+        return Arrays.equals(buffer1.array(), buffer2.array());
+    }
+
     class GetItemHandler extends Handler {
 
         private Context context;
@@ -551,6 +562,7 @@ public class ItemActivity extends AppCompatActivity {
             this.context = context;
             this.item = (ImageButton)item;
         }
+
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
@@ -561,7 +573,7 @@ public class ItemActivity extends AppCompatActivity {
                 Drawable full = ContextCompat.getDrawable(context, R.drawable.full_star);
                 Drawable empty = ContextCompat.getDrawable(context, R.drawable.empty_star);
 
-                if(bitmap3.equals(bitmap1))
+                if(sameAs(bitmap3, bitmap1))
                     item.setImageDrawable(empty);
                 else
                     item.setImageDrawable(full);

@@ -34,6 +34,18 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/interest_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/_15sp"
+        android:textStyle="bold"
+        android:background="@color/White"/>
 
    <ListView
         android:id="@+id/listView"

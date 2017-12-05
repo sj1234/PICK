@@ -340,7 +340,11 @@ class GoalAdapter extends BaseAdapter {
         int year = Integer.parseInt(split[0]) + (month/12);
         month = month%12;
         if(month==0){ month=12; year--; }
-        date.setText(split[0]+". "+split[1]+". "+split[2]+" - "+year+". "+month+". "+split[2]);
+        if(month<10)
+            date.setText(split[0]+". "+split[1]+". "+split[2]+" - "+year+". 0"+month+". "+split[2]);
+        else
+            date.setText(split[0]+". "+split[1]+". "+split[2]+" - "+year+". "+month+". "+split[2]);
+
 
         // 목표 이름 출력
         name.setText(arraylist.get(position).getName().toString());
@@ -350,47 +354,73 @@ class GoalAdapter extends BaseAdapter {
         SimpleDateFormat CurDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now_date = CurDateFormat.format(new Date(now));
 
-        int month_int, persent_int;
-        String[] data_split = now_date.split("-");
-        int year_gap = Integer.parseInt(data_split[0])-Integer.parseInt(split[0]);
-        int month_gap = Integer.parseInt(data_split[1])-Integer.parseInt(split[1]) ;
-        int day_gap = Integer.parseInt(data_split[2])-Integer.parseInt(split[2]);
-        if(year_gap==0){
-            if(month_gap==0)
-                persent_int=0;
-            else{
-                persent_int=month_gap;
-                if(day_gap<0)
-                    persent_int-=1;
-            }
+        int month_int;
+        String data;
+
+        if(month<10)
+             data = year+"0"+month+""+split[2];
+        else
+            data = year+""+month+""+split[2];
+
+
+        if(Integer.parseInt(now_date.replace("-", ""))>=Integer.parseInt(data)){
+
+            Log.i("goal", now_date+"/"+data);
+            month_int = Integer.parseInt(end_month);
+            persent.setText("100%");
+
+            TextView gap = (TextView)convertView.findViewById(R.id.goal_gap);
+            TextView gap2 = (TextView)convertView.findViewById(R.id.goal_gap2);
+            gap.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 10f));
+            gap2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
+
+            // progressbar 설정
+            pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#fe6186")));
+            pb.setProgress(100);
+
         }
         else{
-            if(month_gap<0){
-                persent_int=((year_gap-1)*12)+(12-month)+Integer.parseInt(data_split[1]);
-                if(day_gap<0)
-                    persent_int-=1;
+            int persent_int;
+            String[] data_split = now_date.split("-");
+            int year_gap = Integer.parseInt(data_split[0])-Integer.parseInt(split[0]);
+            int month_gap = Integer.parseInt(data_split[1])-Integer.parseInt(split[1]) ;
+            int day_gap = Integer.parseInt(data_split[2])-Integer.parseInt(split[2]);
+            if(year_gap==0){
+                if(month_gap==0)
+                    persent_int=0;
+                else{
+                    persent_int=month_gap;
+                    if(day_gap<0)
+                        persent_int-=1;
+                }
             }
             else{
-                persent_int=(year_gap*12) + month_gap;
-                if(day_gap<0)
-                    persent_int-=1;
+                if(month_gap<0){
+                    persent_int=((year_gap-1)*12)+(12-month)+Integer.parseInt(data_split[1]);
+                    if(day_gap<0)
+                        persent_int-=1;
+                }
+                else{
+                    persent_int=(year_gap*12) + month_gap;
+                    if(day_gap<0)
+                        persent_int-=1;
+                }
             }
+            persent_int -= Integer.parseInt(arraylist.get(position).getFail().toString());
+            month_int = persent_int;
+            persent_int = (persent_int*100)/Integer.parseInt(end_month);
+            persent.setText(persent_int+"%");
+
+            TextView gap = (TextView)convertView.findViewById(R.id.goal_gap);
+            TextView gap2 = (TextView)convertView.findViewById(R.id.goal_gap2);
+            float a= (float)persent_int/10;
+            gap.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, a));
+            gap2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 10f-a));
+
+            // progressbar 설정
+            pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#fe6186")));
+            pb.setProgress(persent_int);
         }
-        persent_int -= Integer.parseInt(arraylist.get(position).getFail().toString());
-        month_int = persent_int;
-        persent_int = (persent_int*100)/Integer.parseInt(end_month);
-        persent.setText(persent_int+"%");
-
-        TextView gap = (TextView)convertView.findViewById(R.id.goal_gap);
-        TextView gap2 = (TextView)convertView.findViewById(R.id.goal_gap2);
-        float a= (float)persent_int/10;
-        gap.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, a));
-        gap2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 10f-a));
-
-        // progressbar 설정
-        pb.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#fe6186")));
-        pb.setProgress(persent_int);
-
 
         // listener
         if(listener != null) {
